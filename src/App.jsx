@@ -154,7 +154,7 @@ import FreelancerAcceptedChats from "./Firebasejobs/Chat/Freelancermessagelist";
 import MyHiresScreen from "./pages/Clientpages/CLientmyhires/MyHiresScreen";
 import CompanyProfileView from "./firebaseClientScreen/clientSetting/CompanyProfileView";
 import HelpCenter from "./pages/helpcenter/helpcenter";
-import TermsOfService from "./pages/helpcenter/TermsOfService";
+import TermsOfService from "./pages/Helpcenter/TermsOfService";
 import PrivacyPolicy from "./pages/helpcenter/PrivacyPolicy";
 
 import ClientHelpCenter from "./pages/helpcenter/ClientHelpCenter";
