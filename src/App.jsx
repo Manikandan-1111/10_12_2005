@@ -252,8 +252,8 @@ export default function App() {
         <Route path="clientpausedjobs" element={<ClientPausedJobsPage />} />
 
         <Route path="messages" element={<Message />} />
-        <Route path="helpcenter" element={<HelpCenter />} />
-        <Route path="helpcenter1" element={<ClientHelpCenter1 />} />
+        <Route path="Helpcenter" element={<HelpCenter />} />
+        <Route path="Helpcenter1" element={<ClientHelpCenter1 />} />
 
 
       </Route>
@@ -313,7 +313,7 @@ export default function App() {
 
 
         <Route path="freelancermessages" element={<FreelancerAcceptedChats />} />
-        <Route path="helpcenter" element={<HelpCenter />} />
+        <Route path="Helpcenter" element={<HelpCenter />} />
 
 
 
@@ -428,7 +428,7 @@ export default function App() {
       {/* ========== freelancer job firebase  ========== */}
       <Route path="/redirect/:uid" element={<RedirectHandler />} />
 
-      <Route path="/helpcenter" element={<HelpCenter />} />
+      <Route path="/Helpcenter" element={<HelpCenter />} />
 
       <Route path="/freelancer/:uid/job/:jobid" element={<FreelancerPage />} />
 

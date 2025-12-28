@@ -16,7 +16,7 @@
 // import pause from "../../assets/icons/paused.png";
 // import invite from "../../assets/icons/invite.png";
 // import settings from "../../assets/icons/settings.png";
-// import helpcenter from "../../assets/icons/helpcenter.png";
+// import Helpcenter from "../../assets/icons/Helpcenter.png";
 // import editIcon from "../../assets/edit.png";
 // import logoutIcon from "../../assets/icons/logout.png";
 // import MyJobs from "../../assets/icons/myjobs.png";
@@ -171,9 +171,9 @@
 //         {
 //           title: "Support",
 //           items: [
-//             ["Help Center", helpcenter, "/freelance-dashboard/helpcenter"],
-//             ["terms of Service", helpcenter],
-//             ["Privacy Policy", helpcenter, "/freelance-dashboard/settings"],
+//             ["Help Center", Helpcenter, "/freelance-dashboard/Helpcenter"],
+//             ["terms of Service", Helpcenter],
+//             ["Privacy Policy", Helpcenter, "/freelance-dashboard/settings"],
 //             ["Sign out", Logout, "/firelogin"],
 //           ]
 //         }].map((sec, i) => (
@@ -328,7 +328,7 @@
 // import pause from "../../assets/icons/paused.png";
 // import invite from "../../assets/icons/invite.png";
 // import settings from "../../assets/icons/settings.png";
-// import helpcenter from "../../assets/icons/helpcenter.png";
+// import Helpcenter from "../../assets/icons/Helpcenter.png";
 // import editIcon from "../../assets/edit.png";
 // import logoutIcon from "../../assets/icons/logout.png";
 // import MyJobs from "../../assets/icons/myjobs.png";
@@ -492,9 +492,9 @@
 //           {
 //             title: "Support",
 //             items: [
-//               ["Help Center", helpcenter, "/freelance-dashboard/helpcenter"],
-//               ["Terms of Service", helpcenter,"/termsofservice"],
-//               ["Privacy Policy", helpcenter, "/privacypolicy"],
+//               ["Help Center", Helpcenter, "/freelance-dashboard/Helpcenter"],
+//               ["Terms of Service", Helpcenter,"/termsofservice"],
+//               ["Privacy Policy", Helpcenter, "/privacypolicy"],
 //               ["Sign out", Logout, "/firelogin"],
 //             ],
 //           },
@@ -646,7 +646,7 @@ import MyServices from "../../assets/icons/MyServices.png";
 import pause from "../../assets/icons/paused.png";
 import invite from "../../assets/icons/invite.png";
 import settings from "../../assets/icons/settings.png";
-import helpcenter from "../../assets/icons/helpcenter.png";
+import Helpcenter from "../../assets/icons/Helpcenter.png";
 import editIcon from "../../assets/edit.png";
 import logoutIcon from "../../assets/icons/logout.png";
 import MyJobs from "../../assets/icons/myjobs.png";
@@ -812,9 +812,9 @@ export default function ClientProfileMenuScreen() {
           {
             title: "Support",
             items: [
-              ["Help Center", helpcenter, "/freelance-dashboard/helpcenter"],
-              ["Terms of Service", helpcenter,"/termsofservice"],
-              ["Privacy Policy", helpcenter, "/privacypolicy"],
+              ["Help Center", Helpcenter, "/freelance-dashboard/Helpcenter"],
+              ["Terms of Service", Helpcenter,"/termsofservice"],
+              ["Privacy Policy", Helpcenter, "/privacypolicy"],
               ["Sign out", Logout, "/firelogin"],
             ],
           },

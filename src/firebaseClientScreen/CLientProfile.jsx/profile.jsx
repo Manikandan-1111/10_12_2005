@@ -26,7 +26,7 @@
 // import invitefriends from "../../assets/invitefriends.png";
 // import bell from "../../assets/kk.png";
 // import settings from "../../assets/settings.png";
-// import helpcenter from "../../assets/helpcenter.png";
+// import Helpcenter from "../../assets/Helpcenter.png";
 
 
 // export default function ClientProfileMenuScreen() {
@@ -237,7 +237,7 @@
 //           />
 
 //           <MenuItem
-//             img={helpcenter}
+//             img={Helpcenter}
 //             title="Help Center"
 //           />
 //         </div>
@@ -317,7 +317,7 @@
 // import invitefriends from "../../assets/invitefriends.png";
 // import bell from "../../assets/kk.png";
 // import settings from "../../assets/settings.png";
-// import helpcenter from "../../assets/helpcenter.png";
+// import Helpcenter from "../../assets/Helpcenter.png";
 // import arrow from "../../assets/arrow.png";   // ADD ARROW IMAGE
 
 // export default function ClientProfileMenuScreen() {
@@ -456,7 +456,7 @@
 //           <MenuItem img={settings} title="Account Settings"
 //             onClick={() => navigate("/client-dashbroad2/clientsetting")}
 //           />
-//           <MenuItem img={helpcenter} title="Help Center" />
+//           <MenuItem img={Helpcenter} title="Help Center" />
 //         </div>
 
 //         {/* LOGOUT + DELETE */}
@@ -653,7 +653,7 @@
 // import invitefriends from "../../assets/invitefriends.png";
 // import bell from "../../assets/kk.png";
 // import settings from "../../assets/settings.png";
-// import helpcenter from "../../assets/helpcenter.png";
+// import Helpcenter from "../../assets/Helpcenter.png";
 // import arrow from "../../assets/arrow.png";   // ADD ARROW IMAGE
 // import edit from "../../assets/edit.png";   // ADD ARROW IMAGE
 // import blocked from "../../assets/blocked.png";   // ADD ARROW IMAGE
@@ -818,13 +818,13 @@
 //         <div className="profile-card">
 //           <h3 className="section-title">Support</h3>
 
-//           <MenuItem img={bell} title="Notifications" onClick={() => navigate("/client-dashbroad2/helpcenter1")} />
+//           <MenuItem img={bell} title="Notifications" onClick={() => navigate("/client-dashbroad2/Helpcenter1")} />
 //           <MenuItem img={settings} title="Account Settings"
 //             onClick={() => navigate("/client-dashbroad2/companyprofileview")}
 //           />
-//           <MenuItem img={helpcenter} title="Help Centerr" onClick={() => navigate("/client-dashbroad2/helpcenter")} />
-//           <MenuItem img={helpcenter} title="Terms Of Service" onClick={() => navigate("/termsofservice")} />
-//           <MenuItem img={helpcenter} title="Privacy Policy" onClick={() => navigate("/privacypolicy")} />
+//           <MenuItem img={Helpcenter} title="Help Centerr" onClick={() => navigate("/client-dashbroad2/Helpcenter")} />
+//           <MenuItem img={Helpcenter} title="Terms Of Service" onClick={() => navigate("/termsofservice")} />
+//           <MenuItem img={Helpcenter} title="Privacy Policy" onClick={() => navigate("/privacypolicy")} />
 //         </div>
 
 //         {/* LOGOUT + DELETE */}
@@ -1022,7 +1022,7 @@ import paused2 from "../../assets/paused2.png";
 import invitefriends from "../../assets/invitefriends.png";
 import bell from "../../assets/kk.png";
 import settings from "../../assets/settings.png";
-import helpcenter from "../../assets/helpcenter.png";
+import Helpcenter from "../../assets/Helpcenter.png";
 import arrow from "../../assets/arrow.png";   // ADD ARROW IMAGE
 import edit from "../../assets/edit.png";   // ADD ARROW IMAGE
 
@@ -1183,13 +1183,13 @@ export default function ClientProfileMenuScreen() {
         <div className="profile-card">
           <h3 className="section-title">Support</h3>
 
-          <MenuItem img={bell} title="Notifications" onClick={() => navigate("/client-dashbroad2/helpcenter1")}/>
+          <MenuItem img={bell} title="Notifications" onClick={() => navigate("/client-dashbroad2/Helpcenter1")}/>
           <MenuItem img={settings} title="Account Settings"
             onClick={() => navigate("/client-dashbroad2/companyprofileview")}
           />
-          <MenuItem img={helpcenter} title="Help Centerr" onClick={() => navigate("/client-dashbroad2/helpcenter")} />
-          <MenuItem img={helpcenter} title="Terms Of Service" onClick={() => navigate("/termsofservice")} />
-          <MenuItem img={helpcenter} title="Privacy Policy" onClick={() => navigate("/privacypolicy")} />
+          <MenuItem img={Helpcenter} title="Help Centerr" onClick={() => navigate("/client-dashbroad2/Helpcenter")} />
+          <MenuItem img={Helpcenter} title="Terms Of Service" onClick={() => navigate("/termsofservice")} />
+          <MenuItem img={Helpcenter} title="Privacy Policy" onClick={() => navigate("/privacypolicy")} />
         </div>
 
         {/* LOGOUT + DELETE */}

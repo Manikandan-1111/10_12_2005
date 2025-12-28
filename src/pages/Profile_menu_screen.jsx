@@ -171,7 +171,7 @@ export default function ProfileMenuScreen({ uid }) {
         title="Help Center"
         onClick={() =>
           window.open(
-            "https://huzzlerhelpcenter.onrender.com/",
+            "https://huzzlerHelpcenter.onrender.com/",
             "_blank"
           )
         }
