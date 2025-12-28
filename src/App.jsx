@@ -153,11 +153,11 @@ import ClientPausedJobsPage from "./save/ClientPausedJobsPage";
 import FreelancerAcceptedChats from "./Firebasejobs/Chat/Freelancermessagelist";
 import MyHiresScreen from "./pages/Clientpages/CLientmyhires/MyHiresScreen";
 import CompanyProfileView from "./firebaseClientScreen/clientSetting/CompanyProfileView";
-import HelpCenter from "./pages/Helpcenter/Helpcenter";
-import TermsOfService from "./pages/Helpcenter/TermsOfService";
-import PrivacyPolicy from "./pages/Helpcenter/PrivacyPolicy";
+import HelpCenter from "./pages/helpcenter/helpcenter";
+import TermsOfService from "./pages/helpcenter/TermsOfService";
+import PrivacyPolicy from "./pages/helpcenter/PrivacyPolicy";
 
-import ClientHelpCenter from "./pages/Helpcenter/ClientHelpCenter";
+import ClientHelpCenter from "./pages/helpcenter/ClientHelpCenter";
 import ClientHelpCenter1 from "./pages/ClientHelpCenter1";
 import Job_24DetailJobScreen from "./save/Job24FullDetailScreenjob";
 import Blocked from "./Firebasejobs/Blocked";
@@ -252,8 +252,8 @@ export default function App() {
         <Route path="clientpausedjobs" element={<ClientPausedJobsPage />} />
 
         <Route path="messages" element={<Message />} />
-        <Route path="Helpcenter" element={<HelpCenter />} />
-        <Route path="Helpcenter1" element={<ClientHelpCenter1 />} />
+        <Route path="helpcenter" element={<HelpCenter />} />
+        <Route path="helpcenter1" element={<ClientHelpCenter1 />} />
 
 
       </Route>
@@ -313,7 +313,7 @@ export default function App() {
 
 
         <Route path="freelancermessages" element={<FreelancerAcceptedChats />} />
-        <Route path="Helpcenter" element={<HelpCenter />} />
+        <Route path="helpcenter" element={<HelpCenter />} />
 
 
 
@@ -428,7 +428,7 @@ export default function App() {
       {/* ========== freelancer job firebase  ========== */}
       <Route path="/redirect/:uid" element={<RedirectHandler />} />
 
-      <Route path="/Helpcenter" element={<HelpCenter />} />
+      <Route path="/helpcenter" element={<HelpCenter />} />
 
       <Route path="/freelancer/:uid/job/:jobid" element={<FreelancerPage />} />
 

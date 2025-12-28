@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import helpcenterImg from "../../assets/logo.png"
-import "./ClientHelpcenter.css"
+import "./Clienthelpcenter.css"
 
 
 const HelpCenter = () => {
@@ -606,7 +606,7 @@ const styles = {
     margin: "20px auto",
   },
 
-  Helpcenterlogo: {
+  helpcenterlogo: {
     width: "10%",
   },
 };

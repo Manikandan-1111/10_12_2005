@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Helpcenterimg from "../../assets/logo.png";
-import "./Helpcenter.css";
+import helpcenterimg from "../../assets/logo.png";
+import "./helpcenter.css";
 import { useSearchParams } from "react-router-dom";
 
 const HelpCenter = () => {
@@ -29,7 +29,7 @@ const HelpCenter = () => {
       {/* ================= NAVBAR ================= */}
       <div className="policy-navbar">
         <div className="policy-left">
-          <img src={Helpcenterimg} alt="logo" className="policy-logo" />
+          <img src={helpcenterimg} alt="logo" className="policy-logo" />
           <span className="policy-title">Policy</span>
         </div>
 

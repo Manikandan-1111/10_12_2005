@@ -171,7 +171,7 @@
 //         title="Help Center"
 //         onClick={() =>
 //           window.open(
-//             "https://huzzlerHelpcenter.onrender.com/",
+//             "https://huzzlerhelpcenter.onrender.com/",
 //             "_blank"
 //           )
 //         }
