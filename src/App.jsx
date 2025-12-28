@@ -162,7 +162,8 @@ import ClientHelpCenter1 from "./pages/ClientHelpCenter1";
 import Job_24DetailJobScreen from "./save/Job24FullDetailScreenjob";
 import Blocked from "./Firebasejobs/Blocked";
 import Profile_menu_screen from "./pages/Profile_menu_screen";
-import ClientFullDetailScreen from "./pages/Clientpages/ClientProfile/ClientFullDetailsScreen";
+import ClientFullDetailsScreen from"./pages/Clientpages/ClientProfile/ClientFullDetailsScreen.jsx/index.js";
+
 
 
 export default function App() {

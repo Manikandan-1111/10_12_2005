@@ -584,16 +584,7 @@ const styles = {
     cursor: "pointer",
   },
 
-  activeTab: {
-     backgroundColor: "transparent",        // remove selection background
-    color: "yellow",                        // highlight active text if you want
-    padding: "10px 15px",
-    border: "none",
-    borderBottom: "3px solid yellow",       // ACTIVE underline only
-    cursor: "pointer",
-    fontSize: "16px",
-    fontWeight: "600",
-  },
+
 
 
   activeTab: {
