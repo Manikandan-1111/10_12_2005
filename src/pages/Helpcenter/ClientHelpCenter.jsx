@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import helpcenterimg from "../../assets/logo.png"
-import "./ClienthelpCenter.css"
+// import "./ClienthelpCenter.css"
 
 
 const HelpCenter = () => {
