@@ -1,3 +1,154 @@
+// import React, { useEffect, useState } from "react";
+// import { rtdb } from "../../firbase/Firebase";
+// import { ref, onValue } from "firebase/database";
+
+// import {
+//   getFirestore,
+//   collection,
+//   query,
+//   where,
+//   onSnapshot,
+//   getDoc,
+//   doc
+// } from "firebase/firestore";
+
+// import { getAuth } from "firebase/auth";
+// import { useNavigate } from "react-router-dom";
+
+// export default function FreelancerAcceptedChats() {
+//   const auth = getAuth();
+//   const user = auth.currentUser;
+//   const navigate = useNavigate();
+//   const db = getFirestore();
+
+//   const [chatList, setChatList] = useState([]);
+
+//   useEffect(() => {
+//     if (!user) return;
+
+//     // STEP 1 → Get accepted notifications for this freelancer
+//     const notifRef = collection(db, "notifications");
+//     const qNotif = query(
+//       notifRef,
+//       where("freelancerId", "==", user.uid),
+//       where("read", "==", true)
+//     );
+
+//     const unsub = onSnapshot(qNotif, (snap) => {
+//       const acceptedClients = snap.docs.map((d) => d.data().clientUid);
+
+//       // STEP 2 → Load all chats of this freelancer
+//       const userChatsRef = ref(rtdb, `userChats/${user.uid}`);
+
+//       onValue(userChatsRef, async (chatsSnap) => {
+//         const val = chatsSnap.val() || {};
+
+//         // STEP 3 → Filter chats ONLY with accepted clients + fetch their profile
+//         const filtered = await Promise.all(
+//           Object.entries(val)
+//             .filter(([chatId, chatData]) =>
+//               acceptedClients.includes(chatData.withUid)
+//             )
+//             .map(async ([chatId, chatData]) => {
+
+//               // Fetch client profile from Firestore
+//               const clientRef = doc(db, "users", chatData.withUid);
+//               const clientSnap = await getDoc(clientRef);
+
+//               const clientData = clientSnap.exists() ? clientSnap.data() : {};
+
+//               const clientName = clientData.firstName && clientData.lastName
+//                 ? `${clientData.firstName} ${clientData.lastName}`
+//                 : "Clients";
+
+//               return {
+//                 chatId,
+//                 ...chatData,
+//                 clientName,
+//                 clientImg: clientData.profileImage || null,
+//               };
+//             })
+//         );
+
+//         setChatList(filtered);
+//       });
+//     });
+
+//     return unsub;
+//   }, [user]);
+
+
+
+//   return (
+//     <div style={{ padding: 16 }}>
+//       <h1 style={{
+//             background: "#fff",
+//             padding: 14,
+//             borderRadius: 12,
+//             marginBottom: 12,
+//             boxShadow: "0 4px 16px rgba(0,0,0,0.08)",
+//             cursor: "pointer",
+//           }}>Requested</h1>
+//       <h2 style={{ marginBottom: 20 }}>Accepted Chats</h2>
+
+//       {chatList.length === 0 && (
+//         <p style={{ color: "#777" }}>No accepted chats yet.</p>
+//       )}
+
+//       {chatList.map((chat) => (
+//         <div
+//           key={chat.chatId}
+//           onClick={() =>
+//             navigate("/chat", {
+//               state: {
+//                 currentUid: user.uid,
+//                 otherUid: chat.withUid,
+//               },
+//             })
+//           }
+//           style={{
+//             background: "#fff",
+//             padding: 14,
+//             borderRadius: 12,
+//             marginBottom: 12,
+//             boxShadow: "0 4px 16px rgba(0,0,0,0.08)",
+//             cursor: "pointer",
+//           }}
+//         >
+//           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+//             <img
+//               src={chat.clientImg || "/placeholder.png"}
+//               alt="profile"
+//               style={{
+//                 width: 48,
+//                 height: 48,
+//                 borderRadius: "50%",
+//                 objectFit: "cover",
+//               }}
+//             />
+//             <h4 style={{ margin: 0 }}>{chat.clientName}</h4>
+//           </div>
+
+//           <p style={{ color: "#444", marginTop: 8 }}>
+//             {chat.lastMessage || "No messages yet"}
+//           </p>
+
+//           <small style={{ color: "#777" }}>
+//             {chat.lastMessageTime
+//               ? new Date(chat.lastMessageTime).toLocaleString()
+//               : ""}
+//           </small>
+//         </div>
+//       ))}
+//     </div>
+//   );
+// }
+
+
+
+
+
+
 import React, { useEffect, useState } from "react";
 import { rtdb } from "../../firbase/Firebase";
 import { ref, onValue } from "firebase/database";
@@ -13,7 +164,7 @@ import {
 } from "firebase/firestore";
 
 import { getAuth } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function FreelancerAcceptedChats() {
   const auth = getAuth();
@@ -81,6 +232,7 @@ export default function FreelancerAcceptedChats() {
 
   return (
     <div style={{ padding: 16 }}>
+     <Link to="/Requestmessagefreelancer">
       <h1 style={{
             background: "#fff",
             padding: 14,
@@ -89,6 +241,8 @@ export default function FreelancerAcceptedChats() {
             boxShadow: "0 4px 16px rgba(0,0,0,0.08)",
             cursor: "pointer",
           }}>Requested</h1>
+     
+     </Link>
       <h2 style={{ marginBottom: 20 }}>Accepted Chats</h2>
 
       {chatList.length === 0 && (
@@ -143,6 +297,24 @@ export default function FreelancerAcceptedChats() {
     </div>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

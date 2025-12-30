@@ -1,5 +1,3 @@
-
-
 // // Categories.jsx
 // import React, { useEffect, useMemo, useState, useRef } from "react";
 // import { getAuth } from "firebase/auth";
@@ -17,6 +15,13 @@
 // } from "firebase/firestore";
 // import { useNavigate } from "react-router-dom";
 
+// import categoryImg from "../../assets/categories.png";
+// import search from "../../assets/search .png";
+// import eye from "../../assets/eye.png";
+// import clock from "../../assets/clock.png";
+// import saved from "../../assets/save.png";
+// import save from "../../assets/save2.png";
+// import backarrow from "../../assets/backarrow.png";
 
 // const jobCategories1 = {
 //   "Graphics & Design": [
@@ -288,17 +293,17 @@
 //     minHeight: "100vh",
 //     color: "#111",
 //   },
-//   appBar: {
-//     display: "flex",
-//     alignItems: "center",
-//     height: 64,
-//     padding: "0 12px",
-//     borderBottom: "1px solid #eee",
-//     background: "#fff",
-//     position: "sticky",
-//     top: 0,
-//     zIndex: 20,
-//   },
+//   // appBar: {
+//   //   display: "flex",
+//   //   alignItems: "center",
+//   //   height: 64,
+//   //   padding: "0 12px",
+//   //   borderBottom: "1px solid #eee",
+//   //   background: "#fff",
+//   //   position: "sticky",
+//   //   top: 0,
+//   //   zIndex: 20,
+//   // },
 //   backBtn: {
 //     border: "none",
 //     background: "transparent",
@@ -311,12 +316,14 @@
 //     textAlign: "center",
 //     fontSize: 20,
 //     fontWeight: 600,
+//     marginTop: "5px",
 //   },
 
 //   container: {
 //     maxWidth: 1000,
-//     margin: "0 auto",
+//     margin: "10px auto",
 //     padding: 16,
+    
 //   },
 //   searchBar: {
 //     height: 48,
@@ -325,7 +332,8 @@
 //     gap: 8,
 //     padding: "0 12px",
 //     borderRadius: 12,
-//     border: "1px solid #D9D9D9",
+//     border: "1px solid block",
+//     boxShadow: "0 10px 50px rgba(0,0,0,0.08)",
 //     background: "#fff",
 //   },
 //   input: {
@@ -333,6 +341,10 @@
 //     outline: "none",
 //     flex: 1,
 //     fontSize: 14,
+//     marginTop: "5px",
+//     padding: "9px 0px 0px 10px",
+    
+
 //   },
 //   list: {
 //     marginTop: 12,
@@ -399,43 +411,42 @@
 //     fontWeight: 600,
 //     textAlign: "center",
 //   },
+
+//   /* 🔥 FORCE 4 COLUMNS */
 //   cardGrid: {
 //     marginTop: 20,
 //     display: "grid",
-//     gridTemplateColumns: "repeat(auto-fill, minmax(160px, 1fr))",
+//     gridTemplateColumns: "repeat(4, 1fr)",
 //     gap: 16,
 //   },
 
 //   categoryCard: {
-//     borderRadius: 18,
-//     overflow: "hidden",
-//     cursor: "pointer",
+//     borderRadius: 16,
 //     background: "#fff",
 //     boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
-//     transition: "transform 0.15s ease, box-shadow 0.15s ease",
+//     cursor: "pointer",
+//     overflow: "hidden",
+//     transition: "transform 0.15s ease",
 //   },
-
 //   categoryCardTop: {
-//     height: 110,
-//     background: "linear-gradient(135deg,#6a00ff,#9c27ff)",
-//     display: "flex",
-//     alignItems: "center",
-//     justifyContent: "center",
-//     position: "relative",
+//     height: 130,
+//     overflow: "hidden",
 //   },
 
-//   categoryIcon: {
-//     fontSize: 36,
-//     color: "#fff",
-//     opacity: 0.9,
+//   categoryImage: {
+//     width: "100%",
+//     height: "100%",
+//     objectFit: "cover", // 🔥 fills top area only
 //   },
 
 //   categoryCardBottom: {
-//     padding: 12,
-//     fontWeight: 600,
+//     padding: "12px 10px",
 //     textAlign: "center",
+//     fontWeight: 600,
 //     fontSize: 14,
+//     background: "#fff",
 //   },
+
 
 
 // };
@@ -443,10 +454,14 @@
 // /* ---------------------------
 //    Small Icon components (no external libs)
 //    --------------------------- */
-// const IconSearch = () => <span style={{ fontSize: 18 }}>🔍</span>;
+// const IconSearch = () => (
+//   <span>
+//     <img src={search} alt="search" style={{ marginTop: "5px" }} />
+//   </span>
+// );
 // const IconClear = () => <span style={{ fontSize: 18 }}>✕</span>;
 // const IconArrowRight = () => <span style={{ fontSize: 14 }}>›</span>;
-// const IconBack = () => <span style={{ fontSize: 16 }}>‹</span>;
+// const IconBack = () => <span style={{ fontSize: 16 }}></span>;
 // // const [selectedSkill, setSelectedSkill] = useState(null);
 
 // /* ---------------------------
@@ -720,66 +735,121 @@
 //     const isSaved = (savedList || []).includes(job.id);
 
 //     return (
-//       <div style={{ margin: "12px 0", borderRadius: 12, border: "1px solid #ddd", padding: 16, background: "#fffef2" }}>
-//         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-//           <div style={{ flex: 1, marginRight: 12 }}>
-//             <div style={{ fontSize: 20, fontWeight: 600, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{job.title}</div>
-//             <div style={{ marginTop: 8, color: "#555" }}>{job.description}</div>
+//       <div
+//         style={{
+//           margin: "12px 0",
+//           borderRadius: 16,
+//           border: "1px solid #eee",
+//           padding: 20,
+//           background: "#fff",
+//           boxShadow: "0 6px 20px rgba(0,0,0,0.08)",
+//         }}
+//       >
+//         {/* TOP ROW */}
+//         <div style={{ display: "flex", alignItems: "flex-start" }}>
+//           <div style={{ flex: 1 }}>
+//             <div style={{ fontSize: 24, fontWeight: 400 }}>
+//               {job.company}
+//             </div>
+//             <div style={{ marginTop: 4, fontSize: 18, fontWeight: 400, color: "#000000" }}>
+//               {job.title}
+//             </div>
 //           </div>
-//           <div style={{ textAlign: "right" }}>₹ {job.budget}/per day</div>
+
+//           <div style={{ fontSize: 20, color: "#0A0A0A", fontWeight: 400 }}>
+//             ₹ {job.budget}/per day
+//           </div>
+//         </div>
+//         <div style={{ marginLeft: "auto" }}>
+//           <button
+//             onClick={(e) => {
+//               e.stopPropagation();
+//               toggleFavorite(job.id, isSaved);
+//             }}
+//             style={{
+//               background: "transparent",
+//               border: "none",
+//               cursor: "pointer",
+//               padding: 0,
+//             }}
+//           >
+//             <img
+//               src={isSaved ? saved : save}
+//               alt="save"
+//               style={{ padding: "-10px", width: 16, marginLeft: "875px", marginTop: "15px" }}
+//             />
+//           </button>
 //         </div>
 
-//         <div style={{ marginTop: 12 }}>
-//           <div style={{ fontSize: 12, marginBottom: 8 }}>Skills Required</div>
-//           <div style={{ display: "flex", alignItems: "center", overflowX: "auto" }}>
-//             {job.skills.slice(0, 2).map((s) => (
-//               <SkillChip key={s} label={s} />
+//         {/* SKILLS */}
+//         <div style={{ marginTop: 16 }}>
+//           <div style={{ fontSize: 14, fontWeight: 400, marginBottom: 8, color: "#0A0A0A" }}>
+//             Skills Required
+//           </div>
+
+//           <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+//             {job.skills.slice(0, 3).map((s) => (
+//               <div
+//                 key={s}
+//                 style={{
+//                   padding: "6px 12px",
+//                   borderRadius: 12,
+//                   fontSize: 12,
+//                   background: "#FFF3A0",
+//                   fontWeight: 500,
+//                 }}
+//               >
+//                 {s}
+//               </div>
 //             ))}
-//             {job.skills.length > 2 && <div style={{ padding: "6px 10px", borderRadius: 12, background: "#eee" }}>+{job.skills.length - 2}</div>}
+
+//             {job.skills.length > 3 && (
+//               <div
+//                 style={{
+//                   padding: "6px 12px",
+//                   borderRadius: 12,
+//                   fontSize: 12,
+//                   background: "#FFF3A0",
+//                   fontWeight: 500,
+//                 }}
+//               >
+//                 +{job.skills.length - 3}
+//               </div>
+//             )}
 //           </div>
 //         </div>
 
-//         <div style={{ marginTop: 12, display: "flex", alignItems: "center" }}>
+//         {/* DESCRIPTION */}
+//         <div style={{ marginTop: 14, fontSize: 14, color: "#444" }}>
+//           {job.description}
+//         </div>
+
+//         {/* FOOTER */}
+//         <div
+//           style={{
+//             marginTop: 16,
+//             display: "flex",
+//             alignItems: "center",
+//             fontSize: 12,
+//             color: "#666",
+//           }}
+//         >
+//           <div style={{ display: "flex", alignItems: "center", marginRight: 16 }}>
+//             <img src={eye} alt="eye" style={{ width: 14, marginRight: 6 }} />
+//             {job.views} Impression
+//           </div>
+
 //           <div style={{ display: "flex", alignItems: "center" }}>
-//             <span style={{ fontSize: 14, marginRight: 8 }}>👁</span>
-//             <span style={{ fontSize: 12 }}>{job.views} Impression</span>
+//             <img src={clock} alt="clock" style={{ width: 14, marginRight: 6 }} />
+//             {timeText}
 //           </div>
 
-//           <div style={{ marginLeft: 16, display: "flex", alignItems: "center" }}>
-//             <span style={{ fontSize: 14, marginRight: 8 }}>⏱</span>
-//             <span style={{ fontSize: 12 }}>{timeText}</span>
-//           </div>
+//           {/* SAVE ICON */}
 
-//           <div style={{ marginLeft: "auto", display: "flex", alignItems: "center" }}>
-//             <button
-//               onClick={(e) => {
-//                 e.stopPropagation();
-//                 toggleFavorite(job.id, isSaved);
-//               }}
-//               style={{
-//                 background: "transparent",
-//                 border: "none",
-//                 cursor: "pointer",
-//                 fontSize: 22,
-//               }}
-//             >
-//               {isSaved ? "🔖" : "📑"}
-//             </button>
-
-
-//             <button
-//               onClick={(e) => {
-//                 e.stopPropagation();
-//                 navigateToDetail(job, is24h);
-//               }}
-//               style={{ marginLeft: 8, padding: "8px 12px", borderRadius: 8, border: "1px solid #ddd", background: "#fff" }}
-//             >
-//               View
-//             </button>
-//           </div>
 //         </div>
 //       </div>
 //     );
+
 //   }
 
 //   function renderSavedJobs() {
@@ -819,7 +889,7 @@
 //       </div>
 
 //       <div style={{ padding: 12, borderBottom: "1px solid #eee", background: "#fff" }}>
-//         <div style={{ display: "flex", gap: 8, justifyContent: "center" }}>
+//         <div style={{ display: "flex", gap: 8, justifyContent: "center", }}>
 //           {renderTabButtonInline("Works Jobs")}
 //           {renderTabButtonInline("24 Hour Jobs")}
 //           {renderTabButtonInline("Saved Jobs")}
@@ -840,7 +910,7 @@
 //         style={{
 //           padding: "8px 12px",
 //           borderRadius: 8,
-//           background: isSelected ? "#000" : "transparent",
+//           background: isSelected ? "rgba(124, 60, 255, 1)" : "transparent",
 //           color: isSelected ? "#fff" : "#000",
 //           border: "none",
 //           cursor: "pointer",
@@ -857,6 +927,20 @@
 //    Categories main component (export default)
 //    - It handles navigation stack: categories -> subcategories -> skill/jobs
 //    --------------------------- */
+// const categoryGridResponsiveCSS = `
+// @media (max-width: 1024px) {
+//   .category-grid {
+//     grid-template-columns: repeat(3, 1fr) !important;
+//   }
+// }
+
+// @media (max-width: 768px) {
+//   .category-grid {
+//     grid-template-columns: repeat(2, 1fr) !important; /* 📱 mobile */
+//   }
+// }
+// `;
+
 // export default function Categories() {
 
 //   const [collapsed, setCollapsed] = useState(
@@ -925,6 +1009,8 @@
 //     return (
 //       <div>
 //         {/* HEADER */}
+//         <style>{categoryGridResponsiveCSS}</style>
+
 //         <div style={styles.appBar}>
 //           <div style={{ width: 36 }} />
 //           <div style={styles.title}>Categories</div>
@@ -949,7 +1035,8 @@
 //           </div>
 
 //           {/* 🔥 CATEGORY CARDS GRID */}
-//           <div style={styles.cardGrid}>
+//           <div className="category-grid" style={styles.cardGrid}>
+
 //             {filteredCategories.map((category) => (
 //               <div
 //                 key={category}
@@ -972,7 +1059,11 @@
 //                 }}
 //               >
 //                 <div style={styles.categoryCardTop}>
-//                   <div style={styles.categoryIcon}>✨</div>
+//                   <img
+//                     src={categoryImg}
+//                     alt="Category"
+//                     style={styles.categoryImage}
+//                   />
 //                 </div>
 
 //                 <div style={styles.categoryCardBottom}>
@@ -986,7 +1077,6 @@
 //     );
 //   }
 
-
 //   function renderSubcategories() {
 //     const category = current.params.category;
 
@@ -994,10 +1084,46 @@
 //       <div>
 //         {/* HEADER */}
 //         <div style={styles.appBar}>
-//           <button style={styles.backBtn} onClick={pop} aria-label="back">
+//           <button style={styles.backBtn} onClick={pop}>
 //             <IconBack />
 //           </button>
-//           <div style={styles.title}>Explore Job</div>
+
+//           <div
+//             style={{
+//               display: "flex",
+//               alignItems: "center",
+//               fontSize: 36,
+//               fontWeight: 400,
+//               marginTop: 5,
+//               marginLeft: 70,
+//               gap: 16,
+//             }}
+//           >
+//             {/* BACK ARROW CIRCLE */}
+//             <div
+//               style={{
+//                 width: 44,
+//                 height: 44,
+//                 borderRadius: "14px",
+//                 backgroundColor: "#fff",
+//                 display: "flex",
+//                 alignItems: "center",
+//                 justifyContent: "center",
+//                 boxShadow: "0 2px 12px rgba(0,0,0,0.15)",
+//                 cursor: "pointer",
+//               }}
+//             >
+//               <img
+//                 src={backarrow}
+//                 alt="backarrow"
+//                 style={{ width: 20, height: 20 }}
+//               />
+//             </div>
+
+//             <span>Browse Projects</span>
+//           </div>
+
+
 //           <div style={{ width: 36 }} />
 //         </div>
 
@@ -1006,140 +1132,124 @@
 //           <div style={styles.searchBar}>
 //             <IconSearch />
 //             <input
-//               aria-label="Search subcategories"
 //               placeholder="Search"
 //               style={styles.input}
 //               value={subQuery}
-//               onChange={(e) => {
-//                 const value = e.target.value;
-//                 setSubQuery(value);
-
-//                 // persist search in stack
-//                 setStack((s) => {
-//                   const copy = [...s];
-//                   copy[copy.length - 1] = {
-//                     ...copy[copy.length - 1],
-//                     params: {
-//                       ...copy[copy.length - 1].params,
-//                       initialQuery: value,
-//                     },
-//                   };
-//                   return copy;
-//                 });
-//               }}
+//               onChange={(e) => setSubQuery(e.target.value)}
 //             />
-
 //             {subQuery && (
-//               <button
-//                 onClick={() => {
-//                   setSubQuery("");
-//                   setStack((s) => {
-//                     const copy = [...s];
-//                     copy[copy.length - 1] = {
-//                       ...copy[copy.length - 1],
-//                       params: {
-//                         ...copy[copy.length - 1].params,
-//                         initialQuery: "",
-//                       },
-//                     };
-//                     return copy;
-//                   });
-//                 }}
-//                 style={styles.clearBtn}
-//                 aria-label="clear"
-//               >
+//               <button style={styles.clearBtn} onClick={() => setSubQuery("")}>
 //                 <IconClear />
 //               </button>
 //             )}
 //           </div>
 
-//           {/* BREADCRUMB */}
-//           <div style={styles.breadcrumbRow}>
-//             <div style={styles.smallMuted}>Categories /</div>
-//             <div style={styles.chip}>{category}</div>
-//           </div>
-
-//           {/* HORIZONTAL SUBCATEGORIES */}
+//           {/* 🔥 SKILL CHIPS (IMAGE MATCH) */}
 //           <div
 //             style={{
 //               display: "flex",
-//               gap: 12,
-//               overflowX: "auto",
-//               padding: "10px 4px",
-//               whiteSpace: "nowrap",
-//             }}
-//           >
-//             {filteredSubCategories.length === 0 ? (
-//               <div style={{ width: "100%", padding: 40, textAlign: "center" }}>
-//                 <div style={{ fontSize: 56 }}>🔎</div>
-//                 <div style={{ marginTop: 12, fontWeight: 600 }}>
-//                   No subcategories found
-//                 </div>
-//                 <div style={{ marginTop: 8, color: "#777" }}>
-//                   Try searching with different keywords
-//                 </div>
-//               </div>
-//             ) : (
-//               filteredSubCategories.map((sub) => {
-//                 const isActive = selectedSkill === sub;
+//               gap: 10,
+//               overflowX: "auto",      // 🔥 scroll stays
+//               flexWrap: "nowrap",
+//               padding: "14px 0",
 
-//                 return (
-//                   <div
-//                     key={sub}
-//                     role="button"
-//                     tabIndex={0}
-//                     aria-pressed={isActive}
-//                     onClick={() => setSelectedSkill(sub)}
-//                     onKeyDown={(e) => {
-//                       if (e.key === "Enter") setSelectedSkill(sub);
-//                     }}
-//                     style={{
-//                       padding: "10px 18px",
-//                       borderRadius: 20,
-//                       fontWeight: 600,
-//                       cursor: "pointer",
-//                       userSelect: "none",
-//                       whiteSpace: "nowrap",
-//                       transition: "all 0.2s ease",
-//                       background: isActive ? "#000" : "#f5f7fb",
-//                       color: isActive ? "#fff" : "#000",
-//                     }}
-//                   >
-//                     {sub}
-//                   </div>
-//                 );
-//               })
-//             )}
+//               scrollbarWidth: "none",     // 🔥 Firefox
+//               msOverflowStyle: "none",    // 🔥 IE / Edge
+//             }}
+//             className="hide-scrollbar"
+//           >
+//             {filteredSubCategories.map((sub) => {
+//               const isActive = selectedSkill === sub;
+
+//               return (
+//                 <div
+//                   key={sub}
+//                   onClick={() => setSelectedSkill(sub)}
+//                   style={{
+//                     padding: "13px 14px",
+//                     borderRadius: 10,
+//                     fontSize: 12,
+//                     cursor: "pointer",
+//                     display: "inline-flex",
+//                     alignItems: "center",
+//                     justifyContent: "center",
+//                     whiteSpace: "nowrap",
+//                     width: "fit-content",
+//                     backgroundColor: isActive ? "#7C3CFF" : "#FFFFFF99",
+//                     color: isActive ? "#fff" : "#444",
+//                     border: "1px solid #E0E0E0",
+//                     transition: "all 0.2s ease",
+//                   }}
+//                 >
+//                   {sub}
+//                 </div>
+//               );
+//             })}
 //           </div>
 
-//           {/* 🔥 JOBS SECTION – SAME PAGE */}
-//           {selectedSkill && (
-//             <div style={{ marginTop: 24 }}>
-//               <SkillUsersScreenInline
-//                 skill={selectedSkill}
-//                 onClick={() => {
-//                   setSubQuery("");
-//                   setSelectedSkill(null); // 🔥 IMPORTANT
-//                   setStack((s) => {
-//                     const copy = [...s];
-//                     copy[copy.length - 1] = {
-//                       ...copy[copy.length - 1],
-//                       params: {
-//                         ...copy[copy.length - 1].params,
-//                         initialQuery: "",
-//                       },
-//                     };
-//                     return copy;
-//                   });
-//                 }}
 
-//               />
-//             </div>
+
+//           {/* 🔥 JOB LIST (SAME AS SCREENSHOT) */}
+//           {selectedSkill && (
+//             <SkillUsersScreenInline
+//               skill={selectedSkill}
+//               onBack={pop}
+//             />
 //           )}
 //         </div>
 //       </div>
 //     );
 //   }
+
+
+//   filteredSubCategories.map((sub) => {
+//     const isActive = selectedSkill === sub;
+
+//     return (
+//       <div
+//         key={sub}
+//         role="button"
+//         tabIndex={0}
+//         aria-pressed={isActive}
+//         onClick={() => setSelectedSkill(sub)}
+//         onKeyDown={(e) => {
+//           if (e.key === "Enter") setSelectedSkill(sub);
+//         }}
+//         style={{
+//           padding: "8px 16px",
+//           borderRadius: 999,              // 🔥 pill shape
+//           fontSize: 13,
+//           fontWeight: 500,
+//           cursor: "pointer",
+//           userSelect: "none",
+//           whiteSpace: "normal",
+//           textAlign: "center",
+//           lineHeight: "16px",
+
+//           transition: "all 0.2s ease",
+
+//           // 🔥 COLORS (IMPORTANT)
+//           backgroundColor: isActive
+//             ? "rgba(124, 60, 255, 1)"     // PURPLE when selected
+//             : "#F2F2F2",                  // GRAY when not selected
+
+//           color: isActive
+//             ? "#FFFFFF"
+//             : "#555555",
+
+//           border: isActive
+//             ? "1px solid rgba(124, 60, 255, 1)"
+//             : "1px solid #E0E0E0",
+
+//           boxShadow: isActive
+//             ? "0 4px 10px rgba(124,60,255,0.25)"
+//             : "none",
+//         }}
+//       >
+//         {sub}
+//       </div>
+//     );
+//   })
 
 
 //   function renderSkill() {
@@ -1171,6 +1281,8 @@
 
 
 
+
+
 // Categories.jsx
 import React, { useEffect, useMemo, useState, useRef } from "react";
 import { getAuth } from "firebase/auth";
@@ -1190,6 +1302,14 @@ import { useNavigate } from "react-router-dom";
 
 import categoryImg from "../../assets/categories.png";
 import search from "../../assets/search .png";
+import eye from "../../assets/eye.png";
+import clock from "../../assets/clock.png";
+import saved from "../../assets/save.png";
+import save from "../../assets/save2.png";
+import backarrow from "../../assets/backarrow.png";
+import "./frelancerbrowserproject.css"
+
+
 
 const jobCategories1 = {
   "Graphics & Design": [
@@ -1450,9 +1570,6 @@ const jobCategories1 = {
   ],
 };
 
-/* ---------------------------
-   Simple inline styles
-   --------------------------- */
 const styles = {
   page: {
     fontFamily:
@@ -1491,6 +1608,7 @@ const styles = {
     maxWidth: 1000,
     margin: "10px auto",
     padding: 16,
+
   },
   searchBar: {
     height: 48,
@@ -1499,7 +1617,8 @@ const styles = {
     gap: 8,
     padding: "0 12px",
     borderRadius: 12,
-    border: "1px solid #D9D9D9",
+    border: "1px solid block",
+    boxShadow: "0 10px 50px rgba(0,0,0,0.08)",
     background: "#fff",
   },
   input: {
@@ -1507,7 +1626,9 @@ const styles = {
     outline: "none",
     flex: 1,
     fontSize: 14,
+    marginTop: "5px",
     padding: "9px 0px 0px 10px",
+
 
   },
   list: {
@@ -1615,28 +1736,18 @@ const styles = {
 
 };
 
-/* ---------------------------
-   Small Icon components (no external libs)
-   --------------------------- */
 const IconSearch = () => (
   <span>
-    <img src={search} alt="search" />
+    <img src={search} alt="search" style={{ marginTop: "5px" }} />
   </span>
 );
 const IconClear = () => <span style={{ fontSize: 18 }}>✕</span>;
 const IconArrowRight = () => <span style={{ fontSize: 14 }}>›</span>;
-const IconBack = () => <span style={{ fontSize: 16 }}>‹</span>;
-// const [selectedSkill, setSelectedSkill] = useState(null);
+const IconBack = () => <span style={{ fontSize: 16 }}></span>;
 
-/* ---------------------------
-   Helpers for Firestore + Auth
-   --------------------------- */
 const db = getFirestore();
 const auth = getAuth();
 
-/* ---------------------------
-   Utility functions
-   --------------------------- */
 function parseCreatedAt(createdAt) {
   if (!createdAt) return null;
   if (createdAt instanceof Date) return createdAt;
@@ -1694,7 +1805,7 @@ function normalizeJob(docSnap) {
 function SkillUsersScreenInline({ skill, onBack }) {
   // navigation (for View button)
   const navigate = useNavigate?.() || (() => { });
-  const [selectedTab, setSelectedTab] = useState("Works Jobs");
+  const [selectedTab, setSelectedTab] = useState("Works");
   const [jobs, setJobs] = useState([]);
   const [userDoc, setUserDoc] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -1735,10 +1846,10 @@ function SkillUsersScreenInline({ skill, onBack }) {
     return (
       <div style={{ padding: 12 }}>
         {jobs.map((job) => (
-          <div key={job.id} onClick={() => navigateToDetail(job, selectedTab === "24 Hour Jobs")}>
+          <div key={job.id} onClick={() => navigateToDetail(job, selectedTab === "24-Hour")}>
             <JobCard
               job={job}
-              is24h={selectedTab === "24 Hour Jobs"}
+              is24h={selectedTab === "24-Hour"}
               savedList={userDoc?.favoriteJobs || []}
             />
           </div>
@@ -1780,7 +1891,7 @@ function SkillUsersScreenInline({ skill, onBack }) {
     setError(null);
 
     const collectionName =
-      selectedTab === "24 Hour Jobs" ? "jobs_24h" : "jobs";
+      selectedTab === "24-Hour" ? "jobs_24h" : "jobs";
 
     const colRef = collection(db, collectionName);
     const q = query(colRef, orderBy("created_at", "desc"));
@@ -1899,66 +2010,121 @@ function SkillUsersScreenInline({ skill, onBack }) {
     const isSaved = (savedList || []).includes(job.id);
 
     return (
-      <div style={{ margin: "12px 0", borderRadius: 12, border: "1px solid #ddd", padding: 16, }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <div style={{ flex: 1, marginRight: 12 }}>
-            <div style={{ fontSize: 20, fontWeight: 600, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{job.title}</div>
-            <div style={{ marginTop: 8, color: "#555" }}>{job.description}</div>
+      <div
+        style={{
+          margin: "12px 0",
+          borderRadius: 16,
+          border: "1px solid #eee",
+          padding: 20,
+          background: "#fff",
+          boxShadow: "0 6px 20px rgba(0,0,0,0.08)",
+        }}
+      >
+        {/* TOP ROW */}
+        <div style={{ display: "flex", alignItems: "flex-start" }}>
+          <div style={{ flex: 1 }}>
+            <div style={{ fontSize: 24, fontWeight: 400 }}>
+              {job.company}
+            </div>
+            <div style={{ marginTop: 4, fontSize: 18, fontWeight: 400, color: "#000000" }}>
+              {job.title}
+            </div>
           </div>
-          <div style={{ textAlign: "right" }}>₹ {job.budget}/per day</div>
+
+          <div style={{ fontSize: 20, color: "#0A0A0A", fontWeight: 400 }}>
+            ₹ {job.budget}/per day
+          </div>
+        </div>
+        <div style={{ marginLeft: "auto" }}>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              toggleFavorite(job.id, isSaved);
+            }}
+            style={{
+              background: "transparent",
+              border: "none",
+              cursor: "pointer",
+              padding: 0,
+            }}
+          >
+            <img
+              src={isSaved ? saved : save}
+              alt="save"
+              style={{ padding: "-10px", width: 16, marginLeft: "875px", marginTop: "15px" }}
+            />
+          </button>
         </div>
 
-        <div style={{ marginTop: 12 }}>
-          <div style={{ fontSize: 12, marginBottom: 8 }}>Skills Required</div>
-          <div style={{ display: "flex", alignItems: "center", overflowX: "auto" }}>
-            {job.skills.slice(0, 2).map((s) => (
-              <SkillChip key={s} label={s} />
+        {/* SKILLS */}
+        <div style={{ marginTop: 16 }}>
+          <div style={{ fontSize: 14, fontWeight: 400, marginBottom: 8, color: "#0A0A0A" }}>
+            Skills Required
+          </div>
+
+          <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+            {job.skills.slice(0, 3).map((s) => (
+              <div
+                key={s}
+                style={{
+                  padding: "6px 12px",
+                  borderRadius: 12,
+                  fontSize: 12,
+                  background: "#FFF3A0",
+                  fontWeight: 500,
+                }}
+              >
+                {s}
+              </div>
             ))}
-            {job.skills.length > 2 && <div style={{ padding: "6px 10px", borderRadius: 12, background: "#eee" }}>+{job.skills.length - 2}</div>}
+
+            {job.skills.length > 3 && (
+              <div
+                style={{
+                  padding: "6px 12px",
+                  borderRadius: 12,
+                  fontSize: 12,
+                  background: "#FFF3A0",
+                  fontWeight: 500,
+                }}
+              >
+                +{job.skills.length - 3}
+              </div>
+            )}
           </div>
         </div>
 
-        <div style={{ marginTop: 12, display: "flex", alignItems: "center" }}>
+        {/* DESCRIPTION */}
+        <div style={{ marginTop: 14, fontSize: 14, color: "#444" }}>
+          {job.description}
+        </div>
+
+        {/* FOOTER */}
+        <div
+          style={{
+            marginTop: 16,
+            display: "flex",
+            alignItems: "center",
+            fontSize: 12,
+            color: "#666",
+          }}
+        >
+          <div style={{ display: "flex", alignItems: "center", marginRight: 16 }}>
+            <img src={eye} alt="eye" style={{ width: 14, marginRight: 6 }} />
+            {job.views} Impression
+          </div>
+
           <div style={{ display: "flex", alignItems: "center" }}>
-            <span style={{ fontSize: 14, marginRight: 8 }}>👁</span>
-            <span style={{ fontSize: 12 }}>{job.views} Impression</span>
+            <img src={clock} alt="clock" style={{ width: 14, marginRight: 6 }} />
+            {timeText}
           </div>
 
-          <div style={{ marginLeft: 16, display: "flex", alignItems: "center" }}>
-            <span style={{ fontSize: 14, marginRight: 8 }}>⏱</span>
-            <span style={{ fontSize: 12 }}>{timeText}</span>
-          </div>
+          {/* SAVE ICON */}
 
-          <div style={{ marginLeft: "auto", display: "flex", alignItems: "center" }}>
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                toggleFavorite(job.id, isSaved);
-              }}
-              style={{
-                background: "transparent",
-                border: "none",
-                cursor: "pointer",
-                fontSize: 22,
-              }}
-            >
-              {isSaved ? "🔖" : "📑"}
-            </button>
-
-
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                navigateToDetail(job, is24h);
-              }}
-              style={{ marginLeft: 8, padding: "8px 12px", borderRadius: 8, border: "1px solid #ddd", background: "#fff" }}
-            >
-              View
-            </button>
-          </div>
         </div>
       </div>
     );
+
   }
 
   function renderSavedJobs() {
@@ -1998,9 +2164,9 @@ function SkillUsersScreenInline({ skill, onBack }) {
       </div>
 
       <div style={{ padding: 12, borderBottom: "1px solid #eee", background: "#fff" }}>
-        <div style={{ display: "flex", gap: 8, justifyContent: "center" }}>
-          {renderTabButtonInline("Works Jobs")}
-          {renderTabButtonInline("24 Hour Jobs")}
+        <div style={{ display: "flex", gap: 8, justifyContent: "center", }}>
+          {renderTabButtonInline("Works")}
+          {renderTabButtonInline("24-Hour")}
           {renderTabButtonInline("Saved Jobs")}
         </div>
       </div>
@@ -2016,26 +2182,16 @@ function SkillUsersScreenInline({ skill, onBack }) {
     return (
       <button
         onClick={() => setSelectedTab(label)}
-        style={{
-          padding: "8px 12px",
-          borderRadius: 8,
-          background: isSelected ? "rgba(124, 60, 255, 1)" : "transparent",
-          color: isSelected ? "#fff" : "#000",
-          border: "none",
-          cursor: "pointer",
-          minWidth: 120,
-        }}
+        className={`tab-button ${isSelected ? "active" : ""}`}
       >
         {label}
       </button>
+
     );
   }
 }
 
-/* ---------------------------
-   Categories main component (export default)
-   - It handles navigation stack: categories -> subcategories -> skill/jobs
-   --------------------------- */
+
 const categoryGridResponsiveCSS = `
 @media (max-width: 1024px) {
   .category-grid {
@@ -2186,7 +2342,6 @@ export default function Categories() {
     );
   }
 
-
   function renderSubcategories() {
     const category = current.params.category;
 
@@ -2194,10 +2349,49 @@ export default function Categories() {
       <div>
         {/* HEADER */}
         <div style={styles.appBar}>
-          <button style={styles.backBtn} onClick={pop} aria-label="back">
+          <button style={styles.backBtn} onClick={pop}>
             <IconBack />
           </button>
-          <div style={styles.title}>Explore Job</div>
+
+          <div
+            className="frelancerbrowserproject"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              fontSize: 36,
+              fontWeight: 400,
+              marginTop: "40px",
+              marginLeft: "20px",
+              gap: 16,
+            }}
+          >
+
+            <div
+              style={{
+                width: 44,
+                height: 44,
+                borderRadius: "14px",
+                backgroundColor: "#c1c1c1ff",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                boxShadow: "0 2px 12px rgba(0,0,0,0.15)",
+                cursor: "pointer",
+              }}
+            >
+
+              <img
+                src={backarrow}
+                alt="backarrow"
+                style={{ width: 20, height: 20 }}
+              />
+
+            </div>
+
+            <span>Browse Projects</span>
+          </div>
+
+
           <div style={{ width: 36 }} />
         </div>
 
@@ -2206,140 +2400,81 @@ export default function Categories() {
           <div style={styles.searchBar}>
             <IconSearch />
             <input
-              aria-label="Search subcategories"
               placeholder="Search"
               style={styles.input}
               value={subQuery}
-              onChange={(e) => {
-                const value = e.target.value;
-                setSubQuery(value);
-
-                // persist search in stack
-                setStack((s) => {
-                  const copy = [...s];
-                  copy[copy.length - 1] = {
-                    ...copy[copy.length - 1],
-                    params: {
-                      ...copy[copy.length - 1].params,
-                      initialQuery: value,
-                    },
-                  };
-                  return copy;
-                });
-              }}
+              onChange={(e) => setSubQuery(e.target.value)}
             />
-
             {subQuery && (
-              <button
-                onClick={() => {
-                  setSubQuery("");
-                  setStack((s) => {
-                    const copy = [...s];
-                    copy[copy.length - 1] = {
-                      ...copy[copy.length - 1],
-                      params: {
-                        ...copy[copy.length - 1].params,
-                        initialQuery: "",
-                      },
-                    };
-                    return copy;
-                  });
-                }}
-                style={styles.clearBtn}
-                aria-label="clear"
-              >
+              <button style={styles.clearBtn} onClick={() => setSubQuery("")}>
                 <IconClear />
               </button>
             )}
           </div>
 
-          {/* BREADCRUMB */}
-          <div style={styles.breadcrumbRow}>
-            <div style={styles.smallMuted}>Categories /</div>
-            <div style={styles.chip}>{category}</div>
-          </div>
-
-          {/* HORIZONTAL SUBCATEGORIES */}
+          {/* 🔥 SKILL CHIPS (IMAGE MATCH) */}
           <div
             style={{
               display: "flex",
-              gap: 12,
-              overflowX: "auto",
-              padding: "10px 4px",
-              whiteSpace: "nowrap",
-            }}
-          >
-            {filteredSubCategories.length === 0 ? (
-              <div style={{ width: "100%", padding: 40, textAlign: "center" }}>
-                <div style={{ fontSize: 56 }}>🔎</div>
-                <div style={{ marginTop: 12, fontWeight: 600 }}>
-                  No subcategories found
-                </div>
-                <div style={{ marginTop: 8, color: "#777" }}>
-                  Try searching with different keywords
-                </div>
-              </div>
-            ) : (
-              filteredSubCategories.map((sub) => {
-                const isActive = selectedSkill === sub;
+              gap: 10,
+              overflowX: "auto",      // 🔥 scroll stays
+              flexWrap: "nowrap",
+              padding: "24px 0",
 
-                return (
-                  <div
-                    key={sub}
-                    role="button"
-                    tabIndex={0}
-                    aria-pressed={isActive}
-                    onClick={() => setSelectedSkill(sub)}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter") setSelectedSkill(sub);
-                    }}
-                    style={{
-                      padding: "10px 18px",
-                      borderRadius: 20,
-                      fontWeight: 600,
-                      cursor: "pointer",
-                      userSelect: "none",
-                      whiteSpace: "nowrap",
-                      transition: "all 0.2s ease",
-                      background: isActive ? "rgba(124, 60, 255, 1)" : "transparent",
-                      color: isActive ? "#fff" : "#000",
-                    }}
-                  >
-                    {sub}
-                  </div>
-                );
-              })
-            )}
+              scrollbarWidth: "none",     // 🔥 Firefox
+              msOverflowStyle: "none",    // 🔥 IE / Edge
+            }}
+            className="hide-scrollbar"
+          >
+            {filteredSubCategories.map((sub) => {
+              const isActive = selectedSkill === sub;
+
+              return (
+                <div
+                  key={sub}
+                  onClick={() => setSelectedSkill(sub)}
+                  className={`skill-chip ${isActive ? "active" : ""}`}
+                >
+                  {sub}
+                </div>
+
+              );
+            })}
           </div>
 
-          {/* 🔥 JOBS SECTION – SAME PAGE */}
-          {selectedSkill && (
-            <div style={{ marginTop: 24 }}>
-              <SkillUsersScreenInline
-                skill={selectedSkill}
-                onClick={() => {
-                  setSubQuery("");
-                  setSelectedSkill(null); // 🔥 IMPORTANT
-                  setStack((s) => {
-                    const copy = [...s];
-                    copy[copy.length - 1] = {
-                      ...copy[copy.length - 1],
-                      params: {
-                        ...copy[copy.length - 1].params,
-                        initialQuery: "",
-                      },
-                    };
-                    return copy;
-                  });
-                }}
 
-              />
-            </div>
+
+          {/* 🔥 JOB LIST (SAME AS SCREENSHOT) */}
+          {selectedSkill && (
+            <SkillUsersScreenInline
+              skill={selectedSkill}
+              onBack={pop}
+            />
           )}
         </div>
       </div>
     );
   }
+
+
+  filteredSubCategories.map((sub) => {
+    const isActive = selectedSkill === sub;
+
+    return (
+      <div
+        key={sub}
+        role="button"
+        tabIndex={0}
+        aria-pressed={isActive}
+        onClick={() => setSelectedSkill(sub)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") setSelectedSkill(sub);
+        }}
+      >
+        {sub}
+      </div>
+    );
+  })
 
 
   function renderSkill() {
@@ -2365,3 +2500,427 @@ export default function Categories() {
     </div>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import React, { useEffect, useState } from "react";
+
+// /* =====================================================
+//    JOB FILTER SCREEN – REACT (SINGLE FILE)
+// ===================================================== */
+
+// export default function JobFilterScreen({
+//   initialFilter = {},
+//   onApply,
+//   onClose
+// }) {
+//   /* ---------------- STATE ---------------- */
+//   const [filter, setFilter] = useState({
+//     categories: [],
+//     services: [],
+//     skills: [],
+//     minPrice: null,
+//     maxPrice: null,
+//     deliveryTime: "",
+//     minDays: null,
+//     maxDays: null
+//   });
+
+//   const [minPrice, setMinPrice] = useState("");
+//   const [maxPrice, setMaxPrice] = useState("");
+//   const [minDays, setMinDays] = useState("");
+//   const [maxDays, setMaxDays] = useState("");
+
+//   /* ---------------- DATA ---------------- */
+//   const categories = [
+//     "Graphics & Design",
+//     "Programming & Tech",
+//     "Digital Marketing",
+//     "Writing & Translation",
+//     "Video & Animation",
+//     "Music & Audio",
+//     "AI Services",
+//     "Data",
+//     "Business",
+//     "Finance",
+//     "Photography",
+//     "Lifestyle",
+//     "Consulting",
+//     "Personal Growth & Hobbies"
+//   ];
+
+//   const services = [
+//     "Graphic Design",
+//     "UI UX",
+//     "Web Development",
+//     "App Development",
+//     "Game Development",
+//     "SEO",
+//     "Social Media Marketing",
+//     "Content Writing",
+//     "Video Editing",
+//     "Voice Over"
+//   ];
+
+//   const skills = [
+//     "Figma",
+//     "React",
+//     "Python",
+//     "SQL",
+//     "Photoshop",
+//     "Illustrator",
+//     "JavaScript",
+//     "Flutter",
+//     "Node.js",
+//     "MongoDB"
+//   ];
+
+//   /* ---------------- INIT ---------------- */
+//   useEffect(() => {
+//     setFilter({
+//       categories: [...(initialFilter.categories || [])],
+//       services: [...(initialFilter.services || [])],
+//       skills: [...(initialFilter.skills || [])],
+//       minPrice: initialFilter.minPrice ?? null,
+//       maxPrice: initialFilter.maxPrice ?? null,
+//       deliveryTime: initialFilter.deliveryTime ?? "",
+//       minDays: initialFilter.minDays ?? null,
+//       maxDays: initialFilter.maxDays ?? null
+//     });
+
+//     setMinPrice(initialFilter.minPrice ?? "");
+//     setMaxPrice(initialFilter.maxPrice ?? "");
+//     setMinDays(initialFilter.minDays ?? "");
+//     setMaxDays(initialFilter.maxDays ?? "");
+//   }, []);
+
+//   /* ---------------- HELPERS ---------------- */
+//   const toggleItem = (key, value) => {
+//     setFilter(f => {
+//       const exists = f[key].includes(value);
+//       return {
+//         ...f,
+//         [key]: exists
+//           ? f[key].filter(v => v !== value)
+//           : [...f[key], value]
+//       };
+//     });
+//   };
+
+//   const clearAll = () => {
+//     setFilter({
+//       categories: [],
+//       services: [],
+//       skills: [],
+//       minPrice: null,
+//       maxPrice: null,
+//       deliveryTime: "",
+//       minDays: null,
+//       maxDays: null
+//     });
+//     setMinPrice("");
+//     setMaxPrice("");
+//     setMinDays("");
+//     setMaxDays("");
+//     onClose?.();
+//   };
+
+//   const applyFilters = () => {
+//     const minP = parseInt(minPrice);
+//     const maxP = parseInt(maxPrice);
+
+//     if (!isNaN(minP) && !isNaN(maxP) && minP > maxP) {
+//       alert("Min price cannot be greater than max price");
+//       return;
+//     }
+
+//     const minD = parseInt(minDays);
+//     const maxD = parseInt(maxDays);
+
+//     if (!isNaN(minD) && !isNaN(maxD) && minD > maxD) {
+//       alert("Min days cannot be greater than max days");
+//       return;
+//     }
+
+//     const finalFilter = {
+//       ...filter,
+//       minPrice: isNaN(minP) ? null : minP,
+//       maxPrice: isNaN(maxP) ? null : maxP,
+//       minDays: isNaN(minD) ? null : minD,
+//       maxDays: isNaN(maxD) ? null : maxD,
+//       postingTime: mapDeliveryToPostingTime(filter.deliveryTime)
+//     };
+
+//     onApply?.(finalFilter);
+//   };
+
+//   /* ---------------- UI ---------------- */
+//   return (
+//     <div style={styles.page}>
+//       {/* HEADER */}
+//       <div style={styles.header}>
+//         <button style={styles.back} onClick={onClose}>←</button>
+//         <h2 style={styles.title}>Filters</h2>
+//       </div>
+
+//       {/* CONTENT */}
+//       <div style={styles.body}>
+//         {/* Categories */}
+//         <Section title="Categories">
+//           {categories.map(c => (
+//             <Chip
+//               key={c}
+//               label={c}
+//               active={filter.categories.includes(c)}
+//               onClick={() => toggleItem("categories", c)}
+//             />
+//           ))}
+//         </Section>
+
+//         {/* Services */}
+//         <Section title="Service">
+//           {services.map(s => (
+//             <Chip
+//               key={s}
+//               label={s}
+//               active={filter.services.includes(s)}
+//               onClick={() => toggleItem("services", s)}
+//             />
+//           ))}
+//         </Section>
+
+//         {/* Skills */}
+//         <Section title="Skills & Tools">
+//           {skills.map(s => (
+//             <Chip
+//               key={s}
+//               label={s}
+//               active={filter.skills.includes(s)}
+//               onClick={() => toggleItem("skills", s)}
+//               removable
+//             />
+//           ))}
+//         </Section>
+
+//         {/* Price */}
+//         <Section title="Price">
+//           <div style={styles.row}>
+//             <input
+//               style={styles.input}
+//               placeholder="Min"
+//               value={minPrice}
+//               onChange={e => setMinPrice(e.target.value)}
+//             />
+//             <input
+//               style={styles.input}
+//               placeholder="Max"
+//               value={maxPrice}
+//               onChange={e => setMaxPrice(e.target.value)}
+//             />
+//           </div>
+//         </Section>
+
+//         {/* Delivery */}
+//         <Section title="Delivery Time">
+//           <Radio
+//             label="Up to 24 Hours"
+//             value="24h"
+//             checked={filter.deliveryTime === "24h"}
+//             onChange={() => setFilter(f => ({ ...f, deliveryTime: "24h" }))}
+//           />
+//           <Radio
+//             label="Up to 7 days"
+//             value="7d"
+//             checked={filter.deliveryTime === "7d"}
+//             onChange={() => setFilter(f => ({ ...f, deliveryTime: "7d" }))}
+//           />
+//           <Radio
+//             label="Custom Range"
+//             value="custom"
+//             checked={filter.deliveryTime === "custom"}
+//             onChange={() => setFilter(f => ({ ...f, deliveryTime: "custom" }))}
+//           />
+
+//           {filter.deliveryTime === "custom" && (
+//             <div style={styles.row}>
+//               <input
+//                 style={styles.input}
+//                 placeholder="Min Days"
+//                 value={minDays}
+//                 onChange={e => setMinDays(e.target.value)}
+//               />
+//               <input
+//                 style={styles.input}
+//                 placeholder="Max Days"
+//                 value={maxDays}
+//                 onChange={e => setMaxDays(e.target.value)}
+//               />
+//             </div>
+//           )}
+//         </Section>
+//       </div>
+
+//       {/* FOOTER */}
+//       <div style={styles.footer}>
+//         <button style={styles.clearBtn} onClick={clearAll}>
+//           Clear All
+//         </button>
+//         <button style={styles.applyBtn} onClick={applyFilters}>
+//           Apply Filters
+//         </button>
+//       </div>
+//     </div>
+//   );
+// }
+
+// /* ================= COMPONENTS ================= */
+
+// const Section = ({ title, children }) => (
+//   <div style={{ marginBottom: 20 }}>
+//     <h3 style={styles.section}>{title}</h3>
+//     <div style={styles.wrap}>{children}</div>
+//   </div>
+// );
+
+// const Chip = ({ label, active, onClick }) => (
+//   <div
+//     onClick={onClick}
+//     style={{
+//       ...styles.chip,
+//       background: active ? "#FDFD96" : "#FFFFDC"
+//     }}
+//   >
+//     {label}
+//   </div>
+// );
+
+// const Radio = ({ label, checked, onChange }) => (
+//   <div style={styles.radio} onClick={onChange}>
+//     <span>{label}</span>
+//     <input type="radio" checked={checked} readOnly />
+//   </div>
+// );
+
+// /* ================= UTILS ================= */
+
+// function mapDeliveryToPostingTime(delivery) {
+//   if (delivery === "24h") return "Posted Today";
+//   if (delivery === "7d") return "Last 7 Days";
+//   return "";
+// }
+
+// /* ================= STYLES ================= */
+
+// const styles = {
+//   page: {
+//     minHeight: "100vh",
+//     background: "#fff",
+//     fontFamily: "Rubik, sans-serif",
+//     display: "flex",
+//     flexDirection: "column"
+//   },
+//   header: {
+//     display: "flex",
+//     alignItems: "center",
+//     padding: 16
+//   },
+//   back: {
+//     fontSize: 20,
+//     background: "none",
+//     border: "none",
+//     cursor: "pointer"
+//   },
+//   title: {
+//     flex: 1,
+//     textAlign: "center",
+//     margin: 0
+//   },
+//   body: {
+//     padding: 16,
+//     flex: 1,
+//     overflowY: "auto"
+//   },
+//   section: {
+//     fontSize: 18,
+//     marginBottom: 10
+//   },
+//   wrap: {
+//     display: "flex",
+//     flexWrap: "wrap",
+//     gap: 8
+//   },
+//   chip: {
+//     padding: "10px 14px",
+//     borderRadius: 8,
+//     cursor: "pointer",
+//     fontSize: 14
+//   },
+//   row: {
+//     display: "flex",
+//     gap: 12
+//   },
+//   input: {
+//     flex: 1,
+//     padding: 12,
+//     borderRadius: 4,
+//     border: "none",
+//     background: "#FFFDBD"
+//   },
+//   radio: {
+//     display: "flex",
+//     justifyContent: "space-between",
+//     padding: "10px 0",
+//     cursor: "pointer"
+//   },
+//   footer: {
+//     display: "flex",
+//     gap: 12,
+//     padding: 16
+//   },
+//   clearBtn: {
+//     flex: 1,
+//     background: "#D9C6FF",
+//     border: "none",
+//     padding: 14,
+//     borderRadius: 6,
+//     fontSize: 16
+//   },
+//   applyBtn: {
+//     flex: 1,
+//     background: "#7C3CFF",
+//     color: "#fff",
+//     border: "none",
+//     padding: 14,
+//     borderRadius: 6,
+//     fontSize: 16
+//   }
+// };

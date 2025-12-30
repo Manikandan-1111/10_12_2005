@@ -460,7 +460,7 @@ export default function App() {
 
       <Route path="/job-full/:id" element={<ClientJobFullDetailJobScreen />} />
 
-
+     <Route path="/Requestmessagefreelancer" element={<RequestChatListScreen/>}></Route>
 
 
     </Routes>

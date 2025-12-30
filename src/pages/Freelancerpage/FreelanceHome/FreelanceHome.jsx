@@ -2421,6 +2421,10 @@
 // }
 
 
+
+
+
+
 import React, { useEffect, useState } from "react";
 import {
   collection,
@@ -2664,16 +2668,16 @@ export default function FreelanceHome() {
         </div>
 
         <div className="fh-header-right">
-          <img src={message} style={{ width: 31, height: 29, cursor: "pointer" }} />
+          <img src={message} onClick={navigate("")}  style={{ width: 28, height: 22, cursor: "pointer", marginLeft:"40px" }} />
 
-          <img src={notification} style={{ width: 31, height: 29, cursor: "pointer" }} />
+          <img src={notification} style={{ width: 28, height: 22, cursor: "pointer" }} />
           {notifCount > 0 && (
             <span className="notif-count">{notifCount > 9 ? "9+" : notifCount}</span>
           )}
 
           <div className="fh-avatar">
             <Link to={"/freelance-dashboard/Profilebuilder"}>
-              <img src={profile} alt="avatar" />
+              <img style={{width:"33px",height:"33px"}}  src={profile} alt="avatar" />
             </Link>
           </div>
         </div>

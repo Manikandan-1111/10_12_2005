@@ -1,64 +1,42 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import helpcenterimg from "../../assets/logo.png";
 import "./Helpcenter.css";
-import { useSearchParams } from "react-router-dom";
 
 const HelpCenter = () => {
-  // 🔥 DEFAULT TAB = PRIVACY
-  const [activeTab, setActiveTab] = useState("privacy");
-
-  const [collapsed, setCollapsed] = useState(
-    localStorage.getItem("sidebar-collapsed") === "true"
-  );
-
-  useEffect(() => {
-    function handleToggle(e) {
-      setCollapsed(e.detail);
-    }
-    window.addEventListener("sidebar-toggle", handleToggle);
-    return () => window.removeEventListener("sidebar-toggle", handleToggle);
-  }, []);
+  const [activeTab, setActiveTab] = useState("terms");
 
   return (
-    <div
-      className="freelance-wrapper"
-      style={{
-        marginLeft: collapsed ? "-110px" : "50px",
-        transition: "margin-left 0.25s ease",
-      }}
-    >
+    <div className="freelance-wrapper">
       {/* ================= NAVBAR ================= */}
       <div className="policy-navbar">
-        <div className="policy-left">
-          <img src={helpcenterimg} alt="logo" className="policy-logo" />
-          <span className="policy-title">Policy</span>
-        </div>
+        <div className="policy-navbar-inner">
+          <div className="policy-left">
+            <img src={helpcenterimg} alt="logo" className="policy-logo" />
+            <span className="policy-title">Policy</span>
+          </div>
 
-        <div className="policy-tabs">
-          <button
-            className={`policy-tab ${
-              activeTab === "terms" ? "active" : ""
-            }`}
-            onClick={() => setActiveTab("terms")}
-          >
-            Terms
-          </button>
+          <div className="policy-tabs">
+            <button
+              className={`policy-tab ${activeTab === "terms" ? "active" : ""}`}
+              onClick={() => setActiveTab("terms")}
+            >
+              Terms
+            </button>
 
-          <button
-            className={`policy-tab ${
-              activeTab === "privacy" ? "active" : ""
-            }`}
-            onClick={() => setActiveTab("privacy")}
-          >
-            Privacy
-          </button>
+            <button
+              className={`policy-tab ${activeTab === "privacy" ? "active" : ""}`}
+              onClick={() => setActiveTab("privacy")}
+            >
+              Privacy
+            </button>
 
-          <button
-            className={`policy-tab ${activeTab === "dei" ? "active" : ""}`}
-            onClick={() => setActiveTab("dei")}
-          >
-            DEI
-          </button>
+            <button
+              className={`policy-tab ${activeTab === "dei" ? "active" : ""}`}
+              onClick={() => setActiveTab("dei")}
+            >
+              DEI
+            </button>
+          </div>
         </div>
       </div>
 
@@ -73,6 +51,7 @@ const HelpCenter = () => {
 };
 
 export default HelpCenter;
+
 
 
 /* ============================== TERMS ============================== */

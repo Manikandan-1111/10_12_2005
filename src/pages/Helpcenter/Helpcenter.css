@@ -1,99 +1,81 @@
 /* ================= GLOBAL ================= */
 * {
-  font-family: "Rubik", sans-serif;
   box-sizing: border-box;
+  font-family: "Rubik", sans-serif;
 }
 
 body {
   margin: 0;
-    overflow-x: hidden;
+  overflow-x: hidden;
+}
+
+/* ================= PAGE WRAPPER ================= */
+.freelance-wrapper {
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
 }
 
 /* ================= NAVBAR ================= */
 .policy-navbar {
-  width: 100%;
+  width: 100vw;              /* ✅ full viewport width */
   background-color: #b997ff;
+  padding: 18px 28px;
+}
+
+/* Center navbar content */
+.policy-navbar-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 18px 28px;
   flex-wrap: wrap;
 }
 
-/* Left side (logo + text) */
+/* Left section */
 .policy-left {
   display: flex;
   align-items: center;
   gap: 10px;
-
 }
 
+/* Logo */
 .policy-logo {
- 
-  margin-left: 100px;
-
   width: 58px;
-height: 58px;
-opacity: 1;
-top: 46px;
-left: 51px;
-
+  height: 58px;
 }
 
+/* Title */
 .policy-title {
-
-
-
-font-weight: 400;
- font-size: 24px;
-
-line-height: 32px;
-
-width: 67px;
-height: 32px;
-
-opacity: 1;
-margin-top: 31px;
-left: 116px;
-
-
+  font-size: 24px;
+  font-weight: 400;
 }
 
-/* Center tabs */
+/* Tabs */
 .policy-tabs {
+    justify-content: center;
   display: flex;
+    flex: 1; 
   gap: 28px;
-  justify-content: center;
-  flex: 1;
 }
 
-/* Tab buttons */
 .policy-tab {
   background: none;
   border: none;
-  color: #000;
-  padding-bottom: 6px;
   cursor: pointer;
+  font-size: 24px;
+  font-weight: 400;
   position: relative;
-
-
-
-
-
-
- 
-font-weight: 400;
-
-font-size: 24px;
-
-line-height: 32px;
-letter-spacing: 0px;
-
 }
 
-/* Active tab (yellow underline like Figma) */
 .policy-tab.active {
-  color: #F8F79B;
+  color: #f8f79b;
   font-weight: 600;
 }
 
@@ -101,133 +83,74 @@ letter-spacing: 0px;
   content: "";
   position: absolute;
   left: 0;
-  bottom: 0;
+  bottom: -4px;
   width: 100%;
   height: 3px;
-  background-color: #F8F79B;
+  background-color: #f8f79b;
   border-radius: 2px;
-
-
-
-
-
-
-
-font-weight: 400;
-
-font-size: 24px;
-
-line-height: 32px;
-letter-spacing: 0px;
-
 }
 
-/* ================= CONTENT ================= */
 /* ================= CONTENT ================= */
 .policy-content {
   width: 100%;
-  max-width: none;          /* 🔴 remove desktop limit */
-  margin: 0px 60px;           /* no auto centering */
-  padding: 0 80px;          /* desktop side spacing */
+  max-width: 1400px;
+  margin: 24px auto;
+  padding: 0 48px;
   line-height: 1.7;
-  font-size: 15px;
-
 }
 
-/* Headings */
+/* Typography */
 .title-head {
-
-font-weight: 400;
-
-font-size: 64px;
-
-line-height: 38px;
-letter-spacing: 0px;
-
+  font-size: 48px;
+  line-height: 56px;
+  font-weight: 400;
 }
 
 h1 {
   font-size: 20px;
-  margin-top: 28px;
-
-
-font-weight: 400;
-
-font-size: 20px;
-
-line-height: 32px;
-letter-spacing: 0px;
-
 }
 
 h2 {
- 
-font-weight: 400;
-
-font-size: 24px;
-color: #622AD3;
-line-height: 32px;
-letter-spacing: 0px;
-
+  font-size: 24px;
+  color: #622ad3;
 }
 
-h3 {
-  font-size: 17px;
-  margin-top: 22px;
-}
-
-p,li{
-  
-font-weight: 400;
-
-font-size: 20px;
-
-line-height: 32px;
-letter-spacing: 0px;
-
+p,
+li {
+  font-size: 20px;
+  line-height: 32px;
 }
 
 /* ================= RESPONSIVE ================= */
+@media (max-width: 1024px) {
+  .policy-content {
+    padding: 0 24px;
+  }
+}
+
 @media (max-width: 768px) {
-  .policy-navbar {
+  .policy-navbar-inner {
     flex-direction: column;
     align-items: flex-start;
-    gap: 10px;
-    margin-left: -30px;
-    width: 100%;
+    gap: 12px;
   }
 
   .policy-tabs {
     width: 100%;
-    justify-content: space-around;
-    margin-top: 10px;
+    justify-content: space-between;
+  }
+
+  .policy-content {
+    padding: 0 16px;
+    margin: 16px auto;
   }
 
   .title-head {
-    font-size: 26px;
+    font-size: 32px;
+    line-height: 40px;
   }
-}
 
-@media (max-width: 480px) {
   .policy-tab {
-    font-size: 14px;
-  }
-
-  .policy-content {
-    font-size: 14px;
-    
-  }
-}
-@media (max-width: 1024px) {
-  .policy-content {
-    padding: 0 32px;
-   
-  }
-}
-
-@media (max-width: 768px) {
-  .policy-content {
-    padding: 0 16px;
-    margin-left: -20px;
+    font-size: 16px;
   }
 }

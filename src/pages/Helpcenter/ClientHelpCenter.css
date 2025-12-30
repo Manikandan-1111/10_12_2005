@@ -1,83 +1,156 @@
-.terms{
-    width: 50%;
-    background-color:none;
-    color: black;
-
-
+/* ================= GLOBAL ================= */
+* {
+  box-sizing: border-box;
+  font-family: "Rubik", sans-serif;
 }
 
-.helptitle{
-    font-weight: 100;
-    font-size: 20px;
-    margin-top: 10px;
-    color:black;
-}
-.helplogo{
-    width: 70px;
-}
-.title-head{
-    color:#622AD3;
-    justify-content: center;text-align: center;
-    font-size: 40px;
-    font-weight: 400;
- 
+body {
+  margin: 0;
+  overflow-x: hidden;
 }
 
-h1{
-      color:#622AD3;
+/* ================= PAGE WRAPPER ================= */
+.freelance-wrapper {
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
 }
 
+/* ================= NAVBAR ================= */
+.policy-navbar {
+  width: 100vw;              /* ✅ full viewport width */
+  background-color: #b997ff;
+  padding: 18px 28px;
+}
 
-/* TOP BAR WRAPPER */
-.helpcenter-top {
-  background: #c39dfa;   /* same purple from screenshot */
+/* Center navbar content */
+.policy-navbar-inner {
+  max-width: 1400px;
+  margin: 0 auto;
   width: 100%;
-  padding: 20px 40px;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 
-/* LEFT SIDE: LOGO + TITLE */
-.helpcenter-left {
+/* Left section */
+.policy-left {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
-.helpcenter-left .helplogo {
-  width: 45px;
-  height: auto;
-  border-radius: 8px;
+/* Logo */
+.policy-logo {
+  width: 58px;
+  height: 58px;
 }
 
-.helpcenter-left .helptitle {
+/* Title */
+.policy-title {
   font-size: 24px;
-  color: #000;
+  font-weight: 400;
+}
+
+/* Tabs */
+.policy-tabs {
+    justify-content: center;
+  display: flex;
+    flex: 1; 
+  gap: 28px;
+}
+
+.policy-tab {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: 400;
+  position: relative;
+}
+
+.policy-tab.active {
+  color: #f8f79b;
   font-weight: 600;
 }
 
-/* TABS ROW */
-.helpcenter-tabs {
-  display: flex;
-  align-items: center;
-  gap: 40px;
+.policy-tab.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 3px;
+  background-color: #f8f79b;
+  border-radius: 2px;
 }
 
-/* DEFAULT TAB STYLE */
-.helpcenter-tab {
-  background:violet;
-  border: none;
-  font-size: 18px;
-  cursor: pointer;
-  padding-bottom: 6px;
-  border-bottom: 3px solid transparent;
-  color: #000; /* black text */
+/* ================= CONTENT ================= */
+.policy-content {
+  width: 100%;
+  max-width: 1400px;
+  margin: 24px auto;
+  padding: 0 48px;
+  line-height: 1.7;
 }
 
-/* ACTIVE TAB */
-.helpcenter-tab.active {
-  color: #f7ff9d; /* pale yellow text */
-  border-bottom: zspx solid #f7ff9d; /* pale yellow underline */
+/* Typography */
+.title-head {
+  font-size: 48px;
+  line-height: 56px;
+  font-weight: 400;
+}
 
+h1 {
+  font-size: 20px;
+}
+
+h2 {
+  font-size: 24px;
+  color: #622ad3;
+}
+
+p,
+li {
+  font-size: 20px;
+  line-height: 32px;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 1024px) {
+  .policy-content {
+    padding: 0 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .policy-navbar-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .policy-tabs {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .policy-content {
+    padding: 0 16px;
+    margin: 16px auto;
+  }
+
+  .title-head {
+    font-size: 32px;
+    line-height: 40px;
+  }
+
+  .policy-tab {
+    font-size: 16px;
+  }
 }

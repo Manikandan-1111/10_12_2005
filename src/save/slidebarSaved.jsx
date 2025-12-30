@@ -1461,21 +1461,21 @@ export default function ServiceScreenOne() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-useEffect(() => {
-  const handleClickOutside = (e) => {
-    if (sortRef.current && !sortRef.current.contains(e.target)) {
-      setSortMenuOpen(false);
-    }
-  };
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (sortRef.current && !sortRef.current.contains(e.target)) {
+        setSortMenuOpen(false);
+      }
+    };
 
-  document.addEventListener("mousedown", handleClickOutside);
-  document.addEventListener("touchstart", handleClickOutside); // ✅ MOBILE FIX
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("touchstart", handleClickOutside); // ✅ MOBILE FIX
 
-  return () => {
-    document.removeEventListener("mousedown", handleClickOutside);
-    document.removeEventListener("touchstart", handleClickOutside);
-  };
-}, []);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("touchstart", handleClickOutside);
+    };
+  }, []);
 
 
   //---------------------------------------------------------------
@@ -1534,7 +1534,7 @@ useEffect(() => {
         paused: !job.paused,
         pausedAt: !job.paused ? serverTimestamp() : null,
       });
-    } catch (err) {}
+    } catch (err) { }
   }
 
   //---------------------------------------------------------------
@@ -1712,7 +1712,7 @@ useEffect(() => {
           </div>
         </div>
 
-        <div style={{ display: "flex", gap: 12, marginTop: 12,   flexWrap: "wrap" }}>
+        <div style={{ display: "flex", gap: 12, marginTop: 12, flexWrap: "wrap" }}>
           <button
             style={{ flex: 1, height: 40, borderRadius: 30, border: "1px solid #BDBDBD", backgroundColor: "#FFF", fontSize: 13, fontWeight: 600 }}
             onClick={(e) => togglePause(job, "services", e)}
@@ -1779,33 +1779,42 @@ useEffect(() => {
       }}
     >
       {/* HEADER */}
+      {/* HEADER */}
       <div
         style={{
-          width: isMobile ? "90%" : 928,
+          width: isMobile ? "100%" : 928,
           display: "flex",
-          flexDirection: isMobile ? "column" : "row",
-          alignItems: isMobile ? "flex-start" : "center",
-          gap: 8,
+          flexDirection: "column",
+          alignItems: "center",
           marginBottom: 16,
+          position: "relative",
+
+          paddingTop: isMobile ? 24 : 0,   // 🔥 MOBILE TOP GAP
         }}
       >
+
         <div
+          onClick={() => navigate(-1)}
           style={{
-            width: 30,
-            height: 30,
-            borderRadius: 14,
-            border: "0.8px solid #ccc",
+            width: 38,
+            height: 38,
+            borderRadius: 12,
+            border: "1px solid #ccc",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
+            background: "#fff",
             cursor: "pointer",
-            flexShrink: 0,
-            marginBottom: 18,
+            marginTop: "-20px"
           }}
-          onClick={() => navigate(-1)}
         >
-          <img src={backarrow} style={{ width: 17, height: 19 }} />
+          <img
+            src={backarrow}
+            alt="back"
+            style={{ width: 18 }}
+          />
         </div>
+
 
         <div style={{ display: "flex", flexDirection: "column", marginLeft: isMobile ? 0 : 4 }}>
           <div style={{ fontWeight: 400, fontSize: isMobile ? 24 : 36 }}>Your Service</div>
@@ -1879,17 +1888,17 @@ useEffect(() => {
         >
           <img src={search} alt="search" style={{ width: "20px" }} />
           <input
-            style={{ border: "none", outline: "none", flex: 1, marginLeft: 8, fontSize: 14 ,marginTop:10,}}
+            style={{ border: "none", outline: "none", flex: 1, marginLeft: 8, fontSize: 14, marginTop: 10, }}
             placeholder="Search services"
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
           />
         </div>
 
-       <div 
-  ref={sortRef}
-  style={{ position: "relative", marginTop: isMobile ? 8 : 0 }}
->
+        <div
+          ref={sortRef}
+          style={{ position: "relative", marginTop: isMobile ? 8 : 0 }}
+        >
 
           <div
             style={{
@@ -1904,10 +1913,10 @@ useEffect(() => {
               fontWeight: 600,
               cursor: "pointer",
             }}
-        onClick={(e) => {
-  e.stopPropagation(); // ✅ critical for mobile
-  setSortMenuOpen(!sortMenuOpen);
-}}
+            onClick={(e) => {
+              e.stopPropagation(); // ✅ critical for mobile
+              setSortMenuOpen(!sortMenuOpen);
+            }}
 
           >
             Sort
@@ -1931,11 +1940,11 @@ useEffect(() => {
                 <div
                   key={opt}
                   style={{ padding: "8px 12px", cursor: "pointer", fontSize: 14 }}
-                onClick={(e) => {
-  e.stopPropagation(); // ✅ prevents immediate close
-  setSortOption(opt);
-  setSortMenuOpen(false);
-}}
+                  onClick={(e) => {
+                    e.stopPropagation(); // ✅ prevents immediate close
+                    setSortOption(opt);
+                    setSortMenuOpen(false);
+                  }}
 
                 >
                   {opt.charAt(0).toUpperCase() + opt.slice(1)}

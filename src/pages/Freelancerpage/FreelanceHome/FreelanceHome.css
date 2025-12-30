@@ -9,6 +9,7 @@
 .fh-page > .fh-main {
   width: 100%;
   max-width: var(--max-width);
+  
 
 }
 /* Main header wrapper */
@@ -17,6 +18,7 @@
 
 .fh-title{
 font-weight: 400;
+
 }
 .fh-subtitle{
     font-weight: 100;
@@ -43,6 +45,7 @@ font-weight: 400;
 /* Align avatars and icons to the right */
 .fh-header-right {
   position: absolute;
+  margin-left: 30px;
   right: 20px;
   top: 20px;
   display: flex;
@@ -102,6 +105,7 @@ font-weight: 400;
 /* Right side header icons + avatar */
 .fh-header-right {
   display: flex;
+  
   align-items: center;
   gap: 16px;
   position: absolute;
@@ -141,8 +145,8 @@ font-weight: 400;
 
 /* Avatar */
 .fh-avatar img {
-  width: 42px;
-  height: 42px;
+  width: 22px;
+  height: 28px;
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid #ddd;
@@ -521,6 +525,7 @@ padding: 22px;
   overflow-x: hidden !important;
   overflow-y: auto;        /* 🔥 allow vertical scrolling */
   min-height: 100vh;       /* ensure page can scroll */
+  margin-top: "60px";
 }
 
 /* Ensure job cards never exceed screen width */
@@ -686,8 +691,8 @@ padding: 22px;
 
   /* Avatar smaller */
   .fh-avatar img {
-    width: 32px;
-    height: 32px;
+    width: 22px;
+    height: 22px;
   }
 
   /* Notification badge positioning fix */
@@ -719,6 +724,7 @@ padding: 22px;
   overflow-y: auto;        /* 🔥 allow vertical scroll */
   overflow-x: hidden;
   min-height: 100vh;
+  padding-top: 22px;
 
 
 }
@@ -733,6 +739,7 @@ padding: 22px;
   .freelance-wrapper {
     margin-left: 0 !important;
     padding: 22px;
+    padding-top: 40px;
   }
   .img-4, .img-2 {  left: 80px;width: 340px;height: 400px;  }
  
@@ -751,16 +758,23 @@ padding: 22px;
 
 /* Icons container */
 .fh-header-right {
-  position: absolute;      /* 🔥 NOT fixed */
-  top: 16px;
+  position: absolute !important;
+  top: 35px;          /* 🔥 DESKTOP GAP */
   right: 20px;
 
   display: flex;
   align-items: center;
   gap: 16px;
-
   z-index: 1000;
 }
+@media (max-width: 768px) {
+  .fh-header-right {
+    top: 20px;        /* 🔥 MOBILE GAP */
+    right: 14px;
+    gap: 12px;
+  }
+}
+
 
 /* Icon images */
 .fh-header-right img {
@@ -790,6 +804,7 @@ padding: 22px;
   padding: 2px 6px;
   border-radius: 50%;
   font-weight: 600;
+  
 }
 
 /* ===============================
@@ -798,19 +813,19 @@ padding: 22px;
 
 @media (max-width: 768px) {
   .fh-header-right {
-    top: 72px;
+    top: 47px;
     right: 14px;
     gap: 12px;
   }
 
   .fh-header-right img {
-    width: 26px;
-    height: 26px;
+    width: 22px;
+    height: 22px;
   }
 
   .fh-avatar img {
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
   }
 
   .notif-count {

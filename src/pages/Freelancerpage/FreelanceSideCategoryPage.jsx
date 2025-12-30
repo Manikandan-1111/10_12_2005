@@ -13,6 +13,14 @@ import {
 import { getAuth } from "firebase/auth";
 import { db } from "../../firbase/Firebase"; // ✅ assume initialized
 
+import search from "../../assets/search .png";
+import eye from "../../assets/eye.png";
+import clock from "../../assets/clock.png";
+import saved from "../../assets/save.png";
+import save from "../../assets/save2.png";
+import backarrow from "../../assets/backarrow.png";
+
+
 /* =========================
    ENUMS
 ========================= */
@@ -43,6 +51,10 @@ const formatCurrency = (amount = 0) => {
   return amount;
 };
 
+
+
+
+
 const timeAgo = (date) => {
   if (!date) return "";
   const diff = Date.now() - date.getTime();
@@ -69,7 +81,12 @@ export default function JobSearchScreen() {
   const auth = getAuth();
   const uid = auth.currentUser?.uid;
 
-  const [selectedTab, setSelectedTab] = useState(0); // 0 Work | 1 24h | 2 Saved
+  const [collapsed, setCollapsed] = useState(
+    localStorage.getItem("sidebar-collapsed") === "true"
+  );
+
+
+  const [selectedTab, setSelectedTab] = useState(0); 
   const [filters, setFilters] = useState(defaultFilters);
 
   const [jobs, setJobs] = useState([]);
@@ -136,6 +153,15 @@ export default function JobSearchScreen() {
     });
   }, [uid]);
 
+  useEffect(() => {
+    function handleToggle(e) {
+      setCollapsed(e.detail);
+    }
+    window.addEventListener("sidebar-toggle", handleToggle);
+    return () => window.removeEventListener("sidebar-toggle", handleToggle);
+  }, []);
+
+
   /* =========================
      FILTER + SORT
   ========================= */
@@ -159,6 +185,7 @@ export default function JobSearchScreen() {
 
       return true;
     });
+
 
     const sorted = [...list];
 
@@ -197,399 +224,281 @@ export default function JobSearchScreen() {
      UI
   ========================= */
   return (
-    <div className="job-search">
-      <h2>Browse Projects</h2>
+    <div
+      className="freelance-wrapper"
+      style={{
+        marginLeft: collapsed ? "-110px" : "90px",
+        transition: "margin-left 0.25s ease",
+      }}
+    >
+      <div className="job-search">
+        <h2>Browse Projects</h2>
 
-      {/* SEARCH */}
-      <input
-        placeholder="Search jobs..."
-        value={filters.searchQuery}
-        onChange={(e) =>
-          setFilters({ ...filters, searchQuery: e.target.value })
-        }
-      />
-      <p>filter</p>
+        {/* SEARCH */}
+        <input
+          placeholder="Search jobs..."
+          value={filters.searchQuery}
+          onChange={(e) =>
+            setFilters({ ...filters, searchQuery: e.target.value })
+          }
+        />
+        <p style={{ fontSize: "30px", fontWeight: "300px" }}>filter</p>
 
-      {/* SORT */}
-      <div className="sort">
-        {Object.values(JobSortOption).map((opt) => (
-          <button
-            key={opt}
-            className={filters.sortOption === opt ? "active" : ""}
-            onClick={() => setFilters({ ...filters, sortOption: opt })}
-          >
-            {opt}
-          </button>
-        ))}
-      </div>
+        {/* SORT */}
+        <div className="sort">
+          {Object.values(JobSortOption).map((opt) => (
+            <button
+              key={opt}
+              className={filters.sortOption === opt ? "active" : ""}
+              onClick={() => setFilters({ ...filters, sortOption: opt })}
+            >
+              {opt}
+            </button>
+          ))}
+        </div>
 
-      {/* TABS */}
-      <div className="tabs">
-        {["Work", "24 Hour", "Saved"].map((t, i) => (
-          <button
-            key={i}
-            className={selectedTab === i ? "active" : ""}
-            onClick={() => setSelectedTab(i)}
-          >
-            {t}
-          </button>
-        ))}
-      </div>
+        {/* TABS */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: 10,
 
-      {/* JOB LIST */}
-      <div className="jobs">
-        {filteredJobs.length === 0 && (
-          <p style={{ opacity: 0.6 }}>No jobs found</p>
-        )}
+            padding: 10,
+            margin: "12px 36px",
+            marginLeft:"10px",
+            borderRadius: 20,
+            // background: "linear-gradient(90deg, #F1EAFF 0%, #FFF7DB 100%)",
+            boxShadow: "0 8px 20px rgba(0,0,0,0.12)",
+          }}
+        >
+          {["Work", "24 Hours", "Saved"].map((t, i) => {
+            const isActive = selectedTab === i;
 
-        {filteredJobs.map((job) => (
-          <div key={job.id} className="job-card">
-            <div className="row">
-              <h3>{job.title}</h3>
-              <span>
-                ₹
-                {job.budget_from && job.budget_to
-                  ? `${formatCurrency(job.budget_from)} - ${formatCurrency(
-                      job.budget_to
-                    )}`
-                  : formatCurrency(job.budget)}
-              </span>
-            </div>
+            return (
+              <button
+                key={i}
+                onClick={() => setSelectedTab(i)}
+                style={{
+                  border: "none",
+                  outline: "none",
+                  cursor: "pointer",
 
-            <p>{job.description}</p>
+                  padding: "9px 42px",
+                  borderRadius: 999,
 
-            <div className="skills">
-              {job.skills?.slice(0, 3).map((s) => (
-                <span key={s}>{s}</span>
-              ))}
-            </div>
+                  fontSize: 14,
+                  fontWeight: 500,
 
-            <div className="footer">
-              <span>👁 {job.views}</span>
-              <span>⏱ {timeAgo(job.createdAt)}</span>
+                  background: isActive ? "#fff" : "transparent",
+                  color: "#000",
 
-              <button onClick={() => toggleSave(job.id)}>
-                {savedJobs.includes(job.id) ? "🔖" : "📑"}
+                  boxShadow: isActive
+                    ? "0 6px 20px 0 rgba(0, 0, 0, 0.19)"
+                    : "none",
+
+                  transition: "all 0.25s ease",
+                }}
+              >
+                {t}
               </button>
+            );
+          })}
+        </div>
+
+
+        {/* JOB LIST */}
+        <div className="jobs" style={{ overflow: "visible" }}>
+
+          {filteredJobs.length === 0 && (
+            <p style={{ opacity: 0.6 }}>No jobs found</p>
+          )}
+
+          {filteredJobs.map((job) => (
+            <div
+              key={job.id}
+              style={{
+                marginTop: "20px",
+                background: "#FFFFFF",
+                borderRadius: 20,
+                padding: 22,
+                marginBottom: 18,
+
+                boxShadow: "0 0px 6px rgba(0,0,0,0.15)",
+                position: "relative",
+
+                width: "98%",            // 🔥 FIX
+                boxSizing: "border-box",  // 🔥 KEEP
+              }}
+            >
+
+
+              {/* TOP ROW */}
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "flex-start",
+                }}
+              >
+                {/* LEFT */}
+                <div>
+                  <div
+                    style={{
+                      fontSize: 18,
+                      fontWeight: 500,
+                      color: "#000",
+                    }}
+                  >
+                    {job.company || "Zuntra digital PVT"}
+                  </div>
+
+                  <div
+                    style={{
+                      fontSize: 15,
+                      fontWeight: 400,
+                      marginTop: 6,
+                      color: "#222",
+                    }}
+                  >
+                    {job.title}
+                  </div>
+                </div>
+
+                {/* RIGHT */}
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 16,
+                  }}
+                >
+                  <div
+                    style={{
+                      fontSize: 15,
+                      fontWeight: 500,
+                      color: "#000",
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    ₹ {formatCurrency(job.budget)} /per day
+                  </div>
+
+                  <button
+                    onClick={() => toggleSave(job.id)}
+                    style={{
+                      background: "transparent",
+                      border: "none",
+                      cursor: "pointer",
+                      padding: 0,
+                    }}
+                  >
+                    <img
+                      src={savedJobs.includes(job.id) ? saved : save}
+                      alt="save"
+                      style={{ width: 20 }}
+                    />
+                  </button>
+                </div>
+              </div>
+
+
+              {/* SKILLS */}
+              <div style={{ marginTop: 14 }}>
+                <div
+                  style={{
+                    fontSize: 13,
+                    color: "#555",
+                    marginBottom: 6,
+                  }}
+                >
+                  Skills Required
+                </div>
+
+                <div
+                  style={{
+                    display: "flex",
+                    gap: 8,
+                    flexWrap: "wrap",
+                  }}
+                >
+                  {job.skills?.slice(0, 3).map((s) => (
+                    <span
+                      key={s}
+                      style={{
+                        background: "#FFF3A0",
+                        padding: "6px 12px",
+                        borderRadius: 999,
+                        fontSize: 12,
+                        fontWeight: 500,
+                        color: "#000",
+                      }}
+                    >
+                      {s}
+                    </span>
+                  ))}
+
+                  {job.skills?.length > 3 && (
+                    <span
+                      style={{
+                        background: "#FFF3A0",
+                        padding: "6px 12px",
+                        borderRadius: 999,
+                        fontSize: 12,
+                        fontWeight: 500,
+                        color: "#000",
+                      }}
+                    >
+                      4+
+                    </span>
+                  )}
+                </div>
+              </div>
+
+              {/* DESCRIPTION */}
+              <p
+                style={{
+                  marginTop: 14,
+                  fontSize: 14,
+                  color: "#444",
+                  lineHeight: 1.6,
+                }}
+              >
+                {job.description}
+              </p>
+
+              {/* FOOTER */}
+              <div
+                style={{
+                  marginTop: 16,
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  fontSize: 12,
+                  color: "#666",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    gap: 16,
+                    alignItems: "center",
+                  }}
+                >
+                  <span><img src={eye} alt="eye" style={{ width: "14px" }} /> {job.views} Impression</span>
+                  <span><img src={clock} style={{ width: "14px", marginTop: "10px" }} alt="clock" /> {timeAgo(job.createdAt)}</span>
+                </div>
+
+
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+
+
       </div>
     </div>
   );
 }
 
-
-
-
-
-
-
-
-
-
-
-// // Filter.jsx
-// import React, { useEffect, useState } from "react";
-
-// /* =========================
-//    MODEL
-// ========================= */
-// const emptyFilter = {
-//   categories: [],
-//   services: [],
-//   skills: [],
-//   minPrice: null,
-//   maxPrice: null,
-//   deliveryTime: "",
-//   minDays: null,
-//   maxDays: null,
-// };
-
-// /* =========================
-//    COMPONENT
-// ========================= */
-// export default function FilterScreen({
-//   initialFilter = emptyFilter,
-//   onApply,
-//   onClose,
-// }) {
-//   /* ---------------- STATE ---------------- */
-//   const [filter, setFilter] = useState({ ...initialFilter });
-
-//   const [minPrice, setMinPrice] = useState("");
-//   const [maxPrice, setMaxPrice] = useState("");
-//   const [minDays, setMinDays] = useState("");
-//   const [maxDays, setMaxDays] = useState("");
-
-//   /* ---------------- DATA ---------------- */
-//   const categories = [
-//     'Graphics & Design',
-//     'Programming & Tech',
-//     'Digital Marketing',
-//     'Writing & Translation',
-//     'Video & Animation',
-//     'Music & Audio',
-//     'AI Services',
-//     'Data',
-//     'Business',
-//     'Finance',
-//     'Photography',
-//     'Lifestyle',
-//     'Consulting',
-//     'Personal Growth & Hobbies',
-//   ];
-
-//   const services = [
-//     "Graphic Design",
-//     "UI UX",
-//     "Web Development",
-//     "App Development",
-//     "Game Development",
-//     "SEO",
-//     "Social Media Marketing",
-//     "Content Writing",
-//     "Video Editing",
-//     "Voice Over",
-//   ];
-
-//   const skills = [
-//     "Figma",
-//     "React",
-//     "Python",
-//     "SQL",
-//     "Photoshop",
-//     "Illustrator",
-//     "JavaScript",
-//     "Flutter",
-//     "Node.js",
-//     "MongoDB",
-//   ];
-
-//   /* ---------------- INIT ---------------- */
-//   useEffect(() => {
-//     setMinPrice(filter.minPrice ?? "");
-//     setMaxPrice(filter.maxPrice ?? "");
-//     setMinDays(filter.minDays ?? "");
-//     setMaxDays(filter.maxDays ?? "");
-//   }, []);
-
-//   /* ---------------- HELPERS ---------------- */
-//   const toggleValue = (key, value) => {
-//     setFilter((prev) => ({
-//       ...prev,
-//       [key]: prev[key].includes(value)
-//         ? prev[key].filter((v) => v !== value)
-//         : [...prev[key], value],
-//     }));
-//   };
-
-//   const yellowInput = {
-//     padding: "12px",
-//     background: "#FFFDBD",
-//     borderRadius: 4,
-//     border: "none",
-//     width: "100%",
-//     fontSize: 14,
-//   };
-
-//   /* ---------------- APPLY ---------------- */
-//   const applyFilters = () => {
-//     const minP = minPrice ? parseInt(minPrice) : null;
-//     const maxP = maxPrice ? parseInt(maxPrice) : null;
-
-//     if (minP !== null && maxP !== null && minP > maxP) {
-//       alert("Min price cannot be greater than max price");
-//       return;
-//     }
-
-//     const minD = minDays ? parseInt(minDays) : null;
-//     const maxD = maxDays ? parseInt(maxDays) : null;
-
-//     if (minD !== null && maxD !== null && minD > maxD) {
-//       alert("Min days cannot be greater than max days");
-//       return;
-//     }
-
-//     onApply({
-//       ...filter,
-//       minPrice: minP,
-//       maxPrice: maxP,
-//       minDays: minD,
-//       maxDays: maxD,
-//     });
-//   };
-
-//   /* =========================
-//      RENDER
-//   ========================= */
-//   return (
-//     <div style={{ padding: 16, background: "#fff" }}>
-//       {/* HEADER */}
-//       <div style={{ display: "flex", alignItems: "center", marginBottom: 20 }}>
-//         <button onClick={onClose} style={{ fontSize: 18 }}>←</button>
-//         <h2 style={{ margin: "0 auto", fontWeight: 400 }}>Filters</h2>
-//       </div>
-
-//       {/* CATEGORIES */}
-//       <Header title="Categories" />
-//       <Wrap>
-//         {categories.map((c) => (
-//           <Chip
-//             key={c}
-//             label={c}
-//             selected={filter.categories.includes(c)}
-//             onClick={() => toggleValue("categories", c)}
-//           />
-//         ))}
-//       </Wrap>
-
-//       {/* SERVICES */}
-//       <Header title="Service" />
-//       <Wrap>
-//         {services.map((s) => (
-//           <Chip
-//             key={s}
-//             label={s}
-//             selected={filter.services.includes(s)}
-//             onClick={() => toggleValue("services", s)}
-//           />
-//         ))}
-//       </Wrap>
-
-//       {/* SKILLS */}
-//       <Header title="Skills & Tools" />
-//       <Wrap>
-//         {skills.map((s) => (
-//           <Chip
-//             key={s}
-//             label={s}
-//             selected={filter.skills.includes(s)}
-//             onClick={() => toggleValue("skills", s)}
-//             removable
-//           />
-//         ))}
-//       </Wrap>
-
-//       {/* PRICE */}
-//       <Header title="Price" />
-//       <div style={{ display: "flex", gap: 12 }}>
-//         <input
-//           placeholder="Min"
-//           value={minPrice}
-//           onChange={(e) => setMinPrice(e.target.value)}
-//           style={yellowInput}
-//         />
-//         <input
-//           placeholder="Max"
-//           value={maxPrice}
-//           onChange={(e) => setMaxPrice(e.target.value)}
-//           style={yellowInput}
-//         />
-//       </div>
-
-//       {/* DELIVERY */}
-//       <Header title="Delivery Time" />
-//       {[
-//         ["Up to 24 Hours", "24h"],
-//         ["Up to 7 days", "7d"],
-//         ["Custom Range", "custom"],
-//       ].map(([label, value]) => (
-//         <label key={value} style={{ display: "flex", margin: "10px 0" }}>
-//           <input
-//             type="radio"
-//             checked={filter.deliveryTime === value}
-//             onChange={() =>
-//               setFilter((p) => ({ ...p, deliveryTime: value }))
-//             }
-//           />
-//           <span style={{ marginLeft: 8 }}>{label}</span>
-//         </label>
-//       ))}
-
-//       {filter.deliveryTime === "custom" && (
-//         <div style={{ display: "flex", gap: 12 }}>
-//           <input
-//             placeholder="Min Days"
-//             value={minDays}
-//             onChange={(e) => setMinDays(e.target.value)}
-//             style={yellowInput}
-//           />
-//           <input
-//             placeholder="Max Days"
-//             value={maxDays}
-//             onChange={(e) => setMaxDays(e.target.value)}
-//             style={yellowInput}
-//           />
-//         </div>
-//       )}
-
-//       {/* BUTTONS */}
-//       <div style={{ display: "flex", gap: 14, marginTop: 30 }}>
-//         <button
-//           style={{
-//             flex: 1,
-//             background: "#D9C6FF",
-//             height: 48,
-//             borderRadius: 6,
-//             border: "none",
-//           }}
-//           onClick={() => onApply(emptyFilter)}
-//         >
-//           Clear All
-//         </button>
-
-//         <button
-//           style={{
-//             flex: 1,
-//             background: "#7C3CFF",
-//             color: "#fff",
-//             height: 48,
-//             borderRadius: 6,
-//             border: "none",
-//           }}
-//           onClick={applyFilters}
-//         >
-//           Apply Filters
-//         </button>
-//       </div>
-//     </div>
-//   );
-// }
-
-// /* =========================
-//    SMALL COMPONENTS
-// ========================= */
-// function Header({ title }) {
-//   return (
-//     <div style={{ margin: "20px 0 10px", fontSize: 20, fontWeight: 400 }}>
-//       {title}
-//     </div>
-//   );
-// }
-
-// function Wrap({ children }) {
-//   return (
-//     <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>{children}</div>
-//   );
-// }
-
-// function Chip({ label, selected, onClick, removable }) {
-//   return (
-//     <div
-//       onClick={onClick}
-//       style={{
-//         padding: "10px 14px",
-//         borderRadius: 8,
-//         background: selected ? "#FDFD96" : "#FFFFDC",
-//         cursor: "pointer",
-//         display: "flex",
-//         alignItems: "center",
-//         gap: 6,
-//       }}
-//     >
-//       {label}
-//       {removable && selected && <span style={{ fontSize: 12 }}>✕</span>}
-//     </div>
-//   );
-// }
