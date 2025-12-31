@@ -859,10 +859,255 @@
 // };
 
 
+
+
+
+
+
+
+
+
+
+
+
+// import React, { useState, useEffect } from "react";
+// import { useNavigate, useLocation } from "react-router-dom";
+// import { auth, db } from "../firbase/Firebase";
+// import { doc, setDoc, serverTimestamp } from "firebase/firestore";
+
+// export default function ClientDetails() {
+//   const navigate = useNavigate();
+//   const location = useLocation();
+//   const passed = location.state || {};
+
+//   const [companyName, setCompanyName] = useState("");
+//   const [businessInfo, setBusinessInfo] = useState("");
+//   const [teamSize, setTeamSize] = useState("");
+//   const [loading, setLoading] = useState(false);
+
+//   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+//   useEffect(() => {
+//     const onResize = () => setIsMobile(window.innerWidth <= 768);
+//     window.addEventListener("resize", onResize);
+//     return () => window.removeEventListener("resize", onResize);
+//   }, []);
+
+//   useEffect(() => {
+//     if (!passed.email) {
+//       alert("Signup data missing. Please start again.");
+//       navigate("/client-signup");
+//     }
+//   }, []);
+
+//   const handleContinue = async () => {
+//     if (!companyName.trim()) return alert("Enter company name");
+//     if (!businessInfo.trim()) return alert("Tell about your business");
+//     if (!teamSize.trim()) return alert("Enter your team size");
+
+//     try {
+//       setLoading(true);
+//       const user = auth.currentUser;
+//       const encodedPass = passed.password ? btoa(passed.password) : "";
+
+//       await setDoc(
+//         doc(db, "users", user.uid),
+//         {
+//           uid: user.uid,
+//           firstName: passed.firstName,
+//           lastName: passed.lastName,
+//           email: passed.email,
+//           password: encodedPass,
+//           companyName,
+//           businessInfo,
+//           teamSize,
+//           role: "client",
+//           profileCompleted: true,
+//           updated_at: serverTimestamp(),
+//         },
+//         { merge: true }
+//       );
+
+//       navigate("/client-details2", { replace: true });
+//     } catch {
+//       alert("Something went wrong");
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   return (
+//     <div style={{ ...styles.bg, overflowY: isMobile ? "auto" : "hidden" }}>
+//       {/* TOP ROW */}
+// <div
+//   style={{
+//     ...styles.topRow,
+//     width: isMobile ? "100%" : 790,
+//     marginTop: isMobile ? 16 : 0,
+//     position: isMobile ? "relative" : "static",
+//     justifyContent: isMobile ? "center" : "flex-start",
+//   }}
+// >
+//   <span
+//     style={{
+//       ...styles.backArrow,
+//       position: isMobile ? "absolute" : "static",
+//       left: isMobile ? 16 : "auto",
+//       marginLeft: isMobile ? 0 : -20,
+//     }}
+//     onClick={() => navigate(-1)}
+//   >
+//     ←
+//   </span>
+
+//   <span
+//     style={{
+//       ...styles.topText,
+//       transform: isMobile ? "translateX(-90px)" : "none", // 🔥 MOBILE LEFT SHIFT
+//     }}
+//   >
+//     sign up as Client
+//   </span>
+// </div>
+
+
+//       {/* CARD */}
+//       <div
+//         style={{
+//           ...styles.card,
+//           width: isMobile ? "calc(100% - 32px)" : 650,
+//           margin: isMobile ? "0 auto" : "0",
+//           marginTop: isMobile ? 30 : 0,
+//           padding: isMobile ? "28px 30px" : "55px 55px",
+//         }}
+//       >
+//         <h3 style={styles.heading}>
+//           We’d like to get to know you better – this will
+//           <br /> only take a moment.
+//         </h3>
+
+//         <input
+//           placeholder="Company name"
+//           value={companyName}
+//           onChange={(e) => setCompanyName(e.target.value)}
+//           style={styles.input}
+//         />
+
+//         <input
+//           placeholder="Tell about your business?"
+//           value={businessInfo}
+//           onChange={(e) => setBusinessInfo(e.target.value)}
+//           style={styles.input}
+//         />
+
+//         <input
+//           placeholder="What is your team size"
+//           value={teamSize}
+//           onChange={(e) => setTeamSize(e.target.value)}
+//           style={styles.input}
+//         />
+
+//         <button
+//           style={styles.button}
+//           onClick={handleContinue}
+//           disabled={loading}
+//         >
+//           {loading ? "Saving..." : "CONTINUE"}
+//         </button>
+//       </div>
+//     </div>
+//   );
+// }
+
+// /* ---------------- STYLES (UI UNCHANGED) ---------------- */
+// const styles = {
+//   bg: {
+//     width: "100vw",
+//     minHeight: "100vh",
+//     background:
+//       "radial-gradient(circle at 10% 90%, #ffffdd 0%, #ffffff 30%, #f3eaff 100%)",
+//     display: "flex",
+//     flexDirection: "column",
+//     alignItems: "center",
+//     paddingTop: 40,
+//     fontFamily: "Inter, sans-serif",
+//   },
+
+//   topRow: {
+//     display: "flex",
+//     alignItems: "center",
+//     gap: 6,
+//     marginBottom: 20,
+//   },
+
+//   backArrow: {
+//     fontSize: 20,
+//     cursor: "pointer",
+//     fontWeight: 600,
+//   },
+
+//   topText: {
+//     fontWeight: 700,
+//     fontSize: 16,
+//     marginLeft:"10px"
+//   },
+
+//   card: {
+//     background: "#fff",
+//     borderRadius: 26,
+//     boxShadow: "0 12px 40px rgba(0,0,0,0.12)",
+//     textAlign: "center",
+//   },
+
+//   heading: {
+//     fontSize: 16,
+//     fontWeight: 400,
+//     marginBottom: 35,
+//     color: "#000",
+//     lineHeight: "24px",
+//   },
+
+//   input: {
+//     width: "100%",
+//     padding: "16px",
+//     fontSize: 15,
+//     borderRadius: 14,
+//     border: "1px solid #e5e5e5",
+//     outline: "none",
+//     marginBottom: 18,
+//   },
+
+//   button: {
+//     width: "100%",
+//     padding: "16px",
+//     borderRadius: 16,
+//     background: "#7C3CFF",
+//     color: "#fff",
+//     border: "none",
+//     fontSize: 16,
+//     fontWeight: 600,
+//     cursor: "pointer",
+//   },
+// };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { auth, db } from "../firbase/Firebase";
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
+import backarrow from "../assets/backarrow.png";
 
 export default function ClientDetails() {
   const navigate = useNavigate();
@@ -874,12 +1119,13 @@ export default function ClientDetails() {
   const [teamSize, setTeamSize] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
-
   useEffect(() => {
-    const onResize = () => setIsMobile(window.innerWidth <= 768);
-    window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
+    document.documentElement.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.documentElement.style.overflow = "";
+      document.body.style.overflow = "";
+    };
   }, []);
 
   useEffect(() => {
@@ -917,7 +1163,7 @@ export default function ClientDetails() {
         { merge: true }
       );
 
-      navigate("/client-dashbroad2/clienthome", { replace: true });
+      navigate("/client-details2", { replace: true });
     } catch {
       alert("Something went wrong");
     } finally {
@@ -926,50 +1172,21 @@ export default function ClientDetails() {
   };
 
   return (
-    <div style={{ ...styles.bg, overflowY: isMobile ? "auto" : "hidden" }}>
-      {/* TOP ROW */}
-<div
-  style={{
-    ...styles.topRow,
-    width: isMobile ? "100%" : 790,
-    marginTop: isMobile ? 16 : 0,
-    position: isMobile ? "relative" : "static",
-    justifyContent: isMobile ? "center" : "flex-start",
-  }}
->
-  <span
-    style={{
-      ...styles.backArrow,
-      position: isMobile ? "absolute" : "static",
-      left: isMobile ? 16 : "auto",
-      marginLeft: isMobile ? 0 : -20,
-    }}
-    onClick={() => navigate(-1)}
-  >
-    ←
-  </span>
+    <div style={styles.page}>
+      {/* 🔝 TOP BAR (OUTSIDE CARD) */}
+      <div style={styles.topBar}>
+       <img
+  src={backarrow}
+  alt="back"
+  style={styles.backArrow}
+  onClick={() => navigate(-1)}
+/>
 
-  <span
-    style={{
-      ...styles.topText,
-      transform: isMobile ? "translateX(-90px)" : "none", // 🔥 MOBILE LEFT SHIFT
-    }}
-  >
-    sign up as Client
-  </span>
-</div>
+        <span style={styles.topTitle}>sign up as Client</span>
+      </div>
 
-
-      {/* CARD */}
-      <div
-        style={{
-          ...styles.card,
-          width: isMobile ? "calc(100% - 32px)" : 650,
-          margin: isMobile ? "0 auto" : "0",
-          marginTop: isMobile ? 30 : 0,
-          padding: isMobile ? "28px 30px" : "55px 55px",
-        }}
-      >
+      {/* 🧩 CARD */}
+      <div style={styles.card}>
         <h3 style={styles.heading}>
           We’d like to get to know you better – this will
           <br /> only take a moment.
@@ -1008,51 +1225,61 @@ export default function ClientDetails() {
   );
 }
 
-/* ---------------- STYLES (UI UNCHANGED) ---------------- */
+/* ---------------- STYLES ---------------- */
+
 const styles = {
-  bg: {
+  page: {
+    height: "100vh",
     width: "100vw",
-    minHeight: "100vh",
     background:
       "radial-gradient(circle at 10% 90%, #ffffdd 0%, #ffffff 30%, #f3eaff 100%)",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    paddingTop: 40,
+    justifyContent: "center",
+    padding: "16px",
+    boxSizing: "border-box",
     fontFamily: "Inter, sans-serif",
+    overflow: "hidden",
   },
 
-  topRow: {
+  /* 🔝 TOP BAR */
+  topBar: {
+    width: "100%",
+    maxWidth: 650,
     display: "flex",
     alignItems: "center",
-    gap: 6,
-    marginBottom: 20,
+    gap: 8,
+    marginBottom: 16,
   },
 
-  backArrow: {
-    fontSize: 20,
-    cursor: "pointer",
-    fontWeight: 600,
-  },
+ backArrow: {
+  width: 22,
+  height: 22,
+  cursor: "pointer",
+},
 
-  topText: {
-    fontWeight: 700,
+  topTitle: {
     fontSize: 16,
-    marginLeft:"10px"
+    fontWeight: 700,
   },
 
+  /* 🧩 CARD */
   card: {
+    width: "100%",
+    maxWidth: 650,
     background: "#fff",
     borderRadius: 26,
+    padding: "36px 24px 44px",
     boxShadow: "0 12px 40px rgba(0,0,0,0.12)",
     textAlign: "center",
+    boxSizing: "border-box",
   },
 
   heading: {
     fontSize: 16,
     fontWeight: 400,
-    marginBottom: 35,
-    color: "#000",
+    marginBottom: 32,
     lineHeight: "24px",
   },
 
@@ -1064,6 +1291,7 @@ const styles = {
     border: "1px solid #e5e5e5",
     outline: "none",
     marginBottom: 18,
+    boxSizing: "border-box",
   },
 
   button: {
@@ -1078,4 +1306,3 @@ const styles = {
     cursor: "pointer",
   },
 };
-

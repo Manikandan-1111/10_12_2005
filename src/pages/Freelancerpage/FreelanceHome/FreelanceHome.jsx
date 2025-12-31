@@ -2425,6 +2425,14 @@
 
 
 
+
+
+
+
+
+
+
+
 import React, { useEffect, useState } from "react";
 import {
   collection,
@@ -2472,7 +2480,7 @@ export default function FreelanceHome() {
   const [jobs, setJobs] = useState([]);
   const [savedJobs, setSavedJobs] = useState([]);
   const [userMap, setUserMap] = useState({});
-
+  
 
 
   const [userInfo, setUserInfo] = useState({

@@ -101,7 +101,7 @@ export default function SiteDetailsScreen() {
 
       alert("Client profile saved successfully!");
 
-      navigate("/client-main", {
+      navigate("/client-dashbroad2/clienthome", {
         replace: true,
         state: { userData: finalData, uid },
       });

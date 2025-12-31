@@ -986,7 +986,7 @@ export default function ClientFullDetailScreen() {
 
     alert("User blocked");
     closeAll();
-    navigate(-1);
+    navigate("/freelance-dashboard");
   };
 
   const submitReport = async () => {
@@ -1152,7 +1152,7 @@ export default function ClientFullDetailScreen() {
 
       {/* ABOUT */}
       <Section title="About">
-        <p>{profile.about || "No description available"}</p>
+        <p>{profile.description || "No description available"}</p>
       </Section>
 
       <Section title="Industry">{profile.sector}</Section>

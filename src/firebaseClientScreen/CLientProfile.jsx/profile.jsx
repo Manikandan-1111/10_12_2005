@@ -1428,6 +1428,7 @@ import settings from "../../assets/settings.png";
 import helpcenter from "../../assets/helpcenter.png";
 import editIcon from "../../assets/edit.png";
 import Logout from "../../assets/icons/logout.png";
+import blocked from "../../assets/blocked.png";
 
 export default function ClientProfileMenuScreen() {
   const auth = getAuth();
@@ -1569,6 +1570,7 @@ export default function ClientProfileMenuScreen() {
           <MenuItem title="Hiring" icon={hiring} onClick={() => navigate("/my-hires")} />
           <MenuItem title="Paused Service" icon={paused2} onClick={() => navigate("/client-dashbroad2/clientpausedjobs")} />
           <MenuItem title="Invite Friends" icon={invitefriends} />
+        <MenuItem title="Blocked" icon={blocked}  onClick={() => navigate("/clientBlock")} /> 
         </div>
 
         {/* SUPPORT */}

@@ -59,7 +59,7 @@ import Homeclient from "./pages/Clientpages/home/Home"
 import Sidebar from "./pages/Freelancerpage/components/Sidebar";
 import ClientSidebar from "./pages/Clientpages/slidebar/ClientSidebar"
 import ClientHome from "./pages/Clientpages/home/Home";
-import ClientDetails2 from "./pages/Clientpages/ClientDetaildashpage/ClientDetails2";
+import ClientDetails2 from "./ClientRegister/ClientDetails2.jsx"
 
 
 import Firelogin from "./Firebaselogin/Firebaselogin"
@@ -163,6 +163,7 @@ import Job_24DetailJobScreen from "./save/Job24FullDetailScreenjob";
 import Blocked from "./Firebasejobs/Blocked";
 import Profile_menu_screen from "./pages/Profile_menu_screen";
 import ClientFullDetailScreen from "./pages/Clientpages/ClientProfile/ClientFullDetailsScreen";
+import MenuBlock from "./pages/Clientpages/ClientBlock/MenuBlock.jsx";
 
 
 export default function App() {
@@ -243,6 +244,7 @@ export default function App() {
 
 
         <Route path="my-hires" element={<MyHiresScreen />} />
+        <Route path="clientBlock" element={<MenuBlock />} />
 
         <Route path="clientNotification" element={<ClientNotification />} />
         <Route path="companyprofileview" element={<CompanyProfileView />} />
