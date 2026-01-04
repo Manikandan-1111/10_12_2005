@@ -229,7 +229,7 @@
 //           {profile.sector || "No Title"} · {profile.location || "India"}
 //         </p>
 
-        
+
 //       </div>
 
 //       {/* ================= REPORT / BLOCK POPUPS ================= */}
@@ -614,12 +614,12 @@ import {
 } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 import { db } from '../../../firbase/Firebase';
-import { 
-  Share2, 
-  ArrowLeft, 
-  Flag, 
-  ChevronRight, 
-  X, 
+import {
+  Share2,
+  ArrowLeft,
+  Flag,
+  ChevronRight,
+  X,
   AlertCircle,
   CheckCircle,
   Linkedin,
@@ -712,7 +712,7 @@ export default function ClientFullDetailScreen() {
 
       showToast('User blocked successfully', 'success');
       setShowBlockDialog(false);
-      
+
       setTimeout(() => {
         navigate(-1);
       }, 1000);
@@ -750,7 +750,7 @@ export default function ClientFullDetailScreen() {
   const handleShare = () => {
     const shareText = `Check out ${profile?.first_name} ${profile?.last_name}'s professional profile`;
     const shareUrl = profile?.linkedin || window.location.href;
-    
+
     if (navigator.share) {
       navigator.share({
         title: 'Professional Profile',
@@ -821,107 +821,355 @@ export default function ClientFullDetailScreen() {
   return (
     <div style={styles.container}>
       {/* HEADER */}
-      <div style={styles.header}>
+      {/* CLIENT PROFILE HEADER */}
+      <div
+        style={{
+          background: "#fbfbd7",
+          padding: "24px 28px 36px",
+          borderBottomLeftRadius: 18,
+          borderBottomRightRadius: 18,
+          position: "relative",
+        }}
+      >
+        {/* TOP BAR */}
         <div
           style={{
-            ...styles.coverImage,
-            backgroundImage: profile.coverImage 
-              ? `url(${profile.coverImage})` 
-              : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+            display: "flex",
+            alignItems: "center",
+            gap: 12,
+            marginBottom: 28,
           }}
         >
-          <button onClick={() => navigate(-1)} style={styles.backBtn}>
-            <ArrowLeft size={20} color="#fff" />
+          <button
+            onClick={() => navigate(-1)}
+            style={{
+              width: 36,
+              height: 36,
+              borderRadius: 12,
+              border: "none",
+              background: "#fff",
+              boxShadow: "0 4px 10px rgba(0,0,0,0.12)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              cursor: "pointer",
+            }}
+          >
+            <ArrowLeft size={18} />
           </button>
 
-          <div style={styles.actionBtns}>
-            <button onClick={() => setShowReportModal(true)} style={styles.iconBtn}>
-              <Flag size={18} color="#fff" />
-            </button>
-            <button onClick={handleShare} style={styles.iconBtn}>
-              <Share2 size={18} color="#fff" />
+          <h2 style={{ margin: 0, fontWeight: 600 }}>Client Profile</h2>
+
+          <div style={{ marginLeft: "auto" }}>
+            <button
+              onClick={() => setShowReportModal(true)}
+              style={{
+                border: "none",
+                background: "transparent",
+                fontSize: 22,
+                cursor: "pointer",
+              }}
+            >
+              ⋮
             </button>
           </div>
         </div>
 
-        {/* PROFILE CARD */}
-        <div style={styles.profileCard}>
-          <div style={styles.profileRow}>
+        {/* PROFILE ROW */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 20,
+          }}
+        >
+          {/* AVATAR */}
+          <div
+            style={{
+              width: 86,
+              height: 86,
+              borderRadius: "50%",
+              background: "#d8c7ff",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              boxShadow: "0 6px 18px rgba(0,0,0,0.15)",
+              overflow: "hidden",
+            }}
+          >
             <img
-              src={profile.profileImage || '/assets/profile.png'}
+              src={profile.profileImage || "/assets/profile.png"}
               alt={fullName}
-              style={styles.profileImage}
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+              }}
             />
+          </div>
 
-            <div style={styles.profileInfo}>
-              <h1 style={styles.profileName}>
-                {fullName} · {profile.company_name || 'Company'}
-              </h1>
-              <p style={styles.profileSector}>
-                <span style={styles.sectorText}>{profile.sector || 'Technology'}</span>
-                <span style={styles.locationText}> · {profile.location || 'India'}, Tamil Nadu</span>
-              </p>
-              <p style={styles.teamSize}>{profile.team_size || '10-50 employees'}</p>
+          {/* INFO */}
+          <div style={{ flex: 1 }}>
+            <h1
+              style={{
+                margin: 0,
+                fontSize: 26,
+                fontWeight: 600,
+              }}
+            >
+              {profile.company_name || "Pixel studios Pvt Ltd"}
+            </h1>
 
-              <div style={styles.socialLinks}>
-                {profile.linkedin && (
-                  <button onClick={() => openLink(profile.linkedin)} style={styles.linkBtn}>
-                    <Linkedin size={14} style={{ marginRight: 4 }} />
-                    LinkedIn
-                  </button>
-                )}
-                {profile.website && (
-                  <button onClick={() => openLink(profile.website)} style={styles.linkBtn}>
-                    <Globe size={14} style={{ marginRight: 4 }} />
-                    Website
-                  </button>
-                )}
-              </div>
+            <p
+              style={{
+                margin: "6px 0",
+                color: "#555",
+              }}
+            >
+              {profile.email || "pixelstudios@example.com"}
+            </p>
+
+            <p style={{ margin: "6px 0" }}>
+              <span
+                style={{
+                  color: "#8b5cf6",
+                  fontWeight: 600,
+                }}
+              >
+                {profile.sector || "Video and audio"}
+              </span>
+              <span style={{ color: "#777" }}>
+                {" "}
+                · {profile.location || "Chennai, Tamil Nadu"}
+              </span>
+            </p>
+
+            {/* LINKS */}
+            <div style={{ display: "flex", gap: 16, marginTop: 6 }}>
+              {profile.linkedin && (
+                <span
+                  onClick={() => openLink(profile.linkedin)}
+                  style={{
+                    color: "#2563eb",
+                    cursor: "pointer",
+                    fontSize: 14,
+                  }}
+                >
+                  Linkedin
+                </span>
+              )}
+
+              {profile.website && (
+                <span
+                  onClick={() => openLink(profile.website)}
+                  style={{
+                    color: "#2563eb",
+                    cursor: "pointer",
+                    fontSize: 14,
+                  }}
+                >
+                  Website
+                </span>
+              )}
+            </div>
+          </div>
+
+          {/* ACTION CARD */}
+          <div
+            style={{
+              background: "#fff",
+              borderRadius: 14,
+              padding: "14px 16px",
+              boxShadow: "0 10px 24px rgba(0,0,0,0.12)",
+              display: "flex",
+              flexDirection: "column",
+              gap: 12,
+            }}
+          >
+            <div
+              onClick={handleShare}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 10,
+                cursor: "pointer",
+              }}
+            >
+              <Share2 size={16} />
+              <span>Share this profile</span>
+            </div>
+
+            <div
+              onClick={() => setShowReportModal(true)}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 10,
+                cursor: "pointer",
+              }}
+            >
+              <Flag size={16} />
+              <span>Report / Block</span>
             </div>
           </div>
         </div>
       </div>
 
-      {/* ABOUT SECTION */}
-      <div style={styles.section}>
-        <h3 style={styles.sectionTitle}>About</h3>
-        <p style={styles.sectionText}>{profile.about || 'No description available.'}</p>
+
+      {/* ABOUT + DETAILS SECTION */}
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: 24,
+          maxWidth: 520,
+        }}
+      >
+        {/* ABOUT CARD */}
+        <div
+          style={{
+            background: "#fffef3",
+            borderRadius: 22,
+            padding: "22px 26px",
+            boxShadow: "0 14px 30px rgba(0,0,0,0.12)",
+          }}
+        >
+          <h3
+            style={{
+              margin: "0 0 10px",
+              fontSize: 18,
+              fontWeight: 600,
+            }}
+          >
+            About
+          </h3>
+
+          <p
+            style={{
+              margin: 0,
+              fontSize: 14.5,
+              lineHeight: 1.7,
+              color: "#444",
+            }}
+          >
+            {profile.about || "No description available."}
+          </p>
+        </div>
+
+        {/* DETAILS CARD */}
+        <div
+          style={{
+            background: "#fffef3",
+            borderRadius: 22,
+            padding: "22px 26px",
+            boxShadow: "0 14px 30px rgba(0,0,0,0.12)",
+          }}
+        >
+          {/* Industry */}
+          <div style={{ marginBottom: 18 }}>
+            <h4
+              style={{
+                margin: 0,
+                fontSize: 14,
+                fontWeight: 600,
+              }}
+            >
+              Industry
+            </h4>
+            <p
+              style={{
+                marginTop: 6,
+                fontSize: 14,
+                color: "#555",
+              }}
+            >
+              {profile.sector || "N/A"}
+            </p>
+          </div>
+
+          {/* Company Size */}
+          <div style={{ marginBottom: 18 }}>
+            <h4
+              style={{
+                margin: 0,
+                fontSize: 14,
+                fontWeight: 600,
+              }}
+            >
+              Company size
+            </h4>
+            <p
+              style={{
+                marginTop: 6,
+                fontSize: 14,
+                color: "#555",
+              }}
+            >
+              {profile.team_size || "N/A"}
+            </p>
+          </div>
+
+          {/* Account Handler */}
+          <div style={{ marginBottom: 18 }}>
+            <h4
+              style={{
+                margin: 0,
+                fontSize: 14,
+                fontWeight: 600,
+              }}
+            >
+              Account Handler
+            </h4>
+            <p
+              style={{
+                marginTop: 6,
+                fontSize: 14,
+                color: "#555",
+              }}
+            >
+              {profile.team_size || "N/A"}
+            </p>
+          </div>
+
+          {/* Email */}
+          <div>
+            <h4
+              style={{
+                margin: 0,
+                fontSize: 14,
+                fontWeight: 600,
+              }}
+            >
+              Email Address
+            </h4>
+            <p
+              style={{
+                marginTop: 6,
+                fontSize: 14,
+                color: "#555",
+              }}
+            >
+              {profile.email || "N/A"}
+            </p>
+          </div>
+        </div>
       </div>
 
-      <div style={styles.section}>
-        <h3 style={styles.sectionTitle}>Industry</h3>
-        <p style={styles.sectionText}>{profile.sector || 'N/A'}</p>
-      </div>
-
-      <div style={styles.section}>
-        <h3 style={styles.sectionTitle}>Category</h3>
-        <p style={styles.sectionText}>{profile.category || 'N/A'}</p>
-      </div>
-
-      <div style={styles.section}>
-        <h3 style={styles.sectionTitle}>Company size</h3>
-        <p style={styles.sectionText}>{profile.team_size || 'N/A'}</p>
-      </div>
-
-      <div style={styles.section}>
-        <h3 style={styles.sectionTitle}>Email Address</h3>
-        <p style={styles.sectionText}>{profile.email || 'N/A'}</p>
-      </div>
 
       {/* JOBS SECTION */}
       <div style={styles.jobsSection}>
         <div style={styles.tabContainer}>
           <button
-            onClick={() => setActiveTab('work')}
-            style={activeTab === 'work' ? styles.tabActive : styles.tab}
+            onClick={() => setActiveTab("work")}
+            style={activeTab === "work" ? styles.tabActive : styles.tab}
           >
             Work
           </button>
           <button
-            onClick={() => setActiveTab('24h')}
-            style={activeTab === '24h' ? styles.tabActive : styles.tab}
+            onClick={() => setActiveTab("24h")}
+            style={activeTab === "24h" ? styles.tabActive : styles.tab}
           >
-            24 hour
+            24 Hours
           </button>
         </div>
 
@@ -932,262 +1180,514 @@ export default function ClientFullDetailScreen() {
             <p style={styles.emptyText}>No jobs posted yet</p>
           ) : (
             displayedJobs.map((job) => (
-              <div key={job.id} style={styles.jobCard}>
-                <div style={styles.jobHeader}>
-                  <h4 style={styles.jobTitle}>{job.title}</h4>
-                  <span style={styles.jobBudget}>
-                    ₹{job.budget_from || job.budget || '0'} - {job.budget_to || '0'}
-                  </span>
+              <div key={job.id} style={styles.card}>
+                {/* TOP */}
+                <div style={styles.topRow}>
+                  <div style={styles.avatar}>JA</div>
+
+                  <div style={{ flex: 1 }}>
+                    <div style={styles.titleRow}>
+                      <h3 style={styles.title}>{job.title || "UIUX Designer"}</h3>
+                      <span style={styles.arrow}>›</span>
+                    </div>
+
+                    <div style={styles.skillRow}>
+                      {(job.skills || ["UI Design", "Web Design", "UX"])
+                        .slice(0, 3)
+                        .map((s, i) => (
+                          <span key={i} style={styles.skill}>
+                            {s}
+                          </span>
+                        ))}
+                      {(job.skills || []).length > 3 && (
+                        <span style={styles.skill}>4+</span>
+                      )}
+                    </div>
+                  </div>
                 </div>
 
-                <p style={styles.skillsLabel}>Skills Required</p>
-                <div style={styles.skillsContainer}>
-                  {(job.skills || []).slice(0, 3).map((skill, idx) => (
-                    <span key={idx} style={styles.skillChip}>
-                      {skill}
-                    </span>
-                  ))}
-                  {(job.skills || []).length > 3 && (
-                    <span style={styles.skillChip}>
-                      +{(job.skills || []).length - 3}
-                    </span>
-                  )}
-                </div>
+                {/* DETAILS */}
+                <div style={styles.detailsRow}>
+                  <div>
+                    <p style={styles.label}>Budget</p>
+                    <p style={styles.valuePurple}>
+                      ₹{job.budget_from || 1000} – ₹{job.budget_to || 8000}
+                    </p>
+                  </div>
 
-                <p style={styles.jobDescription}>{job.description}</p>
+                  <div>
+                    <p style={styles.label}>Timeline</p>
+                    <p style={styles.value}>2 – 3 weeks</p>
+                  </div>
+
+                  <div>
+                    <p style={styles.label}>Location</p>
+                    <p style={styles.value}>Remote</p>
+                  </div>
+                </div>
               </div>
             ))
           )}
         </div>
       </div>
 
+
       {/* REPORT MODAL */}
       {showReportModal && (
-        <div style={styles.modalOverlay} onClick={() => setShowReportModal(false)}>
-          <div style={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-            <h2 style={styles.modalTitle}>Report or block</h2>
-            <p style={styles.modalSubtitle}>Select an action</p>
-
-            <div style={styles.optionsList}>
+        <div
+          onClick={() => setShowReportModal(false)}
+          style={{
+            position: "fixed",
+            inset: 0,
+            background: "rgba(0,0,0,0.45)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: 1000,
+          }}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              width: 520,
+              background: "#fff",
+              borderRadius: 12,
+              padding: 20,
+            }}
+          >
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <h3 style={{ margin: 0 }}>Report or block</h3>
               <button
-                style={styles.optionBtn}
-                onClick={() => {
+                onClick={() => setShowReportModal(false)}
+                style={{ border: "none", background: "none", fontSize: 20 }}
+              >
+                ✕
+              </button>
+            </div>
+
+            <p style={{ color: "#666", marginTop: 6 }}>Select an action</p>
+
+            {[
+              {
+                label: `Block ${fullName}`,
+                action: () => {
                   setShowReportModal(false);
                   setShowBlockDialog(true);
-                }}
-              >
-                <span>Block {fullName}</span>
-                <ChevronRight size={20} />
-              </button>
-
-              <button
-                style={styles.optionBtn}
-                onClick={() => {
+                },
+              },
+              {
+                label: `Report ${fullName}`,
+                action: () => {
                   setShowReportModal(false);
                   setShowReportProfile(true);
-                }}
-              >
-                <span>Report {fullName}</span>
-                <ChevronRight size={20} />
-              </button>
-
-              <button
-                style={styles.optionBtn}
-                onClick={() => {
+                },
+              },
+              {
+                label: "Report profile element",
+                action: () => {
                   setShowReportModal(false);
                   setShowReportReasons(true);
+                },
+              },
+            ].map((item) => (
+              <div
+                key={item.label}
+                onClick={item.action}
+                style={{
+                  padding: "14px 0",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  cursor: "pointer",
+                  borderBottom: "1px solid #eee",
                 }}
               >
-                <span>Report profile element</span>
-                <ChevronRight size={20} />
-              </button>
-            </div>
+                <span>{item.label}</span>
+                <span>›</span>
+              </div>
+            ))}
 
-            <div style={styles.infoBox}>
-              <AlertCircle size={20} style={{ flexShrink: 0 }} />
-              <p style={styles.infoText}>
-                To report posts, comments, or messages, select the overflow menu next to that content and select Report.
-              </p>
+            <div
+              style={{
+                background: "#fffde7",
+                padding: 14,
+                borderRadius: 8,
+                marginTop: 16,
+                fontSize: 13,
+                color: "#555",
+              }}
+            >
+              To report posts, comments, or messages, select the overflow menu next
+              to that content and select Report.
             </div>
-
-            <button style={styles.cancelBtn} onClick={() => setShowReportModal(false)}>
-              Cancel
-            </button>
           </div>
         </div>
       )}
+
 
       {/* BLOCK DIALOG */}
       {showBlockDialog && (
-        <div style={styles.dialogOverlay} onClick={() => setShowBlockDialog(false)}>
-          <div style={styles.dialogContent} onClick={(e) => e.stopPropagation()}>
-            <div style={styles.iconCircle}>
-              <X size={28} color="#7C3CFF" />
-            </div>
-
-            <h2 style={styles.dialogTitle}>Block {fullName}?</h2>
-            <p style={styles.dialogText}>
-              You're about to block {fullName}.<br />
-              You'll no longer be connected,<br />
-              and will lose any endorsements or<br />
-              recommendations from this person.
-            </p>
-
-            <button style={styles.blockBtn} onClick={handleBlock}>
-              Block
-            </button>
-            <button style={styles.backBtn2} onClick={() => setShowBlockDialog(false)}>
-              Back
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* REPORT REASONS MODAL */}
-      {showReportReasons && (
-        <div style={styles.modalOverlay} onClick={() => setShowReportReasons(false)}>
-          <div style={styles.largeModalContent} onClick={(e) => e.stopPropagation()}>
-            <h2 style={styles.modalTitle}>Report this profile</h2>
-            <p style={styles.modalSubtitle}>Select our policy that applies</p>
-
-            <div style={styles.reasonsScroll}>
-              <div style={styles.reasonsGrid}>
-                {[
-                  'Fraud or scam',
-                  'Misinformation',
-                  'Harassment',
-                  'Threats or violence',
-                  'Dangerous or extremist organizations',
-                  'Self-harm',
-                  'Hateful speech',
-                  'Graphic content',
-                  'Sexual content',
-                  'Child exploitation',
-                  'Infringement',
-                  'Illegal goods and service',
-                ].map((reason) => {
-                  const isSelected = selectedReasons.has(reason);
-                  return (
-                    <button
-                      key={reason}
-                      style={isSelected ? styles.reasonChipActive : styles.reasonChip}
-                      onClick={() => {
-                        const newSet = new Set(selectedReasons);
-                        if (isSelected) {
-                          newSet.delete(reason);
-                        } else {
-                          newSet.add(reason);
-                        }
-                        setSelectedReasons(newSet);
-                      }}
-                    >
-                      {reason}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            <div style={styles.modalActions}>
+        <div
+          onClick={() => setShowBlockDialog(false)}
+          style={{
+            position: "fixed",
+            inset: 0,
+            background: "rgba(0,0,0,0.45)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: 1000,
+          }}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              width: 520,
+              background: "#fff",
+              borderRadius: 8,
+              boxShadow: "0 12px 30px rgba(0,0,0,0.2)",
+            }}
+          >
+            {/* HEADER */}
+            <div
+              style={{
+                padding: "16px 20px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                borderBottom: "1px solid #e5e5e5",
+              }}
+            >
+              <h3 style={{ margin: 0, fontWeight: 600 }}>Block</h3>
               <button
-                style={styles.actionBtn}
-                onClick={() => {
-                  setShowReportReasons(false);
-                  setSelectedReasons(new Set());
+                onClick={() => setShowBlockDialog(false)}
+                style={{
+                  border: "none",
+                  background: "transparent",
+                  fontSize: 18,
+                  cursor: "pointer",
+                }}
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* CONTENT */}
+            <div style={{ padding: "20px" }}>
+              <p
+                style={{
+                  margin: 0,
+                  fontSize: 15,
+                  lineHeight: 1.6,
+                  color: "#111",
+                }}
+              >
+                You're about to block {fullName}. You'll no longer be connected,
+                and will lose any endorsements or recommendations from this person.
+              </p>
+            </div>
+
+            {/* ACTIONS */}
+            <div
+              style={{
+                padding: "14px 20px",
+                display: "flex",
+                justifyContent: "flex-end",
+                gap: 12,
+                borderTop: "1px solid #e5e5e5",
+              }}
+            >
+              <button
+                onClick={() => setShowBlockDialog(false)}
+                style={{
+                  padding: "8px 18px",
+                  borderRadius: 8,
+                  border: "1px solid #cfcfcf",
+                  background: "#fff",
+                  cursor: "pointer",
                 }}
               >
                 Back
               </button>
+
               <button
+                onClick={handleBlock}
                 style={{
-                  ...styles.actionBtnPrimary,
-                  opacity: selectedReasons.size === 0 ? 0.5 : 1,
-                  cursor: selectedReasons.size === 0 ? 'not-allowed' : 'pointer',
-                }}
-                disabled={selectedReasons.size === 0}
-                onClick={() => {
-                  if (selectedReasons.size > 0) {
-                    const reason = Array.from(selectedReasons)[0];
-                    setConfirmReason(reason);
-                    setShowReportReasons(false);
-                    setShowReportConfirm(true);
-                  }
+                  padding: "8px 22px",
+                  borderRadius: 8,
+                  border: "none",
+                  background: "#fff176",
+                  fontWeight: 600,
+                  cursor: "pointer",
                 }}
               >
-                Next
+                Block
               </button>
             </div>
           </div>
         </div>
       )}
 
+
+      {/* REPORT REASONS MODAL */}
+      {showReportReasons && (
+        <div
+          onClick={() => setShowReportReasons(false)}
+          style={{
+            position: "fixed",
+            inset: 0,
+            background: "rgba(0,0,0,0.45)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: 1000,
+          }}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              width: 600,
+              background: "#fff",
+              borderRadius: 12,
+              padding: 24,
+            }}
+          >
+            <h3>Report this profile</h3>
+            <p style={{ color: "#666" }}>Select our policy that applies</p>
+
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
+              {[
+                "Fraud or scam",
+                "Misinformation",
+                "Harassment",
+                "Dangerous or extremist organizations",
+                "Threats or violence",
+                "Self-harm",
+                "Hateful speech",
+                "Graphic content",
+                "Sexual content",
+                "Child exploitation",
+                "Illegal goods and service",
+                "Infringement",
+              ].map((reason) => {
+                const active = selectedReasons.has(reason);
+                return (
+                  <button
+                    key={reason}
+                    onClick={() => {
+                      const s = new Set(selectedReasons);
+                      active ? s.delete(reason) : s.add(reason);
+                      setSelectedReasons(s);
+                    }}
+                    style={{
+                      padding: "8px 14px",
+                      borderRadius: 20,
+                      border: "1px solid #ccc",
+                      background: active ? "#fff9c4" : "#fff",
+                      cursor: "pointer",
+                    }}
+                  >
+                    {reason}
+                  </button>
+                );
+              })}
+            </div>
+
+            <div style={{ display: "flex", justifyContent: "flex-end", gap: 12 }}>
+              <button
+                onClick={() => setShowReportReasons(false)}
+                style={{ padding: "8px 16px", borderRadius: 8 }}
+              >
+                Back
+              </button>
+              <button
+                disabled={!selectedReasons.size}
+                onClick={() => {
+                  const r = Array.from(selectedReasons)[0];
+                  setConfirmReason(r);
+                  setShowReportReasons(false);
+                  setShowReportConfirm(true);
+                }}
+                style={{
+                  padding: "8px 18px",
+                  borderRadius: 8,
+                  background: "#fff176",
+                  border: "none",
+                  opacity: selectedReasons.size ? 1 : 0.5,
+                }}
+              >
+                Submit report
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+
       {/* REPORT PROFILE MODAL */}
       {showReportProfile && (
-        <div style={styles.modalOverlay} onClick={() => setShowReportProfile(false)}>
-          <div style={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-            <h2 style={styles.modalTitle}>Report {fullName}</h2>
-            <p style={styles.modalSubtitle}>Select an option that applies</p>
-
-            <div style={styles.radioOptions}>
-              {[
-                'This person is impersonating someone',
-                'This account has been hacked',
-                'This account is not a real person',
-              ].map((reason) => (
-                <button
-                  key={reason}
-                  style={styles.radioOption}
-                  onClick={() => setSelectedProfileReason(reason)}
-                >
-                  <span style={styles.radioText}>{reason}</span>
-                  <div
-                    style={
-                      selectedProfileReason === reason
-                        ? styles.radioChecked
-                        : styles.radioUnchecked
-                    }
-                  >
-                    {selectedProfileReason === reason && <div style={styles.radioDot} />}
-                  </div>
-                </button>
-              ))}
-            </div>
-
-            <div style={styles.warningBox}>
-              <p style={styles.warningText}>
-                If you believe this person is no longer with us, you can let us know this person is deceased.
-              </p>
-            </div>
-
-            <div style={styles.modalActions}>
+        <div
+          onClick={() => setShowReportProfile(false)}
+          style={{
+            position: "fixed",
+            inset: 0,
+            background: "rgba(0,0,0,0.45)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: 1000,
+          }}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              width: 560,
+              background: "#fff",
+              borderRadius: 8,
+              boxShadow: "0 12px 30px rgba(0,0,0,0.2)",
+            }}
+          >
+            {/* HEADER */}
+            <div
+              style={{
+                padding: "16px 20px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                borderBottom: "1px solid #e5e5e5",
+              }}
+            >
+              <h3 style={{ margin: 0, fontWeight: 600 }}>Report this profile</h3>
               <button
-                style={styles.actionBtn}
+                onClick={() => setShowReportProfile(false)}
+                style={{
+                  border: "none",
+                  background: "transparent",
+                  fontSize: 18,
+                  cursor: "pointer",
+                }}
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* CONTENT */}
+            <div style={{ padding: "20px" }}>
+              <p style={{ margin: "0 0 14px", fontSize: 14, color: "#444" }}>
+                Select an option that applies
+              </p>
+
+              {/* RADIO OPTIONS */}
+              {[
+                "This person is impersonating someone",
+                "This account has been hacked",
+                "This account is not a real person",
+              ].map((reason) => (
+                <label
+                  key={reason}
+                  onClick={() => setSelectedProfileReason(reason)}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 12,
+                    padding: "10px 0",
+                    cursor: "pointer",
+                  }}
+                >
+                  <div
+                    style={{
+                      width: 16,
+                      height: 16,
+                      borderRadius: "50%",
+                      border: "2px solid #666",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    {selectedProfileReason === reason && (
+                      <div
+                        style={{
+                          width: 8,
+                          height: 8,
+                          borderRadius: "50%",
+                          background: "#111",
+                        }}
+                      />
+                    )}
+                  </div>
+
+                  <span style={{ fontSize: 14 }}>{reason}</span>
+                </label>
+              ))}
+
+              {/* INFO BOX */}
+              <div
+                style={{
+                  marginTop: 14,
+                  background: "#fff9c4",
+                  padding: "12px 14px",
+                  borderRadius: 6,
+                  fontSize: 13,
+                  color: "#333",
+                }}
+              >
+                If you believe this person is no longer with us, you can let us know
+                this person is deceased
+              </div>
+            </div>
+
+            {/* ACTIONS */}
+            <div
+              style={{
+                padding: "14px 20px",
+                display: "flex",
+                justifyContent: "flex-end",
+                gap: 12,
+                borderTop: "1px solid #e5e5e5",
+              }}
+            >
+              <button
                 onClick={() => {
                   setShowReportProfile(false);
                   setSelectedProfileReason(null);
                 }}
+                style={{
+                  padding: "8px 18px",
+                  borderRadius: 8,
+                  border: "1px solid #cfcfcf",
+                  background: "#fff",
+                  cursor: "pointer",
+                }}
               >
                 Back
               </button>
+
               <button
-                style={{
-                  ...styles.actionBtnPrimary,
-                  opacity: !selectedProfileReason ? 0.5 : 1,
-                  cursor: !selectedProfileReason ? 'not-allowed' : 'pointer',
-                }}
                 disabled={!selectedProfileReason}
                 onClick={() => {
                   if (selectedProfileReason) {
                     handleReportSubmit(selectedProfileReason);
                   }
                 }}
+                style={{
+                  padding: "8px 22px",
+                  borderRadius: 8,
+                  border: "none",
+                  background: "#fff176",
+                  fontWeight: 600,
+                  cursor: selectedProfileReason ? "pointer" : "not-allowed",
+                  opacity: selectedProfileReason ? 1 : 0.5,
+                }}
               >
-                Submit Report
+                Submit report
               </button>
             </div>
           </div>
         </div>
       )}
+
+
+
 
       {/* REPORT CONFIRM MODAL */}
       {showReportConfirm && (
@@ -1553,8 +2053,133 @@ const styles = {
     justifyContent: 'center',
     zIndex: 1000,
   },
+  jobsSection: {
+    padding: "30px 0",
+  },
 
-}
+  tabContainer: {
+    display: "flex",
+    gap: 12,
+    background: "#fff",
+    padding: 10,
+    borderRadius: 30,
+    width: "fit-content",
+    marginBottom: 30,
+    boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
+  },
+
+  tab: {
+    padding: "10px 28px",
+    borderRadius: 24,
+    border: "none",
+    background: "transparent",
+    cursor: "pointer",
+    fontWeight: 500,
+  },
+
+  tabActive: {
+    padding: "10px 28px",
+    borderRadius: 24,
+    border: "none",
+    background: "#8b5cf6",
+    color: "#fff",
+    cursor: "pointer",
+    fontWeight: 500,
+  },
+
+  jobsList: {
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fill, minmax(420px, 1fr))",
+    gap: 30,
+  },
+
+  card: {
+    background: "#fff",
+    borderRadius: 26,
+    padding: 26,
+    boxShadow: "0 18px 40px rgba(0,0,0,0.12)",
+  },
+
+  topRow: {
+    display: "flex",
+    gap: 18,
+    marginBottom: 24,
+  },
+
+  avatar: {
+    width: 64,
+    height: 64,
+    borderRadius: 20,
+    background: "#8b5cf6",
+    color: "#fff",
+    fontSize: 22,
+    fontWeight: 600,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  titleRow: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+
+  title: {
+    margin: 0,
+    fontSize: 20,
+    fontWeight: 600,
+  },
+
+  arrow: {
+    fontSize: 28,
+    opacity: 0.4,
+  },
+
+  skillRow: {
+    display: "flex",
+    gap: 10,
+    marginTop: 8,
+    flexWrap: "wrap",
+  },
+
+  skill: {
+    background: "#FFF9B0",
+    padding: "6px 14px",
+    borderRadius: 20,
+    fontSize: 13,
+    fontWeight: 500,
+  },
+
+  detailsRow: {
+    display: "flex",
+    justifyContent: "space-between",
+    marginTop: 10,
+  },
+
+  label: {
+    margin: 0,
+    fontSize: 13,
+    color: "#777",
+  },
+
+  value: {
+    margin: "6px 0 0",
+    fontWeight: 600,
+  },
+
+  valuePurple: {
+    margin: "6px 0 0",
+    fontWeight: 600,
+    color: "#7c3aed",
+  },
+
+  emptyText: {
+    textAlign: "center",
+    color: "#777",
+  },
+};
+
 
 
 

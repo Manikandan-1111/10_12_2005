@@ -1297,6 +1297,7 @@ export default function JobFullDetailJobScreen() {
             fontWeight: "400",
             lineHeight: "28px",
             opacity: "60%",
+            
           }}
         >
           {job.category}
@@ -1332,9 +1333,7 @@ export default function JobFullDetailJobScreen() {
             ₹{job.budget_from} - ₹{job.budget_to}
           </span>
 
-          <span style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-            <MdDateRange size={18} /> {job.timeline}
-          </span>
+         
 
           <span style={{ display: "flex", alignItems: "center", gap: "4px" }}>
             <IoLocationOutline size={18} /> Remote

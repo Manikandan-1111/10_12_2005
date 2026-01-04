@@ -1721,6 +1721,13 @@
 
 
 
+
+
+
+
+
+
+
 import React, { useEffect, useMemo, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import {
@@ -1755,7 +1762,7 @@ export default function FreelancerFullDetailScreen() {
   const [currentUser, setCurrentUser] = useState(null);
   const [profile, setProfile] = useState(null);
   const [loadingProfile, setLoadingProfile] = useState(true);
-
+  
   const [services, setServices] = useState([]);
   const [services24, setServices24] = useState([]);
   const [loadingServices, setLoadingServices] = useState(true);
@@ -1766,6 +1773,10 @@ export default function FreelancerFullDetailScreen() {
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("newest");
   const [showBlockPopup, setShowBlockPopup] = useState(false);
+  
+  const fullName =
+  `${profile?.first_name || ""} ${profile?.last_name || ""}`.trim() ||
+  "Helen Angel";
 
   /* ================= AUTH ================= */
   useEffect(() => {
@@ -1939,7 +1950,6 @@ export default function FreelancerFullDetailScreen() {
             padding: "10px 20px",
             borderRadius: 10,
             border: "none",
-            background: "#6366f1",
             color: "#fff",
             cursor: "pointer",
           }}
@@ -1961,7 +1971,7 @@ export default function FreelancerFullDetailScreen() {
             height: 220,
             background: profile.coverImage
               ? `url(${profile.coverImage}) center/cover`
-              : "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+              : "",
             position: "relative",
           }}
         >
@@ -2022,6 +2032,7 @@ export default function FreelancerFullDetailScreen() {
       </div>
 
       {/* BASIC INFO */}
+      <div style={{ fontSize: 18, fontWeight: 600 }}>{fullName}</div>
       <div style={{ padding: 20, background: "#fff", marginTop: 10 }}>
         <h2 style={{ margin: 0, fontSize: 24, fontWeight: 700 }}>
           {profile.first_name} {profile.last_name}
@@ -2033,6 +2044,35 @@ export default function FreelancerFullDetailScreen() {
         <p style={{ opacity: 0.7, margin: "4px 0 0" }}>
           {profile.professional_title || "Professional"}
         </p>
+                    {/* LINKS */}
+            <div style={{ display: "flex", gap: 16, marginTop: 6 }}>
+              {profile.linkedin && (
+                <span
+                  onClick={() => openLink(profile.linkedin)}
+                  style={{
+                    color: "#2563eb",
+                    cursor: "pointer",
+                    fontSize: 14,
+                  }}
+                >
+                  Linkedin
+                </span>
+              )}
+
+              {profile.website && (
+                <span
+                  onClick={() => openLink(profile.website)}
+                  style={{
+                    color: "#2563eb",
+                    cursor: "pointer",
+                    fontSize: 14,
+                  }}
+                >
+                  Website
+                </span>
+              )}
+            </div>
+          
       </div>
 
       {/* BLOCK POPUP */}
@@ -2183,9 +2223,7 @@ export default function FreelancerFullDetailScreen() {
               <div style={styles.meta}>
                 <div>
                   <div style={styles.label}>Budget</div>
-                  <div style={styles.value}>
-                    ₹{formatBudget(job.budget_from || job.budget)}
-                  </div>
+                  <div className="job-budget">₹{job.budget_from || job.budget} - {job.budget_to || job.budget}</div>
                 </div>
 
                 <div>

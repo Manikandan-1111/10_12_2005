@@ -20,13 +20,19 @@ export default function ReportBlockPopup({
   const [selectedReasons, setSelectedReasons] = useState([]);
 
   const reasons = [
-    "Fraud or scam",
-    "Misinformation",
-    "Harassment",
-    "Threats or violence",
-    "Hateful speech",
-    "Illegal goods and service",
-  ];
+                "Fraud or scam",
+                "Misinformation",
+                "Harassment",
+                "Dangerous or extremist organizations",
+                "Threats or violence",
+                "Self-harm",
+                "Hateful speech",
+                "Graphic content",
+                "Sexual content",
+                "Child exploitation",
+                "Illegal goods and service",
+                "Infringement",
+              ];
 
   const profileReasons = [
     "This person is impersonating someone",

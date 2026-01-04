@@ -1511,8 +1511,8 @@ export default function ServiceScreenOne() {
     !searchText
       ? arr
       : arr.filter((i) =>
-          (i.title || "").toLowerCase().includes(searchText.toLowerCase())
-        );
+        (i.title || "").toLowerCase().includes(searchText.toLowerCase())
+      );
 
   const sortArr = (arr) => {
     if (sortOption === "paused") return arr.filter((i) => i.paused);
@@ -1533,76 +1533,76 @@ export default function ServiceScreenOne() {
 
   const finalServices = sortArr(filterSearch(services));
   const final24 = sortArr(filterSearch(jobs24));
-const renderEmptyState = (btnText, onClick) => (
-  <div
-    style={{
-      width: "100%",
-      minHeight: 300,
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "center",
-      gap: 16,
-      marginTop: 40,
-      textAlign: "center",
-         marginLeft: isMobile ? 10 : 400, 
-    }}
-  >
-    <img
-      src={serviceEmpty}
-      alt="Empty"
-      style={{
-        width: isMobile ? 180 : 240,
-        marginBottom: 12,
-    
-      }}
-    />
-
-    <div style={{ fontSize: 20, fontWeight: 600 }}>
-      Start your first service today
-    </div>
-
+  const renderEmptyState = (btnText, onClick) => (
     <div
       style={{
-        fontSize: 14,
-        color: "#555",
-        maxWidth: 520,
-        lineHeight: "20px",
+        width: "100%",
+        minHeight: 300,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: 16,
+        marginTop: 40,
+        textAlign: "center",
+        marginLeft: isMobile ? 10 : 400,
       }}
     >
-      Showcase your skills with a service offering that attracts the right
-      clients. Start now and turn your expertise into opportunities!
-    </div>
+      <img
+        src={serviceEmpty}
+        alt="Empty"
+        style={{
+          width: isMobile ? 180 : 240,
+          marginBottom: 12,
 
-    <button
-      onClick={onClick}
-      style={{
-        marginTop: 12,
-        height: 44,
-        padding: "0 28px",
-        borderRadius: 30,
-        background: "#FFF27A",
-        border: "none",
-        fontWeight: 700,
-        cursor: "pointer",
-      }}
-    >
-      {btnText}
-    </button>
-  </div>
-);
+        }}
+      />
+
+      <div style={{ fontSize: 20, fontWeight: 600 }}>
+        Start your first service today
+      </div>
+
+      <div
+        style={{
+          fontSize: 14,
+          color: "#555",
+          maxWidth: 520,
+          lineHeight: "20px",
+        }}
+      >
+        Showcase your skills with a service offering that attracts the right
+        clients. Start now and turn your expertise into opportunities!
+      </div>
+
+      <button
+        onClick={onClick}
+        style={{
+          marginTop: 12,
+          height: 44,
+          padding: "0 28px",
+          borderRadius: 30,
+          background: "#FFF27A",
+          border: "none",
+          fontWeight: 700,
+          cursor: "pointer",
+        }}
+      >
+        {btnText}
+      </button>
+    </div>
+  );
 
   /* ---------------- CARD ---------------- */
   const WorkCard = (job) => (
     <div
       key={job.id}
       onClick={() =>
-          navigate(
-            selectedTab === "Works"
-              ? `/freelance-dashboard/servicesdetails/${job.id}`
-              : `/freelance-dashboard/services24details/${job.id}`
-          )
-        }
+        navigate(
+          selectedTab === "Works"
+            ? `/freelance-dashboard/servicesdetails/${job.id}`
+            : `/freelance-dashboard/services24details/${job.id}`
+        )
+      }
       style={{
         width: isMobile ? "100%" : 496,
         height: isMobile ? "auto" : 259,
@@ -1650,8 +1650,8 @@ const renderEmptyState = (btnText, onClick) => (
                 key={i}
                 style={{
                   background: "#FFF7B0",
-                     marginTop: isMobile ? "10px" : 0,
-                       marginBottom: isMobile ? "20px" : 0,
+                  marginTop: isMobile ? "10px" : 0,
+                  marginBottom: isMobile ? "20px" : 0,
                   padding: "4px 12px",
                   borderRadius: 20,
                   fontSize: 12,
@@ -1669,13 +1669,13 @@ const renderEmptyState = (btnText, onClick) => (
         </div>
       </div>
 
-      <div style={{ display: "flex", justifyContent: "space-between" ,    marginBottom: isMobile ? "20px" : 0,}}>
+      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: isMobile ? "20px" : 0, }}>
         <div>
-            <div style={{ fontSize: 15 }}>Budget</div>
-            <div style={{ marginTop: 4, fontSize: 13, fontWeight: 500, color: "rgba(124,60,255,1)" }}>
-              ₹{job.budget_from} -   ₹{job.budget_to}
-            </div>
+          <div style={{ fontSize: 15 }}>Budget</div>
+          <div style={{ marginTop: 4, fontSize: 13, fontWeight: 500, color: "rgba(124,60,255,1)" }}>
+            ₹{job.budget_from} -   ₹{job.budget_to}
           </div>
+        </div>
         <div>
           <div style={{ fontSize: 13 }}>Timeline</div>
           <div style={{ fontSize: 14, fontWeight: 600 }}>
@@ -1737,39 +1737,39 @@ const renderEmptyState = (btnText, onClick) => (
         background: "#FFF",
         marginLeft: isMobile ? 0 : collapsed ? "-150px" : "40px",
         transition: "margin-left 0.3s ease-in-out",
- marginTop: isMobile ? 50 : collapsed ? 0 :0,
-          
+        marginTop: isMobile ? 50 : collapsed ? 0 : 0,
+
       }}
     >
       {/* HEADER */}
-      <div style={{ display: "flex", alignItems: "center", gap: 12 ,}}>
-       <div
-  onClick={() => navigate(-1)}
-  style={{
-    width: 36,
-    height: 36,
-    borderRadius: 14,
-    border: "0.8px solid #E0E0E0",
-    backgroundColor: "#FFFFFF",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    cursor: "pointer",
-    boxShadow: "0 4px 10px rgba(0,0,0,0.06)",
-    flexShrink: 0,
-    
-  }}
->
-  <img
-    src={backarrow}
-    alt="Back"
-    style={{
-      width: 16,
-      height: 18,
-      objectFit: "contain",
-    }}
-  />
-</div>
+      <div style={{ display: "flex", alignItems: "center", gap: 12, }}>
+        <div
+          onClick={() => navigate(-1)}
+          style={{
+            width: 36,
+            height: 36,
+            borderRadius: 14,
+            border: "0.8px solid #E0E0E0",
+            backgroundColor: "#FFFFFF",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            cursor: "pointer",
+            boxShadow: "0 4px 10px rgba(0,0,0,0.06)",
+            flexShrink: 0,
+
+          }}
+        >
+          <img
+            src={backarrow}
+            alt="Back"
+            style={{
+              width: 16,
+              height: 18,
+              objectFit: "contain",
+            }}
+          />
+        </div>
 
         <div>
           <div style={{ fontSize: 32, fontWeight: 400 }}>Your Service</div>
@@ -1823,28 +1823,28 @@ const renderEmptyState = (btnText, onClick) => (
           display: "grid",
           gridTemplateColumns: isMobile ? "1fr" : "repeat(2, 456px)",
           gap: 54,
-        
+
         }}
       >
-       {selectedTab === "Works" ? (
-  servicesLoading ? (
-    <div>Loading...</div>
-  ) : finalServices.length === 0 ? (
-    renderEmptyState("Create Service", () =>
-      navigate("/freelance-dashboard/add-service-form")
-    )
-  ) : (
-    finalServices.map(WorkCard)
-  )
-) : jobs24Loading ? (
-  <div>Loading...</div>
-) : final24.length === 0 ? (
-  renderEmptyState("Create 24h Service", () =>
-    navigate("/freelance-dashboard/add-service-form")
-  )
-) : (
-  final24.map(WorkCard)
-)}
+        {selectedTab === "Works" ? (
+          servicesLoading ? (
+            <div>Loading...</div>
+          ) : finalServices.length === 0 ? (
+            renderEmptyState("Create Service", () =>
+              navigate("/freelance-dashboard/add-service-form")
+            )
+          ) : (
+            finalServices.map(WorkCard)
+          )
+        ) : jobs24Loading ? (
+          <div>Loading...</div>
+        ) : final24.length === 0 ? (
+          renderEmptyState("Create 24h Service", () =>
+            navigate("/freelance-dashboard/add-service-form")
+          )
+        ) : (
+          final24.map(WorkCard)
+        )}
 
       </div>
 

@@ -1289,7 +1289,629 @@
 
 
 
-import React, { useState, useEffect } from 'react';
+
+
+// import React, { useState, useEffect } from 'react';
+// import {
+//   Box,
+//   Container,
+//   Typography,
+//   Avatar,
+//   Button,
+//   IconButton,
+//   CircularProgress,
+//   Dialog,
+//   DialogContent,
+//   AppBar,
+//   Toolbar,
+//   List,
+//   ListItem,
+//   Snackbar,
+//   Alert
+// } from '@mui/material';
+// import {
+//   ArrowBack as ArrowBackIcon,
+//   Person as PersonIcon
+// } from '@mui/icons-material';
+// import { useNavigate } from 'react-router-dom';
+// import { db, auth } from '../firbase/Firebase';
+// import {
+//   collection,
+//   query,
+//   where,
+//   onSnapshot,
+//   doc,
+//   deleteDoc
+// } from 'firebase/firestore';
+// import { onAuthStateChanged } from 'firebase/auth';
+
+// const BlockedUsersScreen = () => {
+//   const navigate = useNavigate();
+//   const [currentUser, setCurrentUser] = useState(null);
+//   const [blockedUsers, setBlockedUsers] = useState([]);
+//   const [isLoading, setIsLoading] = useState(true);
+//   const [error, setError] = useState(null);
+//   const [unblockDialog, setUnblockDialog] = useState({
+//     open: false,
+//     docId: null,
+//     name: ''
+//   });
+//   const [snackbar, setSnackbar] = useState({
+//     open: false,
+//     message: '',
+//     severity: 'success'
+//   });
+
+//   // Auth listener
+//   useEffect(() => {
+//     const unsubscribe = onAuthStateChanged(auth, (user) => {
+//       setCurrentUser(user);
+//       if (!user) {
+//         navigate('/login');
+//       }
+//     });
+//     return () => unsubscribe();
+//   }, [navigate]);
+
+//   // Fetch blocked users with real-time updates
+//   useEffect(() => {
+//     if (!currentUser) return;
+
+//     setIsLoading(true);
+//     const q = query(
+//       collection(db, 'blocked_users'),
+//       where('blockedBy', '==', currentUser.uid)
+//     );
+
+//     const unsubscribe = onSnapshot(
+//       q,
+//       (snapshot) => {
+//         const users = snapshot.docs.map(doc => ({
+//           id: doc.id,
+//           ...doc.data()
+//         }));
+//         setBlockedUsers(users);
+//         setIsLoading(false);
+//         setError(null);
+//       },
+//       (err) => {
+//         console.error('Error fetching blocked users:', err);
+//         setError(err.message);
+//         setIsLoading(false);
+//       }
+//     );
+
+//     return () => unsubscribe();
+//   }, [currentUser]);
+
+//   const handleUnblock = async () => {
+//     if (!unblockDialog.docId) return;
+
+//     try {
+//       await deleteDoc(doc(db, 'blocked_users', unblockDialog.docId));
+
+//       setSnackbar({
+//         open: true,
+//         message: 'User unblocked',
+//         severity: 'success'
+//       });
+
+//       setUnblockDialog({ open: false, docId: null, name: '' });
+//     } catch (error) {
+//       console.error('Error unblocking user:', error);
+//       setSnackbar({
+//         open: true,
+//         message: 'Failed to unblock user',
+//         severity: 'error'
+//       });
+//     }
+//   };
+
+//   const openUnblockDialog = (docId, name) => {
+//     setUnblockDialog({ open: true, docId, name });
+//   };
+
+//   const closeUnblockDialog = () => {
+//     setUnblockDialog({ open: false, docId: null, name: '' });
+//   };
+
+//   if (isLoading) {
+//     return (
+//       <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh">
+//         <CircularProgress />
+//       </Box>
+//     );
+//   }
+
+//   if (error) {
+//     return (
+//       <Container>
+//         <Alert severity="error">Error: {error}</Alert>
+//         <Button onClick={() => navigate(-1)} sx={{ mt: 2 }}>Go Back</Button>
+//       </Container>
+//     );
+//   }
+
+//   return (
+//     <Box sx={{ bgcolor: 'white', minHeight: '100vh' }}>
+//       {/* App Bar */}
+//       <AppBar 
+//         position="sticky" 
+//         elevation={0}
+//         sx={{ 
+//           bgcolor: 'white',
+//           color: 'black'
+//         }}
+//       >
+//         <Toolbar>
+//           <IconButton 
+//             edge="start" 
+//             onClick={() => navigate(-1)}
+//             sx={{ color: 'black' }}
+//           >
+//             <ArrowBackIcon />
+//           </IconButton>
+//           <Typography 
+//             variant="h6" 
+//             sx={{ 
+//               flexGrow: 1, 
+//               textAlign: 'center',
+//               fontWeight: 500,
+//               fontSize: 22
+//             }}
+//           >
+//             Blocked Accounts
+//           </Typography>
+//           <Box sx={{ width: 40 }} /> {/* Spacer for centering */}
+//         </Toolbar>
+//       </AppBar>
+
+//       {/* Main Content */}
+//       <Container maxWidth="md" sx={{ py: 2 }}>
+//         {blockedUsers.length === 0 ? (
+//           <Box 
+//             display="flex" 
+//             justifyContent="center" 
+//             alignItems="center" 
+//             minHeight="60vh"
+//           >
+//             <Typography variant="h6" color="text.secondary">
+//               No blocked accounts
+//             </Typography>
+//           </Box>
+//         ) : (
+//           <List sx={{ px: 0 }}>
+//             {blockedUsers.map((user) => (
+//               <BlockedUserRow
+//                 key={user.id}
+//                 docId={user.id}
+//                 name={user.blockedUserName || 'Unknown'}
+//                 image={user.blockedUserImage || ''}
+//                 onUnblock={openUnblockDialog}
+//               />
+//             ))}
+//           </List>
+//         )}
+//       </Container>
+
+//       {/* Unblock Confirmation Dialog */}
+//       <Dialog 
+//         open={unblockDialog.open} 
+//         onClose={closeUnblockDialog}
+//         maxWidth="xs"
+//         fullWidth
+//         PaperProps={{
+//           sx: {
+//             borderRadius: 5,
+//             p: 1
+//           }
+//         }}
+//       >
+//         <DialogContent sx={{ px: 3, py: 4 }}>
+//           <Typography 
+//             variant="h6" 
+//             align="center" 
+//             gutterBottom
+//             sx={{ fontWeight: 600, mb: 2 }}
+//           >
+//             Unblock {unblockDialog.name}?
+//           </Typography>
+
+//           <Typography 
+//             variant="body2" 
+//             align="center" 
+//             color="text.secondary"
+//             sx={{ mb: 3 }}
+//           >
+//             Unblocking will allow this profile to reach out to you again.
+//           </Typography>
+
+//           <Box sx={{ display: 'flex', gap: 2 }}>
+//             <Button
+//               fullWidth
+//               variant="outlined"
+//               onClick={closeUnblockDialog}
+//               sx={{
+//                 py: 1.5,
+//                 borderWidth: 2,
+//                 borderColor: 'rgba(0,0,0,0.4)',
+//                 color: 'black',
+//                 fontWeight: 700,
+//                 borderRadius: 8,
+//                 '&:hover': {
+//                   borderWidth: 2,
+//                   borderColor: 'rgba(0,0,0,0.6)'
+//                 }
+//               }}
+//             >
+//               Cancel
+//             </Button>
+
+//             <Button
+//               fullWidth
+//               variant="contained"
+//               onClick={handleUnblock}
+//               sx={{
+//                 py: 1.5,
+//                 bgcolor: '#7C3CFF',
+//                 fontWeight: 700,
+//                 borderRadius: 8,
+//                 '&:hover': {
+//                   bgcolor: '#6A2EE6'
+//                 }
+//               }}
+//             >
+//               Unblock
+//             </Button>
+//           </Box>
+//         </DialogContent>
+//       </Dialog>
+
+//       {/* Snackbar for notifications */}
+//       <Snackbar
+//         open={snackbar.open}
+//         autoHideDuration={3000}
+//         onClose={() => setSnackbar({ ...snackbar, open: false })}
+//         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+//       >
+//         <Alert 
+//           severity={snackbar.severity}
+//           onClose={() => setSnackbar({ ...snackbar, open: false })}
+//           sx={{ width: '100%' }}
+//         >
+//           {snackbar.message}
+//         </Alert>
+//       </Snackbar>
+//     </Box>
+//   );
+// };
+
+// // Blocked User Row Component
+// const BlockedUserRow = ({ docId, name, image, onUnblock }) => {
+//   return (
+//     <ListItem
+//       sx={{
+//         px: 2,
+//         py: 1.5,
+//         display: 'flex',
+//         alignItems: 'center',
+//         gap: 2
+//       }}
+//     >
+//       {/* Profile Image */}
+//       <Avatar
+//         src={image || undefined}
+//         sx={{
+//           width: 44,
+//           height: 44,
+//           bgcolor: 'grey.300'
+//         }}
+//       >
+//         {!image && <PersonIcon />}
+//       </Avatar>
+
+//       {/* Name */}
+//       <Typography 
+//         variant="body1" 
+//         sx={{ 
+//           flexGrow: 1,
+//           fontWeight: 600,
+//           fontSize: 18
+//         }}
+//       >
+//         {name}
+//       </Typography>
+
+//       {/* Unblock Button */}
+//       <Button
+//         onClick={() => onUnblock(docId, name)}
+//         sx={{
+//           bgcolor: '#7C3CFF',
+//           color: 'white',
+//           px: 3,
+//           py: 1,
+//           borderRadius: 5,
+//           fontWeight: 500,
+//           fontSize: 15,
+//           textTransform: 'none',
+//           '&:hover': {
+//             bgcolor: '#6A2EE6'
+//           }
+//         }}
+//       >
+//         Unblock
+//       </Button>
+//     </ListItem>
+//   );
+// };
+
+// export default BlockedUsersScreen;
+
+
+
+// import React, { useState, useEffect } from "react";
+// import {
+//   Box,
+//   Container,
+//   Typography,
+//   Avatar,
+//   Button,
+//   IconButton,
+//   CircularProgress,
+//   Dialog,
+//   DialogContent,
+//   AppBar,
+//   Toolbar,
+//   List,
+//   ListItem,
+//   Snackbar,
+//   Alert,
+// } from "@mui/material";
+// import {
+//   ArrowBack as ArrowBackIcon,
+//   Person as PersonIcon,
+// } from "@mui/icons-material";
+// import { useNavigate } from "react-router-dom";
+// import { db, auth } from "../firbase/Firebase";
+// import {
+//   collection,
+//   query,
+//   where,
+//   onSnapshot,
+//   doc,
+//   deleteDoc,
+// } from "firebase/firestore";
+// import { onAuthStateChanged } from "firebase/auth";
+
+// import backarrow from "../assets/backarrow.png"
+
+// const BlockedUsersScreen = () => {
+//   const navigate = useNavigate();
+//   const [currentUser, setCurrentUser] = useState(null);
+//   const [blockedUsers, setBlockedUsers] = useState([]);
+//   const [loading, setLoading] = useState(true);
+
+//   const [dialog, setDialog] = useState({
+//     open: false,
+//     id: null,
+//     name: "",
+//   });
+
+//   const [snackbar, setSnackbar] = useState({
+//     open: false,
+//     message: "",
+//     severity: "success",
+//   });
+
+//   /* ================= AUTH ================= */
+//   useEffect(() => {
+//     const unsub = onAuthStateChanged(auth, (u) => {
+//       setCurrentUser(u);
+//       if (!u) navigate("/login");
+//     });
+//     return () => unsub();
+//   }, [navigate]);
+
+//   /* ================= FETCH ================= */
+//   useEffect(() => {
+//     if (!currentUser) return;
+
+//     const q = query(
+//       collection(db, "blocked_users"),
+//       where("blockedBy", "==", currentUser.uid)
+//     );
+
+//     const unsub = onSnapshot(q, (snap) => {
+//       setBlockedUsers(
+//         snap.docs.map((d) => ({ id: d.id, ...d.data() }))
+//       );
+//       setLoading(false);
+//     });
+
+//     return () => unsub();
+//   }, [currentUser]);
+
+//   /* ================= UNBLOCK ================= */
+//   const handleUnblock = async () => {
+//     await deleteDoc(doc(db, "blocked_users", dialog.id));
+//     setSnackbar({
+//       open: true,
+//       message: "User unblocked",
+//       severity: "success",
+//     });
+//     setDialog({ open: false, id: null, name: "" });
+//   };
+
+//   if (loading) {
+//     return (
+//       <Box
+//         minHeight="100vh"
+//         display="flex"
+//         alignItems="center"
+//         justifyContent="center"
+//       >
+//         <CircularProgress />
+//       </Box>
+//     );
+//   }
+
+//   return (
+//     <Box sx={{ minHeight: "100vh", bgcolor: "white" }}>
+//       {/* ================= HEADER ================= */}
+//       <AppBar
+//         position="sticky"
+//         elevation={0}
+//         sx={{
+//           bgcolor: "#ffffff",
+//           color: "#000",
+
+//         }}
+//       >
+//         <Toolbar>
+//           <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+//             <div
+//               onClick={() => navigate(-1)}
+//               style={{
+//                 width: 36,
+//                 height: 36,
+//                 borderRadius: 14,
+//                 border: "0.8px solid #E0E0E0",
+//                 backgroundColor: "#FFFFFF",
+//                 display: "flex",
+//                 alignItems: "center",
+//                 justifyContent: "center",
+//                 cursor: "pointer",
+//                 boxShadow: "0 4px 10px rgba(0,0,0,0.06)",
+//                 marginRight: "10px",
+//               }}
+//             >
+//               <img
+//                 src={backarrow}
+//                 alt="Back"
+//                 style={{ width: 16, height: 18 }}
+//               />
+//             </div>
+//           </div>
+
+//           <Typography fontSize={18} fontWeight={600}>
+//             Blocked accounts
+//           </Typography>
+//         </Toolbar>
+//       </AppBar>
+
+//       {/* ================= LIST ================= */}
+//       <Container maxWidth="sm" sx={{ mt: 2 }}>
+//         <List sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+//           {blockedUsers.map((u) => (
+//             <ListItem
+//               key={u.id}
+//               sx={{
+//                 bgcolor: "#fffdf8",
+//                 borderRadius: 999,
+//                 px: 62,
+//                 marginLeft: "-230px",
+//                 py: 1.0,
+//                 display: "flex",
+//                 alignItems: "center",
+//                 border: "1px solid #eee",
+//               }}
+//             >
+//               <Avatar
+//                 src={u.blockedUserImage || ""}
+//                 sx={{
+//                     width: 46,
+//                     height: 46,
+//                     marginLeft: "-490px",
+//                     mr: 2,
+//                   }}
+//               >
+//                 <PersonIcon />
+//               </Avatar>
+
+//               <Typography
+//                 sx={{
+//                   flexGrow: 1,
+//                   fontSize: 15,
+//                   fontWeight: 500,
+//                 }}
+//               >
+//                 {u.blockedUserName || "Unknown"}
+//               </Typography>
+
+//               <Button
+//                 onClick={() =>
+//                   setDialog({
+//                     open: true,
+//                     id: u.id,
+//                     name: u.blockedUserName,
+//                   })
+//                 }
+//                 sx={{
+//                     bgcolor: "#fff36d",
+//                     color: "#000",
+//                     borderRadius: 999,
+//                     px: 3,
+//                     height: 36,
+//                     fontSize: 14,
+//                     marginRight: "-480px",
+//                     fontWeight: 500,
+//                     textTransform: "none",
+//                     "&:hover": { bgcolor: "#ffef4d" },
+//                   }}
+//               >
+//                 Unblock
+//               </Button>
+//             </ListItem>
+//           ))}
+//         </List>
+//       </Container>
+
+//       {/* ================= DIALOG ================= */}
+//       <Dialog open={dialog.open} onClose={() => setDialog({ open: false })}>
+//         <DialogContent sx={{ textAlign: "center", p: 3 }}>
+//           <Typography fontWeight={600} mb={2}>
+//             Unblock {dialog.name}?
+//           </Typography>
+
+//           <Box display="flex" gap={2}>
+//             <Button
+//               fullWidth
+//               variant="outlined"
+//               onClick={() => setDialog({ open: false })}
+//             >
+//               Cancel
+//             </Button>
+//             <Button
+//               fullWidth
+//               onClick={handleUnblock}
+//               sx={{ bgcolor: "#7C3CFF", color: "#fff" }}
+//             >
+//               Unblock
+//             </Button>
+//           </Box>
+//         </DialogContent>
+//       </Dialog>
+
+//       {/* ================= SNACKBAR ================= */}
+//       <Snackbar
+//         open={snackbar.open}
+//         autoHideDuration={3000}
+//         onClose={() => setSnackbar({ ...snackbar, open: false })}
+//       >
+//         <Alert severity={snackbar.severity}>
+//           {snackbar.message}
+//         </Alert>
+//       </Snackbar>
+//     </Box>
+//   );
+// };
+
+// export default BlockedUsersScreen;
+
+
+
+
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Container,
@@ -1305,341 +1927,334 @@ import {
   List,
   ListItem,
   Snackbar,
-  Alert
-} from '@mui/material';
+  Alert,
+} from "@mui/material";
 import {
   ArrowBack as ArrowBackIcon,
-  Person as PersonIcon
-} from '@mui/icons-material';
-import { useNavigate } from 'react-router-dom';
-import { db, auth } from '../firbase/Firebase';
+  Person as PersonIcon,
+} from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
+import { db, auth } from "../firbase/Firebase";
 import {
   collection,
   query,
   where,
   onSnapshot,
   doc,
-  deleteDoc
-} from 'firebase/firestore';
-import { onAuthStateChanged } from 'firebase/auth';
+  deleteDoc,
+} from "firebase/firestore";
+import { onAuthStateChanged } from "firebase/auth";
+
+import backarrow from "../assets/backarrow.png";
 
 const BlockedUsersScreen = () => {
   const navigate = useNavigate();
+
+  /* ================= SIDEBAR COLLAPSE STATE ================= */
+  const [collapsed, setCollapsed] = useState(
+    localStorage.getItem("sidebar-collapsed") === "true"
+  );
+
+  /* ================= LISTEN SIDEBAR TOGGLE ================= */
+  useEffect(() => {
+    function handleToggle(e) {
+      setCollapsed(e.detail);
+    }
+    window.addEventListener("sidebar-toggle", handleToggle);
+    return () => window.removeEventListener("sidebar-toggle", handleToggle);
+  }, []);
+
+  /* ================= STATE ================= */
   const [currentUser, setCurrentUser] = useState(null);
   const [blockedUsers, setBlockedUsers] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [unblockDialog, setUnblockDialog] = useState({
+  const [loading, setLoading] = useState(true);
+
+  const [dialog, setDialog] = useState({
     open: false,
-    docId: null,
-    name: ''
+    id: null,
+    name: "",
   });
+
   const [snackbar, setSnackbar] = useState({
     open: false,
-    message: '',
-    severity: 'success'
+    message: "",
+    severity: "success",
   });
 
-  // Auth listener
+  /* ================= AUTH ================= */
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setCurrentUser(user);
-      if (!user) {
-        navigate('/login');
-      }
+    const unsub = onAuthStateChanged(auth, (u) => {
+      setCurrentUser(u);
+      if (!u) navigate("/login");
     });
-    return () => unsubscribe();
+    return () => unsub();
   }, [navigate]);
 
-  // Fetch blocked users with real-time updates
+  /* ================= FETCH ================= */
   useEffect(() => {
     if (!currentUser) return;
 
-    setIsLoading(true);
     const q = query(
-      collection(db, 'blocked_users'),
-      where('blockedBy', '==', currentUser.uid)
+      collection(db, "blocked_users"),
+      where("blockedBy", "==", currentUser.uid)
     );
 
-    const unsubscribe = onSnapshot(
-      q,
-      (snapshot) => {
-        const users = snapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data()
-        }));
-        setBlockedUsers(users);
-        setIsLoading(false);
-        setError(null);
-      },
-      (err) => {
-        console.error('Error fetching blocked users:', err);
-        setError(err.message);
-        setIsLoading(false);
-      }
-    );
+    const unsub = onSnapshot(q, (snap) => {
+      setBlockedUsers(
+        snap.docs.map((d) => ({ id: d.id, ...d.data() }))
+      );
+      setLoading(false);
+    });
 
-    return () => unsubscribe();
+    return () => unsub();
   }, [currentUser]);
 
+  /* ================= UNBLOCK ================= */
   const handleUnblock = async () => {
-    if (!unblockDialog.docId) return;
-
-    try {
-      await deleteDoc(doc(db, 'blocked_users', unblockDialog.docId));
-      
-      setSnackbar({
-        open: true,
-        message: 'User unblocked',
-        severity: 'success'
-      });
-      
-      setUnblockDialog({ open: false, docId: null, name: '' });
-    } catch (error) {
-      console.error('Error unblocking user:', error);
-      setSnackbar({
-        open: true,
-        message: 'Failed to unblock user',
-        severity: 'error'
-      });
-    }
+    await deleteDoc(doc(db, "blocked_users", dialog.id));
+    setSnackbar({
+      open: true,
+      message: "User unblocked",
+      severity: "success",
+    });
+    setDialog({ open: false, id: null, name: "" });
   };
 
-  const openUnblockDialog = (docId, name) => {
-    setUnblockDialog({ open: true, docId, name });
-  };
-
-  const closeUnblockDialog = () => {
-    setUnblockDialog({ open: false, docId: null, name: '' });
-  };
-
-  if (isLoading) {
+  if (loading) {
     return (
-      <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh">
+      <Box
+        minHeight="100vh"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+      >
         <CircularProgress />
       </Box>
     );
   }
 
-  if (error) {
-    return (
-      <Container>
-        <Alert severity="error">Error: {error}</Alert>
-        <Button onClick={() => navigate(-1)} sx={{ mt: 2 }}>Go Back</Button>
-      </Container>
-    );
-  }
-
+  /* ================= WRAPPER WITH SIDEBAR ================= */
   return (
-    <Box sx={{ bgcolor: 'white', minHeight: '100vh' }}>
-      {/* App Bar */}
-      <AppBar 
-        position="sticky" 
-        elevation={0}
-        sx={{ 
-          bgcolor: 'white',
-          color: 'black'
-        }}
-      >
-        <Toolbar>
-          <IconButton 
-            edge="start" 
-            onClick={() => navigate(-1)}
-            sx={{ color: 'black' }}
-          >
-            <ArrowBackIcon />
-          </IconButton>
-          <Typography 
-            variant="h6" 
-            sx={{ 
-              flexGrow: 1, 
-              textAlign: 'center',
-              fontWeight: 500,
-              fontSize: 22
-            }}
-          >
-            Blocked Accounts
-          </Typography>
-          <Box sx={{ width: 40 }} /> {/* Spacer for centering */}
-        </Toolbar>
-      </AppBar>
-
-      {/* Main Content */}
-      <Container maxWidth="md" sx={{ py: 2 }}>
-        {blockedUsers.length === 0 ? (
-          <Box 
-            display="flex" 
-            justifyContent="center" 
-            alignItems="center" 
-            minHeight="60vh"
-          >
-            <Typography variant="h6" color="text.secondary">
-              No blocked accounts
-            </Typography>
-          </Box>
-        ) : (
-          <List sx={{ px: 0 }}>
-            {blockedUsers.map((user) => (
-              <BlockedUserRow
-                key={user.id}
-                docId={user.id}
-                name={user.blockedUserName || 'Unknown'}
-                image={user.blockedUserImage || ''}
-                onUnblock={openUnblockDialog}
-              />
-            ))}
-          </List>
-        )}
-      </Container>
-
-      {/* Unblock Confirmation Dialog */}
-      <Dialog 
-        open={unblockDialog.open} 
-        onClose={closeUnblockDialog}
-        maxWidth="xs"
-        fullWidth
-        PaperProps={{
-          sx: {
-            borderRadius: 5,
-            p: 1
-          }
-        }}
-      >
-        <DialogContent sx={{ px: 3, py: 4 }}>
-          <Typography 
-            variant="h6" 
-            align="center" 
-            gutterBottom
-            sx={{ fontWeight: 600, mb: 2 }}
-          >
-            Unblock {unblockDialog.name}?
-          </Typography>
-
-          <Typography 
-            variant="body2" 
-            align="center" 
-            color="text.secondary"
-            sx={{ mb: 3 }}
-          >
-            Unblocking will allow this profile to reach out to you again.
-          </Typography>
-
-          <Box sx={{ display: 'flex', gap: 2 }}>
-            <Button
-              fullWidth
-              variant="outlined"
-              onClick={closeUnblockDialog}
-              sx={{
-                py: 1.5,
-                borderWidth: 2,
-                borderColor: 'rgba(0,0,0,0.4)',
-                color: 'black',
-                fontWeight: 700,
-                borderRadius: 8,
-                '&:hover': {
-                  borderWidth: 2,
-                  borderColor: 'rgba(0,0,0,0.6)'
-                }
-              }}
-            >
-              Cancel
-            </Button>
-
-            <Button
-              fullWidth
-              variant="contained"
-              onClick={handleUnblock}
-              sx={{
-                py: 1.5,
-                bgcolor: '#7C3CFF',
-                fontWeight: 700,
-                borderRadius: 8,
-                '&:hover': {
-                  bgcolor: '#6A2EE6'
-                }
-              }}
-            >
-              Unblock
-            </Button>
-          </Box>
-        </DialogContent>
-      </Dialog>
-
-      {/* Snackbar for notifications */}
-      <Snackbar
-        open={snackbar.open}
-        autoHideDuration={3000}
-        onClose={() => setSnackbar({ ...snackbar, open: false })}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-      >
-        <Alert 
-          severity={snackbar.severity}
-          onClose={() => setSnackbar({ ...snackbar, open: false })}
-          sx={{ width: '100%' }}
-        >
-          {snackbar.message}
-        </Alert>
-      </Snackbar>
-    </Box>
-  );
-};
-
-// Blocked User Row Component
-const BlockedUserRow = ({ docId, name, image, onUnblock }) => {
-  return (
-    <ListItem
-      sx={{
-        px: 2,
-        py: 1.5,
-        display: 'flex',
-        alignItems: 'center',
-        gap: 2
+    <div
+      className="freelance-wrapper"
+      style={{
+        marginLeft: collapsed ? "-110px" : "50px",
+        transition: "margin-left 0.25s ease",
       }}
     >
-      {/* Profile Image */}
-      <Avatar
-        src={image || undefined}
-        sx={{
-          width: 44,
-          height: 44,
-          bgcolor: 'grey.300'
-        }}
-      >
-        {!image && <PersonIcon />}
-      </Avatar>
+      <Box sx={{ marginRight: "150px", minHeight: "100vh", bgcolor: "white" }}>
+        {/* ================= HEADER ================= */}
+        <AppBar
+          position="sticky"
+          elevation={0}
+          sx={{
+            bgcolor: "#ffffff",
+            color: "#000",
+          }}
+        >
+          <Toolbar>
+            <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+              <div
+                onClick={() => navigate(-1)}
+                style={{
+                  width: 36,
+                  height: 36,
+                  borderRadius: 14,
+                  border: "0.8px solid #E0E0E0",
+                  backgroundColor: "#FFFFFF",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  cursor: "pointer",
+                  boxShadow: "0 4px 10px rgba(0,0,0,0.06)",
+                  marginRight: "10px",
+                }}
+              >
+                <img
+                  src={backarrow}
+                  alt="Back"
+                  style={{ width: 16, height: 18 }}
+                />
+              </div>
+            </div>
 
-      {/* Name */}
-      <Typography 
-        variant="body1" 
-        sx={{ 
-          flexGrow: 1,
-          fontWeight: 600,
-          fontSize: 18
-        }}
-      >
-        {name}
-      </Typography>
+            <Typography fontSize={18} fontWeight={600}>
+              Blocked accounts
+            </Typography>
+          </Toolbar>
+        </AppBar>
 
-      {/* Unblock Button */}
-      <Button
-        onClick={() => onUnblock(docId, name)}
-        sx={{
-          bgcolor: '#7C3CFF',
-          color: 'white',
-          px: 3,
-          py: 1,
-          borderRadius: 5,
-          fontWeight: 500,
-          fontSize: 15,
-          textTransform: 'none',
-          '&:hover': {
-            bgcolor: '#6A2EE6'
-          }
-        }}
-      >
-        Unblock
-      </Button>
-    </ListItem>
+        {/* ================= LIST ================= */}
+        <Container maxWidth="sm" sx={{ mt: 2 }}>
+          <List sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+            {blockedUsers.map((u) => (
+              <ListItem
+                key={u.id}
+                sx={{
+                  bgcolor: "#fffdf8",
+                  borderRadius: 999,
+                  px: 62,
+                  marginLeft: "-230px",
+                  py: 1.0,
+                  display: "flex",
+                  alignItems: "center",
+                  border: "1px solid #eee",
+                }}
+              >
+                <Avatar
+                  src={u.blockedUserImage || ""}
+                  sx={{
+                    width: 46,
+                    height: 46,
+                    marginLeft: "-490px",
+                    mr: 2,
+                  }}
+                >
+                  <PersonIcon />
+                </Avatar>
+
+                <Typography
+                  sx={{
+                    flexGrow: 1,
+                    fontSize: 15,
+                    fontWeight: 500,
+                  }}
+                >
+                  <h1></h1>
+                  {u.blockedUserName || "Unknown"}
+                </Typography>
+
+                <Button
+                  onClick={() =>
+                    setDialog({
+                      open: true,
+                      id: u.id,
+                      name: u.blockedUserName,
+                    })
+                  }
+                  sx={{
+                    bgcolor: "#fff36d",
+                    color: "#000",
+                    borderRadius: 999,
+                    px: 3,
+                    height: 36,
+                    fontSize: 14,
+                    marginRight: "-480px",
+                    fontWeight: 500,
+                    textTransform: "none",
+                    "&:hover": { bgcolor: "#ffef4d" },
+                  }}
+                >
+                  Unblock
+                </Button>
+                
+              </ListItem>
+            ))}
+          </List>
+        </Container>
+
+        {/* ================= DIALOG ================= */}
+        <Dialog
+          open={dialog.open}
+          onClose={() => setDialog({ open: false })}
+          maxWidth="sm"
+          PaperProps={{
+            sx: {
+              borderRadius: "28px",
+              px: 4,
+              py: 3,
+            },
+          }}
+        >
+          <DialogContent sx={{ textAlign: "center", p: 0 }}>
+            {/* TITLE */}
+            <Typography
+              sx={{
+                fontSize: 22,
+                fontWeight: 700,
+                mb: 1.5,
+              }}
+            >
+              Unblock {dialog.name}?
+            </Typography>
+
+            {/* SUB TITLE */}
+            <Typography
+              sx={{
+                fontSize: 16,
+                color: "#000",
+                opacity: 0.75,
+                mb: 4,
+                lineHeight: 1.4,
+              }}
+            >
+              Unblocking will allow this profile to reach out to you again
+            </Typography>
+
+            {/* ACTION BUTTONS */}
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                gap: 15,
+              }}
+            >
+              {/* CANCEL */}
+              <Button
+                onClick={() => setDialog({ open: false })}
+                sx={{
+                  flex: 1,
+                  height: 35,
+                  marginLeft:"30px",
+                  borderRadius: 3,
+                  border: "2px solid #9b5cff",
+                  color: "#9b5cff",
+                  fontSize: 16,
+                  fontWeight: 600,
+                  textTransform: "none",
+                }}
+              >
+                Cancel
+              </Button>
+
+              {/* UNBLOCK */}
+              <Button
+                onClick={handleUnblock}
+                sx={{
+                  flex: 1,
+                  height: 35,
+                  
+                  borderRadius: 3,
+                  bgcolor: "#9b3cff",
+                  color: "#fff",
+                  marginRight:"40px",
+                  fontSize: 16,
+                  fontWeight: 600,
+                  textTransform: "none",
+                  "&:hover": {
+                    bgcolor: "#8a2be2",
+                  },
+                }}
+              >
+                Unblock
+              </Button>
+            </Box>
+          </DialogContent>
+        </Dialog>
+
+
+        {/* ================= SNACKBAR ================= */}
+        {/* <Snackbar
+          open={snackbar.open}
+          autoHideDuration={3000}
+          onClose={() => setSnackbar({ ...snackbar, open: false })}
+        > */}
+          {/* <Alert severity={snackbar.severity}>
+            {snackbar.message}
+          </Alert> */}
+        {/* </Snackbar> */}
+      </Box>
+    </div>
   );
 };
 
