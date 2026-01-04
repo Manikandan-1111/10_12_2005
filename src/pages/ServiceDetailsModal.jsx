@@ -2390,7 +2390,7 @@ export default function ServicePage() {
 
       <div className="money-box">
         <div>
-          <div className="range">₹{job.budget_from} - {job.budget_to}</div>
+          <div className="range">₹{job.budget_from} - ₹{job.budget_to}</div>
           <div>Timeline: {job.deliveryDuration}</div>
         </div>
         <button
@@ -2447,7 +2447,7 @@ export default function ServicePage() {
           )
         ) : (
           <button className="connect-btn" onClick={() => setConnectOpen(true)}>
-            Hire now
+            Hire Now
           </button>
         )}
       </div>

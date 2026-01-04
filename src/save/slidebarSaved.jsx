@@ -1396,6 +1396,9 @@
 
 
 
+
+
+
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
@@ -1594,8 +1597,12 @@ const renderEmptyState = (btnText, onClick) => (
     <div
       key={job.id}
       onClick={() =>
-        navigate(`/serviceDetailsModel/${job.id}`, { state: { job } })
-      }
+          navigate(
+            selectedTab === "Works"
+              ? `/freelance-dashboard/servicesdetails/${job.id}`
+              : `/freelance-dashboard/services24details/${job.id}`
+          )
+        }
       style={{
         width: isMobile ? "100%" : 496,
         height: isMobile ? "auto" : 259,
@@ -1664,11 +1671,11 @@ const renderEmptyState = (btnText, onClick) => (
 
       <div style={{ display: "flex", justifyContent: "space-between" ,    marginBottom: isMobile ? "20px" : 0,}}>
         <div>
-          <div style={{ fontSize: 13 }}>Budget</div>
-          <div style={{ fontSize: 14, fontWeight: 600, color: "#7B3CFF" }}>
-            ₹{job.budget_from || job.budget}
+            <div style={{ fontSize: 15 }}>Budget</div>
+            <div style={{ marginTop: 4, fontSize: 13, fontWeight: 500, color: "rgba(124,60,255,1)" }}>
+              ₹{job.budget_from} -   ₹{job.budget_to}
+            </div>
           </div>
-        </div>
         <div>
           <div style={{ fontSize: 13 }}>Timeline</div>
           <div style={{ fontSize: 14, fontWeight: 600 }}>

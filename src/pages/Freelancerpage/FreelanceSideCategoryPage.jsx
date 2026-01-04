@@ -396,8 +396,11 @@ export default function ExploreFreelancer() {
                     gap: 16,
                   }}
                 >
-                  <div style={{ fontWeight: 500 }}>
-                    ₹ {formatCurrency(job.budget)} / day
+                  <div>
+                    <div style={{ fontSize: 15 }}>Budget</div>
+                    <div style={{ marginTop: 4, fontSize: 13, fontWeight: 500, color: "rgba(124,60,255,1)" }}>
+                      ₹{job.budget_from} -   ₹{job.budget_to}
+                    </div>
                   </div>
 
                   <button
