@@ -1124,13 +1124,18 @@ export default function EditServiceForm() {
       style={{
         marginLeft: isMobile ? "0px" : collapsed ? "-190px" : "-90px",
         transition: "margin-left 0.25s ease",
+        padding: isMobile ? "22px" : "30px",
+        
+        // margin
       }}
     >
       <div
         style={{
           ...styles.wrapper,
-          margin: isMobile ? "22px 12px" : "40px auto",
+          margin: isMobile ? "82px 2px" : "40px auto",
           padding: isMobile ? "22px" : "30px",
+          // marginRight: isMobile ? "-30px" :"0",
+        
         }}
       >
         <h2

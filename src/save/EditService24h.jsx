@@ -431,8 +431,6 @@
 
 
 
-
-
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { doc, updateDoc } from "firebase/firestore";
@@ -447,7 +445,7 @@ import { getDoc } from "firebase/firestore";
 export default function EditService24h() {
   const navigate = useNavigate();
   const location = useLocation();
-const { id } = useParams();
+  const { id } = useParams();
 
   const jobId = location?.state?.jobId || null;
   const jobData = location?.state?.jobData || null;
@@ -474,33 +472,41 @@ const { id } = useParams();
   const [skills, setSkills] = useState([]);
   const [tools, setTools] = useState([]);
   const [notes, setNotes] = useState("");
-  const [budget, setBudget] = useState("");
+  const [budgetFrom, setBudgetFrom] = useState("");
+  const [budgetTo, setBudgetTo] = useState("");
+
   const [category, setCategory] = useState(null);
 
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
-  if (jobData || !id) return;
+    if (jobData || !id) return;
 
-  const fetchService = async () => {
-    const snap = await getDoc(doc(db, "service_24h", id));
-    if (snap.exists()) {
-      const data = { id: snap.id, ...snap.data() };
+    const fetchService = async () => {
+      const snap = await getDoc(doc(db, "service_24h", id));
 
-      setTitle(data.title || "");
-      setDescription(data.description || "");
-      setSkills((data.skills || []).map(s => ({ label: s, value: s })));
-      setTools((data.tools || []).map(t => ({ label: t, value: t })));
-      setNotes(data.notes || "");
-      setBudget(data.budget || "");
-      setCategory(
-        data.category ? { label: data.category, value: data.category } : null
-      );
-    }
-  };
+      if (snap.exists()) {
+        const data = snap.data();
 
-  fetchService();
-}, [jobData, id]);
+        setTitle(data.title || "");
+        setDescription(data.description || "");
+        setSkills((data.skills || []).map(s => ({ label: s, value: s })));
+        setTools((data.tools || []).map(t => ({ label: t, value: t })));
+        setNotes(data.clientRequirements || "");
+
+        setBudgetFrom(data.budget_from || "");
+        setBudgetTo(data.budget_to || "");
+
+        setCategory(
+          data.category
+            ? { label: data.category, value: data.category }
+            : null
+        );
+      }
+    };
+
+    fetchService();
+  }, [id, jobData]);
 
 
 
@@ -544,7 +550,7 @@ const { id } = useParams();
   }, [jobData]);
 
   const handleSave = async () => {
-    if (!jobId) return alert("Invalid job ID");
+    if (!id) return alert("Invalid service ID");
 
     if (!title.trim()) return alert("Title required");
     if (!description.trim()) return alert("Description required");
@@ -553,22 +559,23 @@ const { id } = useParams();
     setSaving(true);
 
     try {
-      await updateDoc(doc(db, "service_24h", jobId), {
+      await updateDoc(doc(db, "service_24h", id), {
         title: title.trim(),
         description: description.trim(),
         category: category.value,
-        skills: skills.map((s) => s.value),
-        tools: tools.map((t) => t.value),
-        notes,
-        budget,
+        skills: skills.map(s => s.value),
+        tools: tools.map(t => t.value),
+        clientRequirements: notes,
+        budget_from: Number(budgetFrom),
+        budget_to: Number(budgetTo),
         updatedAt: new Date(),
       });
 
       alert("24 Hour Service updated!");
       navigate(-1);
     } catch (error) {
-      console.error("Error updating 24h service:", error);
-      alert("Update failed: " + error.message);
+      console.error("Update failed:", error);
+      alert(error.message);
     }
 
     setSaving(false);
@@ -609,12 +616,22 @@ const { id } = useParams();
         <label style={styles.label}>Tools</label>
         <Select isMulti options={toolOptions} value={tools} onChange={setTools} />
 
-        <label style={styles.label}>Budget</label>
+        <label style={styles.label}>Budget From</label>
         <input
+          type="number"
           style={styles.input}
-          value={budget}
-          onChange={(e) => setBudget(e.target.value)}
+          value={budgetFrom}
+          onChange={(e) => setBudgetFrom(e.target.value)}
         />
+
+        <label style={styles.label}>Budget To</label>
+        <input
+          type="number"
+          style={styles.input}
+          value={budgetTo}
+          onChange={(e) => setBudgetTo(e.target.value)}
+        />
+
 
         <label style={styles.label}>Notes</label>
         <textarea

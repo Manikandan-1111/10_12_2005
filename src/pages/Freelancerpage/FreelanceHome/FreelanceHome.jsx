@@ -3507,6 +3507,8 @@ import {
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { db } from "../../../firbase/Firebase";
+import { useTheme, useMediaQuery } from "@mui/material";
+
 
 import {
   FiBookmark,
@@ -3549,6 +3551,8 @@ export default function FreelanceHome() {
   const [userMap, setUserMap] = useState({});
 
   const searchRef = useRef(null);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
 
   const [userInfo, setUserInfo] = useState({
@@ -3800,54 +3804,184 @@ export default function FreelanceHome() {
         {/* ================= HEADER ================= */}
         <header className="fh-header">
 
-          {/* LEFT */}
-          <div id="fh-header-left" className="fh-header-left">
-            <div id="fh-welcome" className="fh-welcome">
-              <h1 className="fh-title">
-                Welcome,<div>{userInfo.firstName || "Huzzlers"}</div>
-              </h1>
-              <div className="fh-subtitle">
-                Find projects that match your skills
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row", // 🔥 mobile + web same line
+              justifyContent: "space-between",
+              alignItems: "center",
+              width: "100%",
+            }}
+          >
+            {/* LEFT */}
+            <div id="fh-header-left" className="fh-header-left">
+              <div id="fh-welcome" className="fh-welcome">
+                <h1
+                  className="fh-title"
+                  style={{
+                    fontSize: isMobile ? "20px" : "28px", // mobile adjust
+                    whiteSpace: "nowrap",
+                    marginTop:isMobile?"-10px":"",
+                    marginLeft:isMobile?"-10px":"",
+                  }}
+                >
+                  Welcome,
+                  <span style={{ marginLeft: "6px" }}>
+                    {userInfo.firstName || "Huzzlers"}
+                  </span>
+                </h1>
+
+                <div
+                  className="fh-subtitle"
+                  style={{
+                    fontSize: isMobile ? "12px" : "14px",
+                    marginLeft:isMobile?"-10px":"",
+                  }}
+                >
+                  Find projects that match your skills
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* RIGHT */}
-          <div id="fh-header-right" className="fh-header-right">
+            {/* RIGHT */}
+            {/* RIGHT */}
+            <div
+              id="fh-header-right"
+              className="fh-her-right"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "12px",
+                flexShrink: 0,
+                marginTop:isMobile?"-60px":"",
+                marginLeft:'-53px',
 
-            <Link to="/freelance-dashboard/freelancermessages">
-              <FiMessageCircle />
-            </Link>
+                // 🔥 mobile la konjam left move
+                transform: isMobile ? "translateX(-20px)" : "none",
+              }}
+            >
 
-            <button className="icon-btn" onClick={() => setNotifOpen(prev => !prev)}>
-              <FiBell />
-              {notifCount > 0 && <span className="notif-dot" />}
-            </button>
+              <Link to="/freelance-dashboard/freelancermessages">
+                <img
+                  src={message}
+                  alt="message"
+                  style={{
+                    width: isMobile ? "20px" : "24px",
+                    
 
-            <div className="fh-avatar">
-              <Link to="/freelance-dashboard/Profilebuilder">
-                <img src={profile} alt="avatar" />
+                  }}
+                />
               </Link>
+
+              <button
+                className="icon-btn"
+                onClick={() => setNotifOpen((prev) => !prev)}
+                style={{
+                  background: "transparent",
+                  border: "none",
+                  position: "relative",
+
+                }}
+              >
+                <img
+                  src={notification}
+                  alt="notification"
+                  style={{
+                    width: isMobile ? "20px" : "24px",
+                    marginTop: isMobile ? "11" : "",
+
+                  }}
+                />
+
+                {notifCount > 0 && (
+                  <span
+                    style={{
+                      position: "absolute",
+                      top: "2px",
+                      right: "2px",
+                      width: "8px",
+                      height: "8px",
+                      background: "red",
+                      borderRadius: "50%",
+
+                    }}
+                  />
+                )}
+              </button>
             </div>
           </div>
 
+
           {/* SEARCH */}
-          <div className="fh-search-row" ref={searchRef}>
-            <div id="fh-search" className="fh-search fh-search-small">
-              <FiSearch className="search-icon" />
+          <div
+            className="fh-sear-row"
+            ref={searchRef}
+            style={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+              padding: isMobile ? "0 10px" : "0",
+            }}
+          >
+            <div
+              id="fh-searc"
+              className="fh-search fh-search-small"
+              style={{
+                width: isMobile ? "100%" : "420px",
+                height: isMobile ? "40px" : "44px",   // 🔥 mobile height reduced
+                borderRadius: "14px",
+                border: "1px solid #DADADA",
+                padding: isMobile ? "0 14px" : "0 39px", // mobile tighter
+                display: "flex",
+                alignItems: "center",
+                backgroundColor: "#FFFSSS",
+                boxShadow: "0px 1px 3px rgba(0,0,0,0.06)",
+              }}
+            >
+              <FiSearch
+                className="searchxx-icon"
+                style={{
+                  fontSize: isMobile ? 18 : 18,
+                  color: "#666",
+                  marginRight: -2,
+                  marginTop: "-1px",
+                  marginLeft: isMobile ? -5 : -20,
+                }}
+              />
+
               <input
                 className="search-input"
                 placeholder="Search"
                 value={searchText}
                 onChange={(e) => setSearchText(e.target.value)}
+                style={{
+                  flex: 1,
+                  border: "none",
+                  outline: "none",
+                  fontSize: isMobile ? "13px" : "15px",
+                  background: "transparent",
+                  marginTop: "16px"
+                }}
               />
+
               {searchText && (
-                <button className="clear-btn" onClick={() => setSearchText("")}>
+                <button
+                  className="clear-btn"
+                  onClick={() => setSearchText("")}
+                  style={{
+                    border: "none",
+                    background: "transparent",
+                    fontSize: isMobile ? 14 : 16,
+                    cursor: "pointer",
+                  }}
+                >
                   ✕
                 </button>
               )}
             </div>
           </div>
+
+
         </header>
 
         {/* ================= NOTIFICATIONS ================= */}
@@ -3891,56 +4025,47 @@ export default function FreelanceHome() {
 
         {/* ================= MAIN ================= */}
         <main className="fh-main">
-{/* 
-          <section className="fh-hero">
 
-            <div
-              id="fh-hero-card"
-              className="fh-hero-card primary"
-              onClick={() => navigate("/client-dashbroad2/clientcategories")}
-            >
-              <img src={browseImg1} id="hero-img-brower" className="hero-img img-1" style={{
-                width: "50px", paddingTop: "20px"
-              }} />
-              <img src={browseImg2} className="hero-img img-2" style={{ width: "300px", height: "200px", marginRight: "150px" }} />
-              <div id="browertitle" style={{marginRight:"-110px"}}>
-                <h3><span id="freelancer-browerproject-title">Browse All Projects</span></h3>
-                <p><span>Explore all available opportunities</span></p>
-              </div>
-              <div className="hero-right">
-                <img src={arrow} className="arrow" width={25} />
-              </div>
-            </div>
+          <section
+            style={{
+              display: "flex",
+              flexDirection: isMobile ? "column" : "row", // 🔥 key line
+              justifyContent: "center",
+              alignItems: "center",
+              gap: "20px",
+            }}
+          >
+            <img
+              onClick={() =>
+                navigate("/freelance-dashboard/freelancebrowesproject")
+              }
+              src={ActionCard}
+              alt="ActionCard"
+              style={{
+                width: isMobile ? "112%" : "50%", // mobile big, web normal
+                cursor: "pointer",
+                marginLeft: isMobile ? "0px" : "-30px",
+                marginTop: isMobile ? "-3px" : "",
+              }}
+            />
 
-            <div
-              id="fh-hero-card"
-              className="fh-hero-card secondary"
-              onClick={() => navigate("/client-dashbroad2/AddJobScreen")}
-              
-            >
-              <img src={worksImg1} id="hero-img" className="hero-img img-3" style={{ width: "50px", paddingTop: "20px" }} />
-              <img src={worksImg2} className="hero-img img-4" style={{ width: "300px", height: "200px", marginRight: "150px" }} />
-              <div id="browertitle" style={{marginRight:"-9px"}} className="jobtitle">
-                <h3>My Works</h3>
-                <p>Track your work</p>
-              </div>
-              <div className="hero-right">
-                <img src={arrow} className="arrow" width={25} />
-              </div>
-            </div>
+            <img
+              onClick={() =>
+                navigate("/freelance-dashboard/freelancermyworks")
+              }
+              src={Job}
+              alt="ActionCard"
+              style={{
+                width: isMobile ? "112%" : "50%",
+                cursor: "pointer",
+                marginLeft: isMobile ? "0px" : "30px",
+                marginTop: isMobile ? "-30px" : "",
+                border: "2px solid #0000"
+              }}
+            />
+          </section>
 
 
-          </section> */}
-
-
-                      <section >
-          
-          
-                        <img onClick={() => navigate("/freelance-dashboard/freelancebrowesproject")} style={{ width: "50%", cursor: "pointer",marginLeft:'-30px' }} src={ActionCard} alt="ActionCard" />
-          
-                        <img onClick={() => navigate("/freelance-dashboard/freelancermyworks")} style={{ width: "50%", cursor: "pointer",marginLeft:"30px" }} src={Job} alt="ActionCard" />
-          
-                      </section>
 
           {/* JOB LIST */}
           <section className="fh-section">
@@ -3964,8 +4089,9 @@ export default function FreelanceHome() {
                       <div className="job-sub">{job.category || "Service"}</div>
                     </div>
 
-                    <button
-                      className={`save-btn ${savedJobs.includes(job.id) ? "saved" : ""}`}
+                    <div
+                      style={{ marginTop: "1x0px" }}
+                      className={` ${savedJobs.includes(job.id) ? "saved" : ""}`}
                       onClick={(e) => {
                         e.stopPropagation();
                         toggleSave(job.id);
@@ -3974,7 +4100,7 @@ export default function FreelanceHome() {
                       {savedJobs.includes(job.id)
                         ? <BsBookmarkFill />
                         : <FiBookmark />}
-                    </button>
+                    </div>
                   </div>
 
                   <p className="skill-required">Skills</p>

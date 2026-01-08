@@ -1338,6 +1338,7 @@ export default function FreelancerAcceptedChats() {
       transition: "margin-left 0.25s ease",
       display: "flex",
       justifyContent: "center",
+      marginTop:"80px"
     }}
   >
     {/* PAGE BACKGROUND */}
@@ -1345,7 +1346,6 @@ export default function FreelancerAcceptedChats() {
       style={{
         minHeight: "100vh",
         width: "100%",
-        background: "linear-gradient(180deg,#FFFDB7,#fff)",
         padding: 16,
         display: "flex",
         justifyContent: "center",
@@ -1372,7 +1372,7 @@ export default function FreelancerAcceptedChats() {
               alignItems: "center",
               justifyContent: "center",
               cursor: "pointer",
-              boxShadow: "0 4px 10px rgba(0,0,0,0.06)",
+              // boxShadow: "0 4px 10px rgba(0,0,0,0.06)",
             }}
           >
             <img

@@ -2361,6 +2361,7 @@ export default function HireFreelancer() {
             justifyContent: "space-between",
             maxWidth: 1200,
             margin: "0 auto",
+           
           }}
         >
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
@@ -2369,6 +2370,7 @@ export default function HireFreelancer() {
               style={{
                 width: 36,
                 height: 36,
+                 backgroundColor:"red",
                 borderRadius: 14,
                 border: "0.8px solid #E0E0E0",
                 backgroundColor: "#FFFFFF",
@@ -2599,7 +2601,9 @@ export default function HireFreelancer() {
       gap: isMobile ? 20 : 40,
       maxWidth: 1200,
       margin: "0 auto",
-      padding: isMobile ? "0 12px" : "0",
+      padding: isMobile ? "0 12px 0  10px" : "0",
+  
+     
     }}
   >
     {finalList.map((item) => {
@@ -2619,6 +2623,7 @@ export default function HireFreelancer() {
             cursor: "pointer",
             transition: "all 0.25s ease",
             width: "100%",
+            marginBottom:"30px"
           }}
           onMouseEnter={(e) => {
             if (!isMobile) {
@@ -2692,6 +2697,7 @@ export default function HireFreelancer() {
                 ? "36px 16px 16px"
                 : "56px 22px 22px",
               textAlign: "center",
+              marginBottom:"10px"
             }}
           >
             <h3

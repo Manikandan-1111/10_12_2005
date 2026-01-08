@@ -1690,6 +1690,8 @@ import arrow from "../assets/arrow.png";
 import profile from "../assets/profile.png";
 import ActionCard from "../assets/ActionCard.png";
 import Job from "../assets/Job_Card.png";
+import message from "../assets/message.png";
+import notification from "../assets/notification.png";
 
 // ====== ICONS ======
 import {
@@ -1986,12 +1988,12 @@ export default function ClientHomeUI() {
 
             <div  id="fh-header-right" className="fh-header-right">
 
-              <button   className="icon-btn" onClick={() => navigate("/client-dashbroad2/messages")}>
-                <FiMessageCircle />
-              </button>
+              <div   className="icon-tn" onClick={() => navigate("/client-dashbroad2/messages")}>
+                <img src={message} alt="message" />
+              </div>   
 
-              <button className="icon-btn" onClick={() => setNotifOpen(true)}>
-                <FiBell />
+              <div className="icon-btan" onClick={() => setNotifOpen(true)}>
+                <img src={notification} alt="notification" />
                 {pending > 0 && (
                   <span
                     style={{
@@ -2005,9 +2007,9 @@ export default function ClientHomeUI() {
                     }}
                   ></span>
                 )}
-              </button>
+              </div>
 
-              <div className="fh-avatar">
+              {/* <div className="fh-avatar">
                 <Link to={"/client-dashbroad2/CompanyProfileScreen"}>
                   <img
                     src={
@@ -2016,7 +2018,7 @@ export default function ClientHomeUI() {
                     alt="Profile"
                   />
                 </Link>
-              </div>
+              </div> */}
 
             </div>
 

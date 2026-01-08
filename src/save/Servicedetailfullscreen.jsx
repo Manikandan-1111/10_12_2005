@@ -378,6 +378,36 @@ export default function ServiceFullDetailScreen() {
     return () => unsub();
   }, [id, db]);
 
+
+  const handleShare = async () => {
+  const shareUrl = window.location.href;
+  const shareData = {
+    title: service?.title || "Service Details",
+    text: "Check out this service",
+    url: shareUrl,
+  };
+
+  // ✅ Modern browsers & mobile
+  if (navigator.share) {
+    try {
+      await navigator.share(shareData);
+    } catch (err) {
+      console.error("Share cancelled or failed", err);
+    }
+  } 
+  // ✅ Fallback for desktop
+  else {
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      alert("Link copied to clipboard 📋");
+    } catch (err) {
+      alert("Unable to copy link");
+    }
+  }
+};
+
+
+
   const handleDelete = async () => {
     if (!window.confirm("Delete this service?")) return;
     await deleteDoc(doc(db, "services", id));
@@ -401,11 +431,15 @@ export default function ServiceFullDetailScreen() {
           <span style={heading}>Project Details</span>
 
           <div style={iconRow}>
-            <div style={iconBtn}><Bookmark size={16} /></div>
-            <div style={iconBtn}><Share2 size={16} /></div>
+            {/* <div style={iconBtn}><Bookmark size={16} /></div> */}
+            <div style={iconBtn} onClick={handleShare}>
+              <Share2 size={16} />
+            </div>
+
             <div style={iconBtn} onClick={() => navigate(-1)}>✕</div>
           </div>
         </div>
+        <br />
 
         {/* TITLE */}
         <div
@@ -426,6 +460,7 @@ export default function ServiceFullDetailScreen() {
 
 
         </div>
+        <br />
         <h1 style={title}>{service.title}</h1>
         {/* META */}
         <div style={metaRow}>
@@ -460,6 +495,7 @@ export default function ServiceFullDetailScreen() {
             </div>
           </>
         )}
+        <br />
 
         {/* DESCRIPTION (SCROLLABLE) */}
         <h3 style={sectionTitle}>Project Description</h3>
@@ -512,6 +548,7 @@ const card = {
   boxShadow: "0 20px 40px rgba(0,0,0,0.25)",
   display: "flex",
   flexDirection: "column",
+  marginTop:'60px'
 };
 
 const topBar = {
@@ -534,9 +571,9 @@ const iconRow = {
 const iconBtn = {
   width: 32,
   height: 32,
-  // borderRadius: "50%",
-  // border: "1px solid #e5e7eb",
-  // background: "#fff",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
   cursor: "pointer",
 };
 

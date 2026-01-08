@@ -5198,7 +5198,7 @@ export default function PostJobScreen(props) {
             value: selectedSkill,
             onChange: (v) => {
               setSelectedSkill(v);
-              if (!selectedSkills.includes(v) && selectedSkills.length < 3)
+              if (!selectedSkills.includes(v) && selectedSkills.length < 10)
                 setSelectedSkills([...selectedSkills, v]);
             },
             placeholder: "Add Skills",
@@ -5215,7 +5215,7 @@ export default function PostJobScreen(props) {
             value: selectedTool,
             onChange: (v) => {
               setSelectedTool(v);
-              if (!selectedTools.includes(v) && selectedTools.length < 5)
+              if (!selectedTools.includes(v) && selectedTools.length < 10)
                 setSelectedTools([...selectedTools, v]);
             },
             placeholder: "Add Tools",

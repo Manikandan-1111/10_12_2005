@@ -2104,6 +2104,7 @@ export default function CategoryPage({ initialTab = "Work" }) {
 
   const [filter, setFilter] = useState(new JobFilter());
   const [showFilter, setShowFilter] = useState(false);
+  const isMobile = window.innerWidth <= 768;
 
   const [services, setServices] = useState([]);
   const [services24, setServices24] = useState([]);
@@ -2320,7 +2321,13 @@ export default function CategoryPage({ initialTab = "Work" }) {
   };
 
   return (
-    <div style={{ padding: 210, marginTop: "-160px" }}>
+    <div
+      style={{
+        padding: isMobile ? "16px" : 210,
+        marginTop: isMobile ? "0px" : "-160px",
+      }}
+    >
+
       <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
         <div
           onClick={() => navigate(-1)}
@@ -2356,7 +2363,11 @@ export default function CategoryPage({ initialTab = "Work" }) {
         </div>
       </div>
 
-      <div id="fh-header-right" className="fh-header-right" style={{ marginTop: "1px",marginRight:"190px" }}>
+      <div id="fh-header-right" className="fh-header-right" style={{
+        marginTop: "1px",
+        marginRight: isMobile ? "0px" : "190px",
+      }}
+      >
 
         <img onClick={() => navigate("/client-dashbroad2/messages")} style={{ width: "26px" }} src={message} alt="message" />
 
@@ -2405,7 +2416,7 @@ export default function CategoryPage({ initialTab = "Work" }) {
             border: "1px solid #ddd",
             borderRadius: "10px",
             width: "100%",
-            height: "1%"
+            height: "44px"
           }}
         >
           <img
@@ -2448,14 +2459,15 @@ export default function CategoryPage({ initialTab = "Work" }) {
           id="sort-wrapper"
           style={{
             position: "absolute",
-            marginLeft: "810px",
-            marginTop: "130px",
+            marginLeft: isMobile ? "0px" : "810px",
+            marginTop: isMobile ? "70px" : "130px",
             background: "#fff",
             borderRadius: "30px",
             boxShadow: "0 8px 25px rgba(0,0,0,0.15)",
             padding: "16px",
             zIndex: 1000,
-            width: "360px",
+            width: isMobile ? "90%" : "360px",
+            left: isMobile ? "5%" : "auto",
           }}
         >
           {["Newest", "Oldest", "Availability"].map((s, i) => (
@@ -2542,58 +2554,59 @@ export default function CategoryPage({ initialTab = "Work" }) {
         </div>
       </div>
 
-{/* FILTER + SORT BAR */}
-<div
-  style={{
-    display: "flex",
-    // alignItems: "center",
-    justifyContent: "flex-end", // 🔥 key point
-    width: "100%",
-    padding: "10px 14px",
-    marginTop: "15px",
-    flexWrap: "wrap", // mobile safety
-    gap: "10px",
-    // marginLeft:
-  }}
->
-  {/* LEFT – FILTER */}
-  <div
-    onClick={() => setShowFilter(true)}
-   style={{
-      display: "flex",
-      alignItems: "center",
-      gap: "6px",
-      cursor: "pointer",
-      fontWeight: 500,
-    }}
-  >
-    <img
-      src={filter1}
-      alt="Filter"
-      style={{ width: 18, height: 18 }}
-    />
-    <span>Filter</span>
-  </div>
+      {/* FILTER + SORT BAR */}
+      <div
+        style={{
+          display: "flex",
+          // alignItems: "center",
+          justifyContent: isMobile ? "space-between" : "flex-end",
 
-  {/* RIGHT – SORT */}
-  <div
-    onClick={() => setShowSort(!showSort)}
-    style={{
-      display: "flex",
-      alignItems: "center",
-      gap: "6px",
-      cursor: "pointer",
-      fontWeight: 500,
-    }}
-  >
-    <img
-      src={sortimg}
-      alt="Sort"
-      style={{ width: 18, height: 18 }}
-    />
-    <span>Sort</span>
-  </div>
-</div>
+          width: "100%",
+          padding: "10px 14px",
+          marginTop: "15px",
+          flexWrap: "wrap", // mobile safety
+          gap: "10px",
+          // marginLeft:
+        }}
+      >
+        {/* LEFT – FILTER */}
+        <div
+          onClick={() => setShowFilter(true)}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "6px",
+            cursor: "pointer",
+            fontWeight: 500,
+          }}
+        >
+          <img
+            src={filter1}
+            alt="Filter"
+            style={{ width: 18, height: 18 }}
+          />
+          <span>Filter</span>
+        </div>
+
+        {/* RIGHT – SORT */}
+        <div
+          onClick={() => setShowSort(!showSort)}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "6px",
+            cursor: "pointer",
+            fontWeight: 500,
+          }}
+        >
+          <img
+            src={sortimg}
+            alt="Sort"
+            style={{ width: 18, height: 18 }}
+          />
+          <span>Sort</span>
+        </div>
+      </div>
 
 
 
@@ -2636,34 +2649,45 @@ export default function CategoryPage({ initialTab = "Work" }) {
                 <div id="job-budget" className="job-budget">₹{job.budget_from || job.budget} - {job.budget_to || job.budget}</div>
               </div>
               <div style={{ fontSize: "14", marginTop: "10px", color: "gray", fontWeight: "400" }}>Skills Required</div>
-              <div style={{ display: "flex", gap: 8, margin: "12px 0" }}>
+              <div
+                style={{
+                  display: "flex",
+                  gap: 8,
+                  margin: "12px 0",
+                  flexWrap: "wrap", // 🔥 mobile la next line pogum
+                }}
+              >
                 {(job.skills || []).slice(0, 3).map((s) => (
                   <span
                     key={s}
                     style={{
                       background: "#FFF085B2",
-                      padding: "6px 14px",
+                      padding: isMobile ? "4px 10px" : "6px 14px", // mobile small
                       borderRadius: 999,
-                      fontSize: 13,
+                      fontSize: isMobile ? 11 : 13, // mobile small text
                       fontWeight: 500,
+                      whiteSpace: "nowrap",
                     }}
                   >
                     {s}
                   </span>
                 ))}
+
                 {job.skills?.length > 3 && (
                   <span
                     style={{
                       background: "#FFF085B2",
-                      padding: "6px 14px",
+                      padding: isMobile ? "4px 10px" : "6px 14px",
                       borderRadius: 999,
-                      fontSize: 13,
+                      fontSize: isMobile ? 11 : 13,
+                      fontWeight: 500,
                     }}
                   >
-                    + {job.skills.length - 3}
+                    +{job.skills.length - 3}
                   </span>
                 )}
               </div>
+
 
               <p
                 style={{
@@ -2706,7 +2730,12 @@ export default function CategoryPage({ initialTab = "Work" }) {
                 </div>
 
                 <div
-                  style={{ marginTop: '-240px' }}
+                  style={{
+                    position: "absolute",
+                    top: 20,
+                    right: 20,
+                  }}
+
                   onClick={(e) => {
                     e.stopPropagation();
                     toggleSave(job.id, savedIds.includes(job.id));
