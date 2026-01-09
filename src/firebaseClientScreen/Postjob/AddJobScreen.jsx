@@ -916,16 +916,16 @@ const styles = {
   },
 
   sortMenu: {
-  position: "absolute",
-  top: 48,
-  right: 0,
-  backgroundColor: "#FFFFFF",
-  borderRadius: 12,
-  boxShadow: "0 8px 24px rgba(0,0,0,0.12)",
-  padding: "8px 8px",
-  minWidth: 180,
-  zIndex: 90,
-},
+    position: "absolute",
+    top: 48,
+    right: 0,
+    backgroundColor: "#FFFFFF",
+    borderRadius: 12,
+    boxShadow: "0 8px 24px rgba(0,0,0,0.12)",
+    padding: "8px 8px",
+    minWidth: 180,
+    zIndex: 90,
+  },
 
   headerRowWrap: {
     width: 928,
@@ -1011,21 +1011,21 @@ const styles = {
     boxSizing: "border-box",
     maxWidth: 928,
   },
- searchContainer: {
-  width: "100%",            // ✅ FULL WIDTH
-  maxWidth: "100%",         // extra safety
-  height: 52,               // 🔥 little taller (premium feel)
-  borderRadius: 16,
-  border: "1px solid #DADADA",
-  borderTop: "1.2px solid #D0D0D0",
-  paddingLeft: 18,
-  paddingRight: 18,
-  display: "flex",
-  alignItems: "center",
-  backgroundColor: "#FFF",
-  boxSizing: "border-box",
-  boxShadow: "0px 4px 12px rgba(0,0,0,0.08)",
-},
+  searchContainer: {
+    width: "100%",            // ✅ FULL WIDTH
+    maxWidth: "100%",         // extra safety
+    height: 52,               // 🔥 little taller (premium feel)
+    borderRadius: 16,
+    border: "1px solid #DADADA",
+    borderTop: "1.2px solid #D0D0D0",
+    paddingLeft: 18,
+    paddingRight: 18,
+    display: "flex",
+    alignItems: "center",
+    backgroundColor: "#FFF",
+    boxSizing: "border-box",
+    boxShadow: "0px 4px 12px rgba(0,0,0,0.08)",
+  },
 
   searchIcon: { fontSize: 18, color: "#757575" },
   searchInput: {
@@ -1036,7 +1036,7 @@ const styles = {
     marginLeft: 10,
     fontSize: 14,
     marginTop: 15,
-    marginLeft:"-0px"
+    marginLeft: "-0px"
   },
 
   sortButtonWrapper: {
@@ -1511,13 +1511,17 @@ export default function AddJobScreen() {
     navigate("/client-dashbroad2/PostJob");
   };
 
-const handleOpenJobDetail = (job) => {
-  navigate(`/client-dashbroad2/job-full/${job.id}`, {
-    state: { jobData: job }, // optional, still can pass data via state
-  });
-};
+  const handleOpenJobDetail = (job) => {
+    navigate(`/client-dashbroad2/job-full/${job.id}`, {
+      state: { jobData: job }, // optional, still can pass data via state
+    });
+  };
 
-
+  const handleOpenJobDetail24 = (job) => {
+    navigate(`/client-dashbroad2/job-full24/${job.id}`, {
+      state: { jobData: job },
+    });
+  };
   // ---------------- RENDER HELPERS (adapted to card UI) ---------------- //
   const renderSortOption = (label) => {
     const isActive = sortType === label;
@@ -1728,7 +1732,7 @@ const handleOpenJobDetail = (job) => {
                 ))}
 
               {job.skills?.length > 2 && (
-                <div className="more-chip" style={{backgroundColor:""}}>
+                <div className="more-chip" style={{ backgroundColor: "" }}>
                   +{job.skills.length - 2}
                 </div>
               )}
@@ -1792,7 +1796,7 @@ const handleOpenJobDetail = (job) => {
       <div
         key={job.id}
         style={styles.card}
-        onClick={() => handleOpenJobDetail(job)}
+        onClick={() => handleOpenJobDetail24(job)}
       >
         <div
           style={{
@@ -1830,7 +1834,7 @@ const handleOpenJobDetail = (job) => {
                 ))}
               {job.skills?.length > 2 && (
                 <div style={styles.moreChip}>
-                  +{job.skills.length - s}
+                  +{job.skills.length}
                 </div>
               )}
             </div>
@@ -2039,7 +2043,7 @@ const handleOpenJobDetail = (job) => {
           }}
         >
           <div className="addjobpostsearch" style={styles.searchContainer}>
-            <span style={styles.searchIcon}><img style={{width:"18px"}} src={search} alt="search" /></span>
+            <span style={styles.searchIcon}><img style={{ width: "18px" }} src={search} alt="search" /></span>
             <input
               style={styles.searchInput}
               placeholder="Search"

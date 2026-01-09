@@ -1283,7 +1283,6 @@ export default function ClientSidebar() {
 .hz-user-footer {
   height: 70px;
   background: white;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
   width: calc(100% + 35px);
   margin-left: -18px;
   display: flex;

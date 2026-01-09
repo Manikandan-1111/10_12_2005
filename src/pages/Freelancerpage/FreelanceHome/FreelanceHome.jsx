@@ -3554,6 +3554,10 @@ export default function FreelanceHome() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
+  const [collapsed, setCollapsed] = useState(
+    localStorage.getItem("sidebar-collapsed") === "true"
+  );
+
 
   const [userInfo, setUserInfo] = useState({
     firstName: "",
@@ -3620,10 +3624,6 @@ export default function FreelanceHome() {
   const auth = getAuth();
   const user = auth.currentUser;
 
-  // ⭐ NEW — SIDEBAR STATE
-  const [collapsed, setCollapsed] = useState(
-    localStorage.getItem("sidebar-collapsed") === "true"
-  );
 
 
 
@@ -3798,7 +3798,14 @@ export default function FreelanceHome() {
   }
 
   return (
-    <div id="fh-page1" className="fh-page rubik-font">
+    <div
+      className="freelance-wrapper"
+      style={{
+        marginLeft: collapsed ? "-180px" : "-60px",
+        transition: "margin-left 0.25s ease",
+      }}
+    >
+
       <div id="fh-containers1" className="fh-container">
 
         {/* ================= HEADER ================= */}
@@ -3821,8 +3828,8 @@ export default function FreelanceHome() {
                   style={{
                     fontSize: isMobile ? "20px" : "28px", // mobile adjust
                     whiteSpace: "nowrap",
-                    marginTop:isMobile?"-10px":"",
-                    marginLeft:isMobile?"-10px":"",
+                    marginTop: isMobile ? "-10px" : "",
+                    marginLeft: isMobile ? "-10px" : "",
                   }}
                 >
                   Welcome,
@@ -3835,7 +3842,7 @@ export default function FreelanceHome() {
                   className="fh-subtitle"
                   style={{
                     fontSize: isMobile ? "12px" : "14px",
-                    marginLeft:isMobile?"-10px":"",
+                    marginLeft: isMobile ? "-10px" : "",
                   }}
                 >
                   Find projects that match your skills
@@ -3853,8 +3860,8 @@ export default function FreelanceHome() {
                 alignItems: "center",
                 gap: "12px",
                 flexShrink: 0,
-                marginTop:isMobile?"-60px":"",
-                marginLeft:'-53px',
+                marginTop: isMobile ? "-60px" : "",
+                marginLeft: '-53px',
 
                 // 🔥 mobile la konjam left move
                 transform: isMobile ? "translateX(-20px)" : "none",
@@ -3867,7 +3874,7 @@ export default function FreelanceHome() {
                   alt="message"
                   style={{
                     width: isMobile ? "20px" : "24px",
-                    
+
 
                   }}
                 />

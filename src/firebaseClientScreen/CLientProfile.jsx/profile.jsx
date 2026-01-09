@@ -2227,11 +2227,11 @@ export default function ClientProfileMenuScreen() {
 
   return (
     <div
-      className="freelance-wrapper"
+     
       style={{
-        marginLeft: isMobile ? "0px" : collapsed ? "-60px" : "-150px",
+        marginLeft: isMobile ? "0px" : collapsed ? "220px" : "130px",
         marginTop: isMobile ? "50px" : collapsed ? "0px" : "0px",
-
+        width:"80%",
         transition: "margin-left 0.25s ease",
       }}
     >
@@ -2317,7 +2317,7 @@ export default function ClientProfileMenuScreen() {
           <MenuItem title="Saved" icon={saved} onClick={() => navigate("/client-dashbroad2/Clientsaved")} />
           <MenuItem title="Job Posted" icon={jobposted} onClick={() => navigate("/client-dashbroad2/PostJob")} />
           <MenuItem title="Hiring" icon={hiring} onClick={() => navigate("/client-dashbroad2/my-hires")} />
-          {/* <MenuItem title="Paused Service" icon={paused2} onClick={() => navigate("/client-dashbroad2/clientpausedjobs")} /> */}
+          <MenuItem title="Paused Service" icon={paused2} onClick={() => navigate("/client-dashbroad2/clientpausedjobs")} />
           <MenuItem title="Invite Friends" icon={invitefriends} />
           <MenuItem title="Blocked" icon={blocked} onClick={() => navigate("/client-dashbroad2/clientBlock")} />
         </div>

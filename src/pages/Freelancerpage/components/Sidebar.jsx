@@ -799,9 +799,9 @@
 // .hz-user-role {
 //   font-size: 12px;
 //   color: #666;
- 
+
 //   margin-top:-20px;
- 
+
 // }
 
 // /* MOBILE TOPBAR */
@@ -844,7 +844,7 @@
 
 //   .mobile-logo {
 //     width: 45px;
-  
+
 //   }
 
 //   .mobile-menu-btn {
@@ -865,7 +865,7 @@
 //   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 //   margin-top: 30px;
 //   margin-bottom: 40px;
- 
+
 // }
 
 // }
@@ -929,18 +929,18 @@ export default function FreelanceSideBar() {
   });
 
 
-const fireSignOut = async () => {
-  try {
-    await signOut(auth);
+  const fireSignOut = async () => {
+    try {
+      await signOut(auth);
 
-    localStorage.clear(); // optional
-    setMobileOpen(false);
-    
-    navigate("/firelogin", { replace: true });
-  } catch (error) {
-    console.error(error);
-  }
-};
+      localStorage.clear(); // optional
+      setMobileOpen(false);
+
+      navigate("/firelogin", { replace: true });
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
 
 
@@ -1089,10 +1089,10 @@ const fireSignOut = async () => {
 
           {!collapsed && (
             <div>
-              <p className="hz-user-name">
+              <p className="hz-user-name" >
                 {userInfo.firstName} {userInfo.lastName}
               </p>
-              <p className="hz-user-role">{userInfo.role}</p>
+              <p className="hz-user-role" style={{marginTop:'-4px'}}>{userInfo.role}</p>
             </div>
           )}
         </div>
@@ -1249,7 +1249,6 @@ const fireSignOut = async () => {
 .hz-user-footer {
   height: 70px;
   background: white;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
   width: calc(100% + 35px);
   margin-left: -18px;
   display: flex;

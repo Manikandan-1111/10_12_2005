@@ -1150,8 +1150,8 @@
 
 
 
-// // AccountDetails.jsx
-// // Responsive version — backend & logic untouched
+// AccountDetails.jsx
+// Responsive version — backend & logic untouched
 
 // import React, { useEffect, useState } from "react";
 // import { useNavigate } from "react-router-dom";
@@ -1497,8 +1497,19 @@
 
 
 
-// // AccountDetails.jsx
-// // Responsive version — backend & logic untouched
+
+
+
+
+
+
+
+
+
+
+
+// // // AccountDetails.jsx
+// // // Responsive version — backend & logic untouched
 
 // import React, { useEffect, useState } from "react";
 // import { useNavigate } from "react-router-dom";
@@ -2122,7 +2133,7 @@ export default function AccountDetails() {
       background: "#fff",
       fontWeight: 600,
     },
-  };a
+  };
 
   return (
     <div

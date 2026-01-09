@@ -1704,6 +1704,7 @@ import {
 } from "react-icons/fi";
 import { onAuthStateChanged } from "firebase/auth";
 import { Clock, TimerIcon } from "lucide-react";
+const isMobile = window.innerWidth < 768;
 
 import "./clienthomecss.css"
 // import FreelanceHome from "../Firebasejobs/ClientHome.css";
@@ -1970,7 +1971,7 @@ export default function ClientHomeUI() {
   return (
     <>
 
-      <div id="fh-page" style={{ marginLeft: "-20px" }} className="fh-page rubik-font">
+      <div id="fh-pae" style={{ marginLeft: isMobile ? "-130px" : "-60px",margin: isMobile ? "-0px" : "" ,marginTop: isMobile ? "-120px" : "-40px", }} className="fh-page rubik-font">
         <div id="fh-containers" className="fh-container" >
           {/* HEADER */}
           <header className="fh-header">
@@ -1986,13 +1987,13 @@ export default function ClientHomeUI() {
               <div></div>
             </div>
 
-            <div  id="fh-header-right" className="fh-header-right">
+            <div id="fh-header-right" style={{marginTop:isMobile?"84px":"1px",}} className="fh-header-right">
 
-              <div   className="icon-tn" onClick={() => navigate("/client-dashbroad2/messages")}>
+              <div className="icbtn" onClick={() => navigate("/client-dashbroad2/messages")}>
                 <img src={message} alt="message" />
-              </div>   
+              </div>
 
-              <div className="icon-btan" onClick={() => setNotifOpen(true)}>
+              <div className="ibtan" onClick={() => setNotifOpen(true)}>
                 <img src={notification} alt="notification" />
                 {pending > 0 && (
                   <span
@@ -2070,21 +2071,53 @@ export default function ClientHomeUI() {
 
           <main className="fh-main">
 
-            <section >
+            <section
+              style={{
+                display: "flex",
+                flexDirection: isMobile ? "column" : "row", // 🔥 key line
+                justifyContent: "center",
+                alignItems: "center",
+                gap: "20px",
+                marginTop: isMobile ? "-1px" : "", 
+              }}
+            >
+              <img
+                onClick={() =>
+                  navigate("/client-dashbroad2/clientcategories")
+                }
+                src={ActionCard}
+                alt="ActionCard"
+                style={{
+                  width: isMobile ? "112%" : "50%", // mobile big, web normal
+                  cursor: "pointer",
+                  marginLeft: isMobile ? "0px" : "-30px",
+                  marginTop: isMobile ? "-3px" : "",
+                }}
+              />
 
-
-              <img onClick={() => navigate("/client-dashbroad2/clientcategories")} style={{ width: "50%", cursor: "pointer",marginLeft:'-30px' }} src={ActionCard} alt="ActionCard" />
-
-              <img onClick={() => navigate("/client-dashbroad2/AddJobScreen")} style={{ width: "50%", cursor: "pointer",marginLeft:"30px" }} src={Job} alt="ActionCard" />
-
+              <img
+                onClick={() =>
+                  navigate("/client-dashbroad2/AddJobScreen")
+                }
+                src={Job}
+                alt="ActionCard"
+                style={{
+                width: isMobile ? "112%" : "50%",
+                cursor: "pointer",
+                marginLeft: isMobile ? "0px" : "30px",
+                marginTop: isMobile ? "-30px" : "",
+                border: "2px solid #0000"
+              }}
+              />
             </section>
 
-            <section id="category-scroll-wrapper" className="category-scroll-wrapper">
+            <section style={{marginTop:"-50px"}} id="category-scroll-wrapper" className="category-scroll-wrapper">
               {categories.map((cat, i) => (
                 <div
                   key={i}
 
                   className="category-card-img"
+                  
                   onClick={() =>
                     navigate("/client-dashbroad2/clientcategories", {
                       state: { category: cat },
@@ -2096,7 +2129,7 @@ export default function ClientHomeUI() {
 
                   {/* overlay */}
                   <div className="category-overlay">
-                    <span id="category-title" className="category-title">{cat}</span>
+                    <span id="category-ttle" className="category-title">{cat}</span>
                   </div>
                 </div>
               ))}
@@ -2105,9 +2138,9 @@ export default function ClientHomeUI() {
 
 
 
-            <section className="fh-section">
-              <div className="section-header">
-                <h2 style={{ color: "#000000c7", marginLeft: "10px", fontSize: 20, fontWeight: 400 }}>Based On Your Industry, Here are profile to explore </h2>
+            <section className="fh-secin">
+              <div className="section-heaer">
+                <h2 style={{ color: "#000000c7", marginLeft: "-4px",marginTop:"-8px", fontSize: 20, fontWeight: 400 }}>Based On Your Industry, Here are profile to explore </h2>
               </div>
 
               <div id="jobs-list" className="jobs-list">
@@ -2145,10 +2178,10 @@ export default function ClientHomeUI() {
                       ))}
                     </div>
 
-                    {/* <p className="job-desc">
+                    <p className="job-desc">
                     {job.description?.slice(0, 180)}
                     {job.description?.length > 180 ? "..." : ""}
-                  </p> */}
+                  </p>
 
                     <div id="job-meta" className="job-meta">
                       <div className="job-stats">

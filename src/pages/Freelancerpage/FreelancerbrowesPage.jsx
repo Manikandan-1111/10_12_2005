@@ -323,7 +323,7 @@ const styles = {
     maxWidth: 1000,
     margin: "10px auto",
     padding: 16,
-    
+
   },
   searchBar: {
     height: 48,
@@ -343,7 +343,7 @@ const styles = {
     fontSize: 14,
     marginTop: "5px",
     padding: "9px 0px 0px 10px",
-    
+
 
   },
   list: {
@@ -462,6 +462,8 @@ const IconSearch = () => (
 const IconClear = () => <span style={{ fontSize: 18 }}>✕</span>;
 const IconArrowRight = () => <span style={{ fontSize: 14 }}>›</span>;
 const IconBack = () => <span style={{ fontSize: 16 }}></span>;
+const isMobile = window.innerWidth < 768;
+
 // const [selectedSkill, setSelectedSkill] = useState(null);
 
 /* ---------------------------
@@ -934,7 +936,7 @@ const categoryGridResponsiveCSS = `
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 768px) { 
   .category-grid {
     grid-template-columns: repeat(2, 1fr) !important; /* 📱 mobile */
   }
@@ -1011,13 +1013,18 @@ export default function Categories() {
         {/* HEADER */}
         <style>{categoryGridResponsiveCSS}</style>
 
-        <div style={styles.appBar}>
-          <div style={{ width: 36 }} />
-          <div style={styles.title}>Categories</div>
-          <div style={{ width: 36 }} />
-        </div>
+
 
         <div style={styles.container}>
+          <div
+            style={{
+              marginTop: isMobile ? "20px" : "140px",
+              textAlign: "center",
+            }}
+          >
+            <h1>CATEGORIES</h1>
+          </div>
+
           {/* SEARCH BAR */}
           <div style={styles.searchBar}>
             <IconSearch />
@@ -1037,7 +1044,7 @@ export default function Categories() {
           {/* 🔥 CATEGORY CARDS GRID */}
           <div className="category-grid" style={styles.cardGrid}>
 
-            {filteredCategories.map(( category) => (
+            {filteredCategories.map((category) => (
               <div
                 key={category}
                 style={styles.categoryCard}
@@ -1262,10 +1269,13 @@ export default function Categories() {
     <div
       className="freelance-wrapper"
       style={{
-        marginLeft: collapsed ? "-110px" : "50px",
-        transition: "margin-left 0.25s ease",
+        marginLeft: isMobile ? "0px" : collapsed ? "-110px" : "50px",
+        padding: isMobile ? "0 8px" : "0",
+        transition: "all 0.25s ease",
       }}
     >
+
+
       <div style={styles.page}>
 
         {current.name === "categories" && renderCategories()}

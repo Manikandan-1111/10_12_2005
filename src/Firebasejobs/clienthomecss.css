@@ -191,14 +191,14 @@
 }
 
 /* ====== HERO SECTION ====== */
-.fh-hero {
+/* .fh-hero {
     display: flex;
     gap: 12px;
     overflow-x: auto;
     padding-bottom: 8px;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
-}
+} */
 
 .fh-hero::-webkit-scrollbar {
     display: none;
@@ -638,7 +638,7 @@
 @media (max-width: 769px) {
     #fh-containers {
         margin-top: 0;
-        padding: 16px;
+        padding: -1px;
     }
 
     .fh-header-right {

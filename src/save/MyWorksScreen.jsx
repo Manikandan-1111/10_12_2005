@@ -1574,7 +1574,7 @@ export default function MyWorksScreen() {
            </div>
           
            <div>
-           <div style={{ fontSize: 32, fontWeight: 400 }}>My Save</div>
+           <div style={{ fontSize: 32, fontWeight: 400 }}>My Job</div>
            </div>
            </div>
 

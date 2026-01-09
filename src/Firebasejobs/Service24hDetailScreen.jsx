@@ -1346,6 +1346,7 @@ import {
   orderBy,
 } from "firebase/firestore";
 import { db, auth } from "../firbase/Firebase";
+import clock from "../assets/clock.png"
 
 import { FiBookmark, FiX } from "react-icons/fi";
 import share from "../assets/share.png";
@@ -1539,7 +1540,7 @@ export default function Service24hPage() {
         </div>
       </div>
 
-      <div className="meta-row">🕒 {job.createdAt?.toDate().toLocaleString()}</div>
+      <div className="meta-row"><img style={{width:"15px",marginTop:"10px"}} src={clock} alt="clock" /> {job.createdAt?.toDate().toLocaleString()}</div>
 
       <div className="money-box">
         <div>
