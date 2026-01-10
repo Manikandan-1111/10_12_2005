@@ -2995,7 +2995,7 @@ export default function ExploreFreelancer() {
                 alignItems: "center",
                 justifyContent: "center",
                 cursor: "pointer",
-                boxShadow: "0 4px 10px rgba(0,0,0,0.06)",
+                // boxShadow: "0 4px 10px rgba(0,0,0,0.06)",
                 flexShrink: 0,
               }}
             >
@@ -3208,7 +3208,8 @@ export default function ExploreFreelancer() {
             padding: "clamp(6px, 2.5vw, 8px)",
             margin: "12px auto",
             borderRadius: 16,
-            boxShadow: " 0 4px 8px 0 rgba(0, 0, 0, 0.2)",
+            // boxShadow: " 0 4px 8px 0 rgba(0, 0, 0, 0.2)",
+            border:"1px solid #0e02020e",
             width: "96%",
             maxWidth: 1540,
             marginLeft: "10px",
@@ -3237,9 +3238,9 @@ export default function ExploreFreelancer() {
                   color: isActive ? "#FFFFFF" : "#333",
 
                   background: isActive ? "#7C3CFF" : "transparent",
-                  boxShadow: isActive
-                    ? "0 6px 20px rgba(0,0,0,0.19)"
-                    : "none",
+                  // boxShadow: isActive
+                  //   ? "0 6px 20px rgba(0,0,0,0.19)"
+                  //   : "none",
                   transition: "all 0.25s ease",
                   flexShrink: 0,
                 }}
@@ -3323,47 +3324,51 @@ export default function ExploreFreelancer() {
 
 
         {showSort && (
-          <div
-            className="sort"
-            style={{
-              marginTop: 14,
-              display: "flex",
-              gap: 10,
-              flexWrap: "nowrap",
-              overflowX: "auto",
-              paddingBottom: 4,
-              background: "#fff",
-              padding: "12px",
-              borderRadius: "14px",
-              boxShadow: "0 8px 25px rgba(0,0,0,0.12)",
-              maxWidth: "100%",
+<div
+  style={{
+    marginTop: 0,
+    marginLeft:"510px",
+    display: "flex",
+    gap: "10px",
+    background: "#fff",
+    padding: "10px",
+    borderRadius: "20px",
+    // boxShadow: "0 10px 30px rgba(0,0,0,0.15)",
+    border:"1px solid #0e02020e",
+    width: "fit-content",
+  }}
+>
+  {Object.values(JobSortOption).map((opt) => {
+    const active = filters.sortOption === opt;
 
-            }}
-          >
-            {Object.values(JobSortOption).map((opt) => (
-              <button
-                key={opt}
-                onClick={() => {
-                  setFilters({ ...filters, sortOption: opt });
-                  setShowSort(false);
-                }}
-                style={{
-                  padding: "8px 14px",
-                  borderRadius: 999,
-                  border: "1px solid #ddd",
-                  background:
-                    filters.sortOption === opt ? "#6D28D9" : "transparent",
-                  color: filters.sortOption === opt ? "#fff" : "#6D28D9",
-                  cursor: "pointer",
-                  fontSize: "clamp(12px, 3.5vw, 14px)",
-                  whiteSpace: "nowrap",
-                  flexShrink: 0,
-                }}
-              >
-                {opt}
-              </button>
-            ))}
-          </div>
+    return (
+      <button
+        key={opt}
+        onClick={() => {
+          setFilters({ ...filters, sortOption: opt });
+          setShowSort(false);
+        }}
+        style={{
+          padding: "10px 22px",
+          borderRadius: "14px",
+          border: "none",
+          background: active ? "#7C3AED" : "#F3F4F6",
+          color: active ? "#fff" : "#000",
+          fontWeight: 600,
+          fontSize: "14px",
+          cursor: "pointer",
+          // boxShadow: active
+          //   ? "0 6px 14px rgba(124,58,237,0.5)"
+          //   : "none",
+          transition: "all 0.25s ease",
+        }}
+      >
+        {opt}
+      </button>
+    );
+  })}
+</div>
+
         )}
 
         {/* ================= JOB LIST ================= */}
@@ -3396,11 +3401,11 @@ export default function ExploreFreelancer() {
                 borderRadius: 20,
                 padding: 22,
                 marginBottom: 18,
-                boxShadow: "0 0 6px rgba(0,0,0,0.15)",
+                // boxShadow: "0 0 6px rgba(0,0,0,0.15)",
                 width: "97%",
                 boxSizing: "border-box",
                 cursor: "pointer",
-                marginLeft: "2px"
+                marginLeft: "2px",
               }}
             >
               {/* ===== TOP ROW ===== */}

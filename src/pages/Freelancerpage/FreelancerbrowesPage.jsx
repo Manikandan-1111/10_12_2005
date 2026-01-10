@@ -22,6 +22,8 @@ import clock from "../../assets/clock.png";
 import saved from "../../assets/save.png";
 import save from "../../assets/save2.png";
 import backarrow from "../../assets/backarrow.png";
+import notification from "../../assets/notification.png";
+import message from "../../assets/message.png";
 
 const jobCategories1 = {
   "Graphics & Design": [
@@ -333,9 +335,9 @@ const styles = {
     padding: "0 12px",
     borderRadius: 12,
     border: "1px solid block",
-    border:"1px solid #0e02020e",
+    border: "1px solid #0e02020e",
     background: "#fff",
-    marginTop:"40px"
+    marginTop: "10px"
   },
   input: {
     border: "none",
@@ -1019,11 +1021,82 @@ export default function Categories() {
         <div style={styles.container}>
           <div
             style={{
-              marginTop: isMobile ? "20px" : "140px",
+              marginTop: isMobile ? "20px" : "40px",
               textAlign: "center",
             }}
           >
-            <h1>CATEGORIES</h1>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                padding: "16px 20px",
+                width: "100%",
+              }}
+            >
+              {/* LEFT TEXT */}
+              <div>
+                <h1
+                  style={{
+                    margin: 0,
+                    fontSize: "26px",
+                    fontWeight: 400,
+                    marginLeft: "-110px"
+                  }}
+                >
+                  Welcome,
+                </h1>
+
+                <h1
+                  style={{
+                    margin: "2px 0",
+                    fontSize: "32px",
+                    fontWeight: 600,
+                  }}
+                >
+                  James Andrew!
+                </h1>
+
+                <p
+                  style={{
+                    marginTop: "6px",
+                    color: "#666",
+                    fontSize: "14px",
+                  }}
+                >
+                  Discover projects that match your skills
+                </p>
+              </div>
+
+              {/* RIGHT ICONS */}
+              <div
+                style={{
+                  display: "flex",
+                  gap: "18px",
+                  alignItems: "center",
+                  marginTop: "-60px"
+                }}
+              >
+                <img
+                  src={message}
+                  alt="message"
+                  style={{
+                    width: "22px",
+                    cursor: "pointer",
+                  }}
+                />
+
+                <img
+                  src={notification}
+                  alt="notification"
+                  style={{
+                    width: "22px",
+                    cursor: "pointer",
+                  }}
+                />
+              </div>
+            </div>
+
           </div>
 
           {/* SEARCH BAR */}
@@ -1040,6 +1113,39 @@ export default function Categories() {
                 <IconClear />
               </button>
             )}
+          </div>
+
+          <div style={{ display: "flex", alignItems: "center", gap: 12, marginTop: "20px" }}>
+            <div
+              onClick={() => navigate(-1)}
+              style={{
+                width: 36,
+                height: 36,
+                borderRadius: 14,
+                border: "0.8px solid #E0E0E0",
+                backgroundColor: "#FFFFFF",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                cursor: "pointer",
+                boxShadow: "0 4px 10px rgba(0,0,0,0.06)",
+                flexShrink: 0,
+                marginTop: "-75px"
+              }}
+            >
+              <img
+                src={backarrow}
+                alt="back"
+                style={{ width: 16, height: 16 }}
+              />
+            </div>
+            <div style={{ marginLeft: 12 }}>
+              <h1 style={{ marginLeft: "-6px", marginTop: "12px" }}>Browse Project</h1>
+              <p style={{ fontWeight: "400", size: "24px", marginLeft: "-37px", marginTop: "20px" }}>
+                What Are You Looking For?
+              </p>
+              <p style={{ color: "#0A0A0A", marginLeft: "-37px", fontSize: "16px", fontWeight: "400" }}>Choose your a category</p>
+            </div>
           </div>
 
           {/* 🔥 CATEGORY CARDS GRID */}
@@ -1093,52 +1199,52 @@ export default function Categories() {
 
 
         <div style={styles.container}>
-                  {/* HEADER */}
-        <div style={styles.appBar}>
-          <button style={styles.backBtn} onClick={pop}>
-            <IconBack />
-          </button>
+          {/* HEADER */}
+          <div style={styles.appBar}>
+            <button style={styles.backBtn} onClick={pop}>
+              <IconBack />
+            </button>
 
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              fontSize: 36,
-              fontWeight: 400,
-              marginTop: 5,
-              marginLeft: 70,
-              gap: 16,
-            }}
-          >
-            {/* BACK ARROW CIRCLE */}
             <div
               style={{
-                width: 44,
-                height: 44,
-                borderRadius: "14px",
-                backgroundColor: "#fff",
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "center",
-                // boxShadow: "0 2px 12px rgba(0,0,0,0.15)",
-                border:"1px solid #0e02020e",
-                cursor: "pointer",
-                marginLeft:"-70px"
+                fontSize: 36,
+                fontWeight: 400,
+                marginTop: 5,
+                marginLeft: 70,
+                gap: 16,
               }}
             >
-              <img
-                src={backarrow}
-                alt="backarrow"
-                style={{ width: 20, height: 20,marginLeft:"0px" }}
-              />
+              {/* BACK ARROW CIRCLE */}
+              <div
+                style={{
+                  width: 44,
+                  height: 44,
+                  borderRadius: "14px",
+                  backgroundColor: "#fff",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  // boxShadow: "0 2px 12px rgba(0,0,0,0.15)",
+                  border: "1px solid #0e02020e",
+                  cursor: "pointer",
+                  marginLeft: "-70px"
+                }}
+              >
+                <img
+                  src={backarrow}
+                  alt="backarrow"
+                  style={{ width: 20, height: 20, marginLeft: "0px" }}
+                />
+              </div>
+
+              <span>Browse Projects</span>
             </div>
 
-            <span>Browse Projects</span>
+
+            <div style={{ width: 36 }} />
           </div>
-
-
-          <div style={{ width: 36 }} />
-        </div>
           {/* SEARCH */}
           <div style={styles.searchBar}>
             <IconSearch />
@@ -1273,7 +1379,7 @@ export default function Categories() {
     <div
       className="freelance-wrapper"
       style={{
-        marginLeft: isMobile ? "0px" : collapsed ? "-210px" : "-100px",
+        marginLeft: isMobile ? "0px" : collapsed ? "-230px" : "-100px",
         padding: isMobile ? "0 8px" : "0",
         transition: "all 0.25s ease",
       }}

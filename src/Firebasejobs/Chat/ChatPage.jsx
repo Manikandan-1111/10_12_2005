@@ -3318,17 +3318,59 @@ export default function ChatPage() {
                     📄 {msg.fileName}
                   </a>
                 ) : msg.type === "audio" ? (
-                  <audio controls className="mobilevoicechat" style={{ padding: "10px" }}>
-                    <source src={msg.url} type="audio/webm" />
-                    iso saffari or browser does not support audio playback
-                  </audio>
+                  <div
+                    style={{
+                      maxWidth: "260px",
+                      background: msg.senderId === currentUid ? "" : "#F1F1F1",
+                      color:msg.senderId === currentUid ? "white" : "red",
+                      padding: "8px 12px",
+                      borderRadius: "14px",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "8px",
+                      alignSelf:
+                        msg.senderId === currentUid ? "flex-end" : "flex-start",
+                      // boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+                      border:"1px solid #0e02020e"
+                    }}
+                  >
+                    <audio
+                      controls
+                      className="mobilevoicechat"
+                      style={{
+                        width: "180px",
+                        height: "34px",
+                        // filter:
+                        //   msg.senderId === currentUid
+                        //     ? "invert(1)"
+                        //     : "none",
+                      }}
+                    >
+                      <source src={msg.url} type="audio/webm" />
+                      Your browser does not support audio playback
+                    </audio>
+
+                    <span
+                      style={{
+                        fontSize: "12px",
+                        color:
+                          msg.senderId === currentUid ? "black" : "#555",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      10:12
+                    </span>
+                  </div>
+
                 ) : (
                   <div className="text"
                     style={{
                       padding: jobData ? "0" : "10px 18px",
                       borderRadius: "10px",
-                     
-                      color: msg.senderId === currentUid ? "blue" : "black",
+                      backgroundColor:
+                        msg.senderId === currentUid ? "#FEFEC2" : "#CAB0FF",
+
+                      color: msg.senderId === currentUid ? "black" : "black",
                       fontSize: 14,
                       wordBreak: "break-word",
                     }}>{msg.text}</div>

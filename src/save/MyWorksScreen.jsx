@@ -1556,7 +1556,7 @@ export default function MyWorksScreen() {
            alignItems: "center",
            justifyContent: "center",
            cursor: "pointer",
-           boxShadow: "0 4px 10px rgba(0,0,0,0.06)",
+          //  boxShadow: "0 4px 10px rgba(0,0,0,0.06)",
            flexShrink: 0,
            marginLeft: isMobile ? 0 : "40px ",
            }}
@@ -1630,8 +1630,9 @@ export default function MyWorksScreen() {
               display: "flex",
               alignItems: "center",
               padding: "0 18px",
-              boxShadow:
-                "0 4px 8px rgba(0,0,0,0.2), 0 6px 20px rgba(0,0,0,0.19)",
+              // boxShadow:
+              //   "0 4px 8px rgba(0,0,0,0.2), 0 6px 20px rgba(0,0,0,0.19)",
+              border:"1px solid #0e02020e",
               margin: "0 auto",
             }}
           >
