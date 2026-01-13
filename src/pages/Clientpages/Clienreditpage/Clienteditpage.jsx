@@ -1756,8 +1756,8 @@ export default function ClientEditJob() {
         }
 
         .backarrow {
-      margin-top:8px;
-      margin-left:5px;
+      margin-top:2px;
+      margin-left:1px;
         }
 
 
@@ -1839,17 +1839,30 @@ export default function ClientEditJob() {
 
 
         
-        .cancelBtn,.saveBtn {
-          width: 130px;
-          padding: 13px;
-          border-radius: 25px;
-          border: 2px solid #7C3CFF;
-          background: transparent;
-          color: #7C3CFF;
-          font-size: 16px;
-          font-weight: 600;
-          cursor: pointer;
-        }
+.cancelBtn{
+  width:130px;
+  padding:13px;
+  border-radius:25px;
+  border:2px solid #7C3CFF;
+  background:transparent;
+  color:#7C3CFF;
+  font-size:16px;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.saveBtn{
+  width:130px;
+  padding:13px;
+  border-radius:25px;
+  border:none;
+  background:#7C3CFF;
+  color:#fff;
+  font-size:16px;
+  font-weight:600;
+  cursor:pointer;
+}
+
       `}
       </style>
 

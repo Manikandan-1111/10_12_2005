@@ -1797,6 +1797,7 @@ export default function BuildProfileScreenWithEdit() {
             }}
             onClick={(e) => {
               e.stopPropagation();
+              
               navigate(`/freelance-dashboard/freelanceredit-service/${job.id}`, {
                 state: { jobId: job.id, jobData: job },
               });

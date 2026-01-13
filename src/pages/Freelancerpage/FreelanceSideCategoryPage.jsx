@@ -2732,7 +2732,7 @@ export default function ExploreFreelancer() {
   const [userInfo, setUserInfo] = useState({}); // ✅ FIXED
 
   const [filters, setFilters] = useState(defaultFilters);
-  const [selectedTab, setSelectedTab] = useState(3);
+  const [selectedTab, setSelectedTab] = useState(0);
   const [showFilter, setShowFilter] = useState(false);
   const navigate = useNavigate();
   const [showSort, setShowSort] = useState(false);

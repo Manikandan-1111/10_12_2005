@@ -3257,7 +3257,14 @@ const css = `
 .meta-row{padding:10px 24px;color:#555;}
 .money-box{padding:20px 24px;display:flex;justify-content:space-between;}
 .range{font-size:22px;font-weight:700;}
-.view-btn{background:#7A4DFF;color:#fff;border:none;padding:12px 28px;border-radius:12px;}
+.view-btn{
+  background:#7A4DFF;
+  color:#fff;
+  border:none;
+  padding:12px 28px;
+  border-radius:12px;
+  cursor:pointer;   /* 👈 correct */
+}
 .skill-title,.desc-title{padding:10px 24px;font-size:20px;font-weight:700;}
 .skills-box{padding:8px 24px;display:flex;flex-wrap:wrap;gap:10px;}
 .skill-chip{background:#FFEB99;padding:8px 14px;border-radius:10px;}

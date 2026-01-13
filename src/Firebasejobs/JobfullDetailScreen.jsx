@@ -2085,6 +2085,8 @@ export default function JobFullDetailJobScreen() {
   const [applicationStatus, setApplicationStatus] = useState("none");
   // "none" | "applied" | "accepted"
   const [acceptedAt, setAcceptedAt] = useState(null);
+  const [notifOpen, setNotifOpen] = useState(false);
+  const [notifications, setNotifications] = useState([]);
 
 
   const [job, setJob] = useState(null);
@@ -2104,6 +2106,20 @@ export default function JobFullDetailJobScreen() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+  useEffect(() => {
+    if (!user) return;
+
+    const q = collection(db, "notifications");
+    const unsub = onSnapshot(q, (snap) => {
+      const items = snap.docs
+        .map((d) => ({ id: d.id, ...d.data() }))
+        .filter((n) => n.clientUid === user.uid);
+
+      setNotifications(items);
+    });
+
+    return unsub;
+  }, [user]);
 
 
   useEffect(() => {
@@ -2228,42 +2244,34 @@ export default function JobFullDetailJobScreen() {
     }
   }
 
-const handleShare = async () => {
-  if (isSharing) return;
-  setIsSharing(true);
+  const handleShare = async () => {
+    if (isSharing) return;
+    setIsSharing(true);
 
-  const shareUrl = window.location.href;
+    const shareUrl = window.location.href;
 
-  try {
-    // ✅ Check real support
-    if (navigator.canShare && navigator.canShare({ url: shareUrl })) {
-      await navigator.share({
-        title: job?.title || "Project",
-        text: "Check this project",
-        url: shareUrl,
-      });
-      alert("Shared successfully ✅");
-    } 
-    else if (navigator.share) {
-      await navigator.share({
-        title: job?.title || "Project",
-        text: "Check this project",
-        url: shareUrl,
-      });
-    } 
-    else {
+    try {
+      // 📱 Mobile & supported browsers
+      if (navigator.share) {
+        await navigator.share({
+          title: job?.title || "Project",
+          text: "Check this project",
+          url: shareUrl,
+        });
+        alert("Shared successfully ✅");
+      }
       // 🖥 Desktop fallback
-      await navigator.clipboard.writeText(shareUrl);
-      alert("Link copied! Share manually 👍");
+      else {
+        await navigator.clipboard.writeText(shareUrl);
+        alert("Link copied! You can paste and share 👍");
+      }
+    } catch (err) {
+      console.log("Share cancelled / failed", err);
+    } finally {
+      setIsSharing(false);
     }
+  };
 
-  } catch (err) {
-    console.log("Share error:", err);
-    alert("Sharing cancelled / failed");
-  } finally {
-    setIsSharing(false);
-  }
-};
 
 
   console.log(job)
@@ -2279,7 +2287,6 @@ const handleShare = async () => {
         justifyContent: "center",
         padding: "20px",
         overflowX: "hidden",
-        background: "#F5F5F5",
         boxSizing: "border-box",
         marginTop: isMobile ? 60 : 0,
       }}
@@ -2313,27 +2320,49 @@ const handleShare = async () => {
 
           <div onClick={handleSave} style={{ cursor: "pointer" }}>
             {isFavorite ? (
-              <FiBookmark style={{cursor: "pointer", color: "#000", fill: "#000" }} />
+              <FiBookmark style={{ cursor: "pointer", color: "#000", fill: "#000" }} />
             ) : (
-              <FiBookmark  />
+              <FiBookmark />
             )}
           </div>
 
-          <div className="flex items-center gap-3">
-
-            <img
-              src={share}
-              alt="share"
-              width={18}
-              style={{
-                cursor:"pointer"
-              }}
-              onClick={handleShare}
-            />
-
-
-
+          {/* 🔔 Notification Icon */}
+          <div
+            onClick={() => setNotifOpen(true)}
+            style={{
+              cursor: "pointer",
+              position: "relative",
+              fontSize: 20,
+            }}
+          >
+            🔔
+            {notifications.some((n) => !n.read) && (
+              <span
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  right: 0,
+                  width: 8,
+                  height: 8,
+                  background: "red",
+                  borderRadius: "50%",
+                }}
+              />
+            )}
           </div>
+
+          {/* 🔗 Share Icon */}
+          <img
+            src={share}
+            alt="share"
+            width={18}
+            style={{ cursor: "pointer" }}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleShare();
+            }}
+          />
+
 
           <FiX onClick={() => navigate(-1)} style={{ cursor: "pointer" }} />
         </div>
@@ -2569,6 +2598,105 @@ const handleShare = async () => {
               ? "Application Sent"
               : "Apply for this Project"}
         </button>
+
+
+        {notifOpen && (
+          <div
+            style={{
+              position: "fixed",
+              top: 80,
+              right: 20,
+              width: 340,
+              background: "#fff",
+              borderRadius: 16,
+              boxShadow: "0 20px 50px rgba(0,0,0,0.25)",
+              padding: 16,
+              zIndex: 9999,
+            }}
+          >
+            <div style={{ fontWeight: 600, marginBottom: 12 }}>
+              Notifications
+            </div>
+
+            {notifications.length === 0 && (
+              <div style={{ padding: 20, textAlign: "center", color: "#777" }}>
+                No notifications
+              </div>
+            )}
+
+            {notifications.map((n) => (
+              <div
+                key={n.id}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 12,
+                  padding: 10,
+                  borderRadius: 10,
+                  background: "#f7f7f7",
+                  marginBottom: 10,
+                }}
+              >
+                <img
+                  src={n.freelancerImage || "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"}
+                  style={{
+                    width: 40,
+                    height: 40,
+                    borderRadius: "50%",
+                  }}
+                />
+
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontWeight: 600 }}>
+                    {n.freelancerName}
+                  </div>
+                  <div style={{ fontSize: 12, color: "#666" }}>
+                    applied for
+                  </div>
+                </div>
+
+                <button
+                  onClick={() => {
+                    updateDoc(doc(db, "notifications", n.id), { read: true });
+                    navigate("/chat", {
+                      state: {
+                        otherUid: n.freelancerId,
+                        otherName: n.freelancerName,
+                        otherImage: n.freelancerImage,
+                      },
+                    });
+                  }}
+                  style={{
+                    border: "1px solid #ccc",
+                    borderRadius: 8,
+                    background: "#fff",
+                    padding: "4px 10px",
+                    cursor: "pointer",
+                  }}
+                >
+                  Chat
+                </button>
+              </div>
+            ))}
+
+            <button
+              onClick={() => setNotifOpen(false)}
+              style={{
+                width: "100%",
+                padding: 10,
+                borderRadius: 10,
+                border: "none",
+                background: "#000",
+                color: "#fff",
+                marginTop: 10,
+                cursor: "pointer",
+              }}
+            >
+              Close
+            </button>
+          </div>
+        )}
+
 
       </div>
     </div>

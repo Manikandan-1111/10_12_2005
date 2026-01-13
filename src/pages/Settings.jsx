@@ -2111,6 +2111,7 @@ export default function AccountDetails() {
       background: "#fff",
       color: "#7c3aed",
       fontWeight: 600,
+      cursor:"pointer"
     },
     saveBtn: {
       padding: "10px 50px",
@@ -2119,6 +2120,7 @@ export default function AccountDetails() {
       background: "#7c3aed",
       color: "#fff",
       fontWeight: 700,
+      cursor:"pointer"
     },
     bottomLeftDeleteWrap: {
       width: "100%",

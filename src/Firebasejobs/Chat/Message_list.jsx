@@ -3155,6 +3155,7 @@ const css = `
 /* Search bar (floating card like screenshot) */
 .chatlist-search-wrapper {
   margin-bottom: 10px;
+
 }
 
 .chatlist-search-wrapper-inner {

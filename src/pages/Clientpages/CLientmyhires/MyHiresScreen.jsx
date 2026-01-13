@@ -2415,7 +2415,7 @@ export default function HireFreelancer() {
             style={{
               position: "absolute",
               left: 16,
-              top: "50%",
+              top: "40%",
               transform: "translateY(-50%)",
               color: "#9CA3AF",
             }}

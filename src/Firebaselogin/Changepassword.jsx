@@ -259,32 +259,31 @@ export default function ChangePassword() {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    width: "26%",
-    padding: "0 92px",
-    marginTop:"100px",
-    marginLeft:"-220px"
-
+    width: "100%",
+    maxWidth: "900px",
+    padding: window.innerWidth <= 480 ? "0 20px" : "0 92px",
+    marginTop: window.innerWidth <= 480 ? "40px" : "100px",
   }}
 >
+  {/* BACK */}
   <div
     onClick={() => navigate(-1)}
     style={{
       cursor: "pointer",
       fontWeight: "600",
-      // display: "flex",
-      // alignItems: "center",
-      gap: "6px",
+      fontSize: window.innerWidth <= 480 ? "14px" : "16px",
     }}
   >
     ← BACK
   </div>
 
+  {/* LOGO */}
   <div
     style={{
       fontWeight: "700",
-      fontSize: "24px",
+      fontSize: window.innerWidth <= 480 ? "20px" : "24px",
       color: "#7B4DFF",
-    }}
+  }}
   >
     Huzzler
   </div>
@@ -396,11 +395,12 @@ const styles = {
 
   card: {
     background: "#fff",
-    width: 420,
+    width: 520,
     maxWidth: "90%",
     padding: 32,
     borderRadius: 22,
     boxShadow: "0 25px 50px rgba(0,0,0,0.15)",
+    marginTop:"50px"
   },
 
   heading: {
